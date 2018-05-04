@@ -1,0 +1,947 @@
+fileFormatVersion: 2
+guid: 7c9067ba45b503549bcfb4be7f78f683
+timeCreated: 1523880196
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: runor_0
+    21300002: runor_1
+    21300004: runor_2
+    21300006: runor_3
+    21300008: runor_4
+    21300010: runor_5
+    21300012: runor_6
+    21300014: runor_7
+    21300016: runor_8
+    21300018: runor_9
+    21300020: runor_10
+    21300022: runor_11
+    21300024: runor_12
+    21300026: runor_13
+    21300028: runor_14
+    21300030: runor_15
+    21300032: runor_16
+    21300034: runor_17
+    21300036: runor_18
+    21300038: runor_19
+    21300040: runor_20
+    21300042: runor_21
+    21300044: runor_22
+    21300046: runor_23
+    21300048: runor_24
+    21300050: runor_25
+    21300052: runor_26
+    21300054: runor_27
+    21300056: runor_28
+    21300058: runor_29
+    21300060: runor_30
+    21300062: runor_31
+    21300064: runor_32
+    21300066: runor_33
+    21300068: runor_34
+    21300070: runor_35
+    21300072: runor_36
+    21300074: runor_37
+    21300076: runor_38
+    21300078: runor_39
+    21300080: runor_40
+    21300082: runor_41
+    21300084: runor_42
+    21300086: runor_43
+    21300088: runor_44
+    21300090: runor_45
+    21300092: runor_46
+    21300094: runor_47
+    21300096: runor_48
+    21300098: runor_49
+    21300100: runor_50
+    21300102: runor_51
+    21300104: runor_52
+    21300106: runor_53
+    21300108: runor_54
+    21300110: runor_55
+    21300112: runor_56
+    21300114: runor_57
+    21300116: runor_58
+    21300118: runor_59
+    21300120: runor_60
+    21300122: runor_61
+    21300124: runor_62
+    21300126: runor_63
+    21300128: runor_64
+    21300130: runor_65
+    21300132: runor_66
+    21300134: runor_67
+    21300136: runor_68
+    21300138: runor_69
+    21300140: runor_70
+    21300142: runor_71
+    21300144: runor_72
+    21300146: runor_73
+    21300148: runor_74
+    21300150: runor_75
+    21300152: runor_76
+    21300154: runor_77
+    21300156: runor_78
+    21300158: runor_79
+    21300160: runor_80
+    21300162: runor_81
+    21300164: runor_82
+    21300166: runor_83
+    21300168: runor_84
+    21300170: runor_85
+    21300172: runor_86
+    21300174: runor_87
+    21300176: runor_88
+    21300178: runor_89
+    21300180: runor_90
+    21300182: runor_91
+    21300184: runor_92
+    21300186: runor_93
+    21300188: runor_94
+    21300190: runor_95
+    21300192: runor_96
+    21300194: runor_97
+    21300196: runor_98
+    21300198: runor_99
+    21300200: runor_100
+    21300202: runor_101
+    21300204: runor_102
+    21300206: runor_103
+    21300208: runor_104
+    21300210: runor_105
+    21300212: runor_106
+    21300214: runor_107
+    21300216: runor_108
+    21300218: runor_109
+    21300220: runor_110
+    21300222: runor_111
+    21300224: runor_112
+    21300226: runor_113
+    21300228: runor_114
+    21300230: runor_115
+    21300232: runor_116
+    21300234: runor_117
+    21300236: runor_118
+    21300238: runor_119
+    21300240: runor_120
+    21300242: runor_121
+    21300244: runor_122
+    21300246: runor_123
+    21300248: runor_124
+    21300250: runor_125
+    21300252: runor_126
+    21300254: runor_127
+    21300256: runor_128
+    21300258: runor_129
+    21300260: runor_130
+    21300262: runor_131
+    21300264: runor_132
+    21300266: runor_133
+    21300268: runor_134
+    21300270: runor_135
+    21300272: runor_136
+    21300274: runor_137
+    21300276: runor_138
+    21300278: runor_139
+    21300280: runor_140
+    21300282: runor_141
+    21300284: runor_142
+    21300286: runor_143
+    21300288: runor_144
+    21300290: runor_145
+    21300292: runor_146
+    21300294: runor_147
+    21300296: runor_148
+    21300298: runor_149
+    21300300: runor_150
+    21300302: runor_151
+    21300304: runor_152
+    21300306: runor_153
+    21300308: runor_154
+    21300310: runor_155
+    21300312: runor_156
+    21300314: runor_157
+    21300316: runor_158
+    21300318: runor_159
+    21300320: runor_160
+    21300322: runor_161
+    21300324: runor_162
+    21300326: runor_163
+    21300328: runor_164
+    21300330: runor_165
+    21300332: runor_166
+    21300334: runor_167
+    21300336: runor_168
+    21300338: runor_169
+    21300340: runor_170
+    21300342: runor_171
+    21300344: runor_172
+    21300346: runor_173
+    21300348: runor_174
+    21300350: runor_175
+    21300352: runor_176
+    21300354: runor_177
+    21300356: runor_178
+    21300358: runor_179
+    21300360: runor_180
+    21300362: runor_181
+    21300364: runor_182
+    21300366: runor_183
+    21300368: runor_184
+    21300370: runor_185
+    21300372: runor_186
+    21300374: runor_187
+    21300376: runor_188
+    21300378: runor_189
+    21300380: runor_190
+    21300382: runor_191
+    21300384: runor_192
+    21300386: runor_193
+    21300388: runor_194
+    21300390: runor_195
+    21300392: runor_196
+    21300394: runor_197
+    21300396: runor_198
+    21300398: runor_199
+    21300400: runor_200
+    21300402: runor_201
+    21300404: runor_202
+    21300406: runor_203
+    21300408: runor_204
+    21300410: runor_205
+    21300412: runor_206
+    21300414: runor_207
+    21300416: runor_208
+    21300418: runor_209
+    21300420: runor_210
+    21300422: runor_211
+    21300424: runor_212
+    21300426: runor_213
+    21300428: runor_214
+    21300430: runor_215
+    21300432: runor_216
+    21300434: runor_217
+    21300436: runor_218
+    21300438: runor_219
+    21300440: runor_220
+    21300442: runor_221
+    21300444: runor_222
+    21300446: runor_223
+    21300448: runor_224
+    21300450: runor_225
+    21300452: runor_226
+    21300454: runor_227
+    21300456: runor_228
+    21300458: runor_229
+    21300460: runor_230
+    21300462: runor_231
+    21300464: runor_232
+    21300466: runor_233
+    21300468: runor_234
+    21300470: runor_235
+    21300472: runor_236
+    21300474: runor_237
+    21300476: runor_238
+    21300478: runor_239
+    21300480: runor_240
+    21300482: runor_241
+    21300484: runor_242
+    21300486: runor_243
+    21300488: runor_244
+    21300490: runor_245
+    21300492: runor_246
+    21300494: runor_247
+    21300496: runor_248
+    21300498: runor_249
+    21300500: runor_250
+    21300502: runor_251
+    21300504: runor_252
+    21300506: runor_253
+    21300508: runor_254
+    21300510: runor_255
+    21300512: runor_256
+    21300514: runor_257
+    21300516: runor_258
+    21300518: runor_259
+    21300520: runor_260
+    21300522: runor_261
+    21300524: runor_262
+    21300526: runor_263
+    21300528: runor_264
+    21300530: runor_265
+    21300532: runor_266
+    21300534: runor_267
+    21300536: runor_268
+    21300538: runor_269
+    21300540: runor_270
+    21300542: runor_271
+    21300544: runor_272
+    21300546: runor_273
+    21300548: runor_274
+    21300550: runor_275
+    21300552: runor_276
+    21300554: runor_277
+    21300556: runor_278
+    21300558: runor_279
+    21300560: runor_280
+    21300562: runor_281
+    21300564: runor_282
+    21300566: runor_283
+    21300568: runor_284
+    21300570: runor_285
+    21300572: runor_286
+    21300574: runor_287
+    21300576: runor_288
+    21300578: runor_289
+    21300580: runor_290
+    21300582: runor_291
+    21300584: runor_292
+    21300586: runor_293
+    21300588: runor_294
+    21300590: runor_295
+    21300592: runor_296
+    21300594: runor_297
+    21300596: runor_298
+    21300598: runor_299
+    21300600: runor_300
+    21300602: runor_301
+    21300604: runor_302
+    21300606: runor_303
+    21300608: runor_304
+    21300610: runor_305
+    21300612: runor_306
+    21300614: runor_307
+    21300616: runor_308
+    21300618: runor_309
+    21300620: runor_310
+    21300622: runor_311
+    21300624: runor_312
+    21300626: runor_313
+    21300628: runor_314
+    21300630: runor_315
+    21300632: runor_316
+    21300634: runor_317
+    21300636: runor_318
+    21300638: runor_319
+    21300640: runor_320
+    21300642: runor_321
+    21300644: runor_322
+    21300646: runor_323
+    21300648: runor_324
+    21300650: runor_325
+    21300652: runor_326
+    21300654: runor_327
+    21300656: runor_328
+    21300658: runor_329
+    21300660: runor_330
+    21300662: runor_331
+    21300664: runor_332
+    21300666: runor_333
+    21300668: runor_334
+    21300670: runor_335
+    21300672: runor_336
+    21300674: runor_337
+    21300676: runor_338
+    21300678: runor_339
+    21300680: runor_340
+    21300682: runor_341
+    21300684: runor_342
+    21300686: runor_343
+    21300688: runor_344
+    21300690: runor_345
+    21300692: runor_346
+    21300694: runor_347
+    21300696: runor_348
+    21300698: runor_349
+    21300700: runor_350
+    21300702: runor_351
+    21300704: runor_352
+    21300706: runor_353
+    21300708: runor_354
+    21300710: runor_355
+    21300712: runor_356
+    21300714: runor_357
+    21300716: runor_358
+    21300718: runor_359
+    21300720: runor_360
+    21300722: runor_361
+    21300724: runor_362
+    21300726: runor_363
+    21300728: runor_364
+    21300730: runor_365
+    21300732: runor_366
+    21300734: runor_367
+    21300736: runor_368
+    21300738: runor_369
+    21300740: runor_370
+    21300742: runor_371
+    21300744: runor_372
+    21300746: runor_373
+    21300748: runor_374
+    21300750: runor_375
+    21300752: runor_376
+    21300754: runor_377
+    21300756: runor_378
+    21300758: runor_379
+    21300760: runor_380
+    21300762: runor_381
+    21300764: runor_382
+    21300766: runor_383
+    21300768: runor_384
+    21300770: runor_385
+    21300772: runor_386
+    21300774: runor_387
+    21300776: runor_388
+    21300778: runor_389
+    21300780: runor_390
+    21300782: runor_391
+    21300784: runor_392
+    21300786: runor_393
+    21300788: runor_394
+    21300790: runor_395
+    21300792: runor_396
+    21300794: runor_397
+    21300796: runor_398
+    21300798: runor_399
+    21300800: runor_400
+    21300802: runor_401
+    21300804: runor_402
+    21300806: runor_403
+    21300808: runor_404
+    21300810: runor_405
+    21300812: runor_406
+    21300814: runor_407
+    21300816: runor_408
+    21300818: runor_409
+    21300820: runor_410
+    21300822: runor_411
+    21300824: runor_412
+    21300826: runor_413
+    21300828: runor_414
+    21300830: runor_415
+    21300832: runor_416
+    21300834: runor_417
+    21300836: runor_418
+    21300838: runor_419
+    21300840: runor_420
+    21300842: runor_421
+    21300844: runor_422
+    21300846: runor_423
+    21300848: runor_424
+    21300850: runor_425
+    21300852: runor_426
+    21300854: runor_427
+    21300856: runor_428
+    21300858: runor_429
+    21300860: runor_430
+    21300862: runor_431
+    21300864: runor_432
+    21300866: runor_433
+    21300868: runor_434
+    21300870: runor_435
+    21300872: runor_436
+    21300874: runor_437
+    21300876: runor_438
+    21300878: runor_439
+    21300880: runor_440
+    21300882: runor_441
+    21300884: runor_442
+    21300886: runor_443
+    21300888: runor_444
+    21300890: runor_445
+    21300892: runor_446
+    21300894: runor_447
+    21300896: runor_448
+    21300898: runor_449
+    21300900: runor_450
+    21300902: runor_451
+    21300904: runor_452
+    21300906: runor_453
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: runor_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 1217
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_1
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 1208
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_2
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 1208
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_3
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 1203
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_4
+      rect:
+        serializedVersion: 2
+        x: 1095
+        y: 1208
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_5
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 1211
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_7
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 941
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_8
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 933
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_9
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 931
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_10
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 934
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_11
+      rect:
+        serializedVersion: 2
+        x: 1102
+        y: 944
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_12
+      rect:
+        serializedVersion: 2
+        x: 1363
+        y: 942
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_13
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 670
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_14
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 663
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_15
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 650
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_16
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 677
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_17
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 675
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_18
+      rect:
+        serializedVersion: 2
+        x: 1377
+        y: 666
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_19
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 398
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_20
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 396
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_21
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 402
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_22
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 391
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_23
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 402
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_24
+      rect:
+        serializedVersion: 2
+        x: 1373
+        y: 402
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_25
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 140
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_26
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 131
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_27
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 131
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_28
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 125
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runor_29
+      rect:
+        serializedVersion: 2
+        x: 1102
+        y: 110
+        width: 275
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,243 @@
+fileFormatVersion: 2
+guid: 2ae8c66ee680a4a4dbf707d12943e3d9
+timeCreated: 1523613657
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Chest_Rotate_JNT
+    100004: ChestVolume_2_JNT
+    100006: head_JNT
+    100008: head_tip_JNT
+    100010: hipTail_JNT
+    100012: jaw_JNT
+    100014: jaw_tip_JNT
+    100016: L_ankle_2_JNT
+    100018: L_ankle_JNT
+    100020: L_BackPaw_JNT
+    100022: L_Carpus_JNT
+    100024: L_ear_JNT
+    100026: L_ear_tip_JNT
+    100028: L_Elbow_JNT
+    100030: L_FrontPaw_JNT
+    100032: L_hip_JNT
+    100034: L_knee_JNT
+    100036: L_Scapula_JNT
+    100038: L_Shoulder_JNT
+    100040: L_Wrist_JNT
+    100042: neck_1_JNT
+    100044: neck_2_JNT
+    100046: R_ankle_2_JNT
+    100048: R_ankle_JNT
+    100050: R_BackPaw_JNT
+    100052: R_Carpus_JNT
+    100054: R_ear_JNT
+    100056: R_ear_tip_JNT
+    100058: R_Elbow_JNT
+    100060: R_FrontPaw_JNT
+    100062: R_hip_JNT
+    100064: R_knee_JNT
+    100066: R_Scapula_JNT
+    100068: R_Shoulder_JNT
+    100070: R_Wrist_JNT
+    100072: RibVolume_2_JNT
+    100074: root_JNT
+    100076: spine_JNT
+    100078: Spine_JNT_1
+    100080: Spine_JNT_2
+    100082: Spine_JNT_3
+    100084: tail_JNT
+    100086: tail_JNT_1
+    100088: tail_JNT_2
+    100090: tail_JNT_3
+    100092: tail_JNT_4
+    100094: tail_JNT_5
+    400000: //RootNode
+    400002: Chest_Rotate_JNT
+    400004: ChestVolume_2_JNT
+    400006: head_JNT
+    400008: head_tip_JNT
+    400010: hipTail_JNT
+    400012: jaw_JNT
+    400014: jaw_tip_JNT
+    400016: L_ankle_2_JNT
+    400018: L_ankle_JNT
+    400020: L_BackPaw_JNT
+    400022: L_Carpus_JNT
+    400024: L_ear_JNT
+    400026: L_ear_tip_JNT
+    400028: L_Elbow_JNT
+    400030: L_FrontPaw_JNT
+    400032: L_hip_JNT
+    400034: L_knee_JNT
+    400036: L_Scapula_JNT
+    400038: L_Shoulder_JNT
+    400040: L_Wrist_JNT
+    400042: neck_1_JNT
+    400044: neck_2_JNT
+    400046: R_ankle_2_JNT
+    400048: R_ankle_JNT
+    400050: R_BackPaw_JNT
+    400052: R_Carpus_JNT
+    400054: R_ear_JNT
+    400056: R_ear_tip_JNT
+    400058: R_Elbow_JNT
+    400060: R_FrontPaw_JNT
+    400062: R_hip_JNT
+    400064: R_knee_JNT
+    400066: R_Scapula_JNT
+    400068: R_Shoulder_JNT
+    400070: R_Wrist_JNT
+    400072: RibVolume_2_JNT
+    400074: root_JNT
+    400076: spine_JNT
+    400078: Spine_JNT_1
+    400080: Spine_JNT_2
+    400082: Spine_JNT_3
+    400084: tail_JNT
+    400086: tail_JNT_1
+    400088: tail_JNT_2
+    400090: tail_JNT_3
+    400092: tail_JNT_4
+    400094: tail_JNT_5
+    7400000: Hound_Aggro
+    7400002: Hound_Idle
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.1
+    animationPositionError: 0.1
+    animationScaleError: 0.1
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Hound_Aggro
+      takeName: Hound_IdleExport
+      firstFrame: 1
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hound_Idle
+      takeName: Hound_IdleExport
+      firstFrame: 50
+      lastFrame: 134
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e9196bdcdb5560e459ea9ead227180a3,
+    type: 3}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

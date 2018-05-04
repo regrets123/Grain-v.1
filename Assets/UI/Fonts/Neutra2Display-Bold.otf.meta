@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: c11264344c3d28a4c916e32d0d2d216c
+timeCreated: 1523364015
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Neutraface 2 Display
+  fontNames:
+  - Neutraface 2 Display
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
