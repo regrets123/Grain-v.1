@@ -35,9 +35,13 @@ sysinfo.txt
 Assets/Prefabs/WeaponPrefabs.meta
 Assets/Scripts/Player Character/PlayerControls.cs
 Assets/Prefabs/LevelPrefabs/Light_Tests.prefab
-*.xml
 *.meta
 *.asset
+
+#SavedGames
+
+*SavedGame*
+*SaveRef*
 
 # Lightmaps
 *.exr
