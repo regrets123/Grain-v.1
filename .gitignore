@@ -32,3 +32,19 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Prefabs/WeaponPrefabs.meta
+Assets/Scripts/Player Character/PlayerControls.cs
+Assets/Prefabs/LevelPrefabs/Light_Tests.prefab
+*.xml
+*.meta
+*.asset
+
+# Lightmaps
+*.exr
+*.exr.meta
+*Lightmap*
+LightmapSnapshot.asset
+LightmapSnapshot.asset.meta
+LightingData.asset
+LightingData.asset.meta
+
