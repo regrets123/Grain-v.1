@@ -32,8 +32,6 @@ public class SavedGame  //Referensklass som håller koll på ett sparat spels oc
 
 public class SaveManager : MonoBehaviour
 {
-    SavedGame currentSave;
-
     [SerializeField]
     int maxSaves;
 
@@ -48,6 +46,8 @@ public class SaveManager : MonoBehaviour
 
     [SerializeField]
     GameObject[] savePoints;
+
+    SavedGame currentSave;
 
     List<int> usedSavePoints = new List<int>();
 
@@ -75,6 +75,19 @@ public class SaveManager : MonoBehaviour
         }
         if (xNav == null)
             xNav = currentGame.CreateNavigator();
+        LoadSavedScenes();
+    }
+
+    private void Update()           //Temporary AF Fuckers
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            SaveGame(savePoints[0]);
+        }
+        else if (Input.GetKeyDown(KeyCode.J))
+        {
+            ReloadGame();
+        }
     }
 
     //Metoder som används för att spara ett spel
@@ -87,7 +100,6 @@ public class SaveManager : MonoBehaviour
         GetInfoToSave();   //Matar in all info som ska sparas i den virtuella XML-filen
         if (currentSave == null)
         {
-            print("ingen currentSave");
             string savePath = "";
             int saveNumber = 0;
             while (saveNumber < maxSaves)
@@ -119,7 +131,6 @@ public class SaveManager : MonoBehaviour
                 saveNumber++;
             }
             currentSave = new SavedGame(spritePath, savePath);
-            print(savePath + "      " + spritePath);
         }
         else
         {
@@ -134,6 +145,24 @@ public class SaveManager : MonoBehaviour
         SaveCamTransform();
         SaveInventory();
         SaveUsedSavePoints();
+        SaveLoadedScenes();
+    }
+
+    void SaveLoadedScenes()         //Sparar alla öppna scener i XML så dessa kan laddas in när ett spel laddas
+    {
+        XPathNavigator scenesNode = xNav.SelectSingleNode("/SavedState/LoadedScenes");
+        XmlNodeList oldScenes = currentGame.SelectNodes("//Scene");
+        if (oldScenes.Count > 0)
+        {
+            for (int i = oldScenes.Count - 1; i > -1; i--)
+            {
+                oldScenes[i].ParentNode.RemoveChild(oldScenes[i]);
+            }
+        }
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            scenesNode.AppendChild("<Scene Name=\"" + SceneManager.GetSceneAt(i).name + "\"/>");
+        }
     }
 
     void SaveUsedSavePoints()       //Sparar alla använda savepoints så deras material kan bytas när ett sparat spel laddas
@@ -313,6 +342,15 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    void LoadSavedScenes()          //Laddar in sparade scener
+    {
+        XPathNodeIterator savedScenes = xNav.Select("/SavedState/LoadedScenes/Scene/@Name");
+        foreach (XPathNavigator scene in savedScenes)
+        {
+            StartCoroutine(DynamicSceneManager.Instance.Load(scene.Value));
+        }
+    }
+
     void ReskinSavePoints()     //Ger använda checkpoints ett nytt material för att indikera att de använts
     {
         XPathNodeIterator nodes = xNav.Select("/SavedState/UsedSavePoints//SavePoint/@Index");
@@ -346,9 +384,9 @@ public class SaveManager : MonoBehaviour
                 }
             }
         }
-        foreach(XPathNavigator upgrade in availableUpgrades)
+        foreach (XPathNavigator upgrade in availableUpgrades)
         {
-            foreach(GameObject upgradePrefab in allItems)
+            foreach (GameObject upgradePrefab in allItems)
             {
                 if (upgrade.Value == upgradePrefab.GetComponent<BaseEquippableObject>().ObjectName)
                 {

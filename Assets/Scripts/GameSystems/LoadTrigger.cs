@@ -18,7 +18,7 @@ public class LoadTrigger : MonoBehaviour
             {
                 foreach (string scene in loadNames)
 
-                    StartCoroutine(DynamicSceneManager.instance.Load(scene));
+                    StartCoroutine(DynamicSceneManager.Instance.Load(scene));
             }
 
             if (unloadNames != null)
@@ -33,7 +33,7 @@ public class LoadTrigger : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         foreach (string scene in unloadNames)
         {
-            StartCoroutine(DynamicSceneManager.instance.UnLoad(scene));
+            StartCoroutine(DynamicSceneManager.Instance.UnLoad(scene));
         }
     }
 }
