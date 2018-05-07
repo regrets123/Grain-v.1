@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 /*By Andreas Nilsson && Björn Andersson*/
 
-
 public interface IKillable          //Interface som används av spelaren och alla fiender samt eventuella förstörbara objekt
 {
     void LightAttack();
@@ -917,8 +916,10 @@ public class PlayerControls : MonoBehaviour, IKillable, IPausable
         {
             if (Input.GetButtonDown("Dodge") && currentMovementType != MovementType.Jumping && canJump)
             {
+                print("dodge?");
                 if (stamina >= dodgeCost && canDodge)
                 {
+                    print("Dodge!");
                     stamina -= dodgeCost;
                     staminaBar.value = stamina;
                     anim.SetTrigger("Dodge");

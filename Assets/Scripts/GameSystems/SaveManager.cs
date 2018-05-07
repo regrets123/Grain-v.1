@@ -159,7 +159,7 @@ public class SaveManager : MonoBehaviour
                 oldScenes[i].ParentNode.RemoveChild(oldScenes[i]);
             }
         }
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        for (int i = 2; i < SceneManager.sceneCount; i++)       //De båda masterscenerna är alltid laddade, så dessa behöver inte sparas och där för börjar i på 2
         {
             scenesNode.AppendChild("<Scene Name=\"" + SceneManager.GetSceneAt(i).name + "\"/>");
         }
