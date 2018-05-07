@@ -18,6 +18,9 @@ public class FamineBossAI : BaseEnemyScript
 
     GameObject consumeObj;
 
+    [SerializeField]
+    GameObject myDrop;
+
     float gapCloser, consumeTime = 5f;
 
     bool enraged = false, enraging = false, consuming = false, teleporting = false;
@@ -93,6 +96,13 @@ public class FamineBossAI : BaseEnemyScript
         anim.SetTrigger("MagicAttack");
         anim.SetBool("Consume", true);
         StartCoroutine("Consume");
+    }
+
+    protected override void Death()
+    {
+        base.Death();
+        GameObject drop = Instantiate(myDrop, transform);        //Får minibossen att droppa en dash ability då den dör
+        drop.transform.parent.DetachChildren();
     }
 
     IEnumerator JumpSlash()     //En hoppattack som används för att få bossen att närma sig spelaren
