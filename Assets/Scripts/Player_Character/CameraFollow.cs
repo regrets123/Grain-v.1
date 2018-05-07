@@ -99,7 +99,7 @@ public class CameraFollow : MonoBehaviour, IPausable
 
     void LateUpdate()       //Får kameran att följa efter spelaren
     {
-        if (!playerObj.GetComponent<PlayerControls>().Dead)
+        //if (!playerObj.GetComponent<PlayerControls>().Dead)
         {
             if (!paused && !lockOn)
             {
