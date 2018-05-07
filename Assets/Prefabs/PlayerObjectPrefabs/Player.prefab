@@ -1693,7 +1693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  maxStamina: 100
+  maxStamina: 2000
   leechAmount: 0
   maxLifeForce: 20
   maxPoise: 21
@@ -1709,7 +1709,7 @@ MonoBehaviour:
   jumpSpeed: 650
   jumpCooldown: 1
   rotspeed: 2
-  dodgeCost: 20
+  dodgeCost: 10
   dodgeCooldown: 1.3
   dodgeLength: 0.4
   dodgeSpeed: 1.5
