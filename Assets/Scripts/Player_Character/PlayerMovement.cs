@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
-    private bool paused = false, onGround;
+    private bool paused = false, onGround, jumping = false;
 
     Movement currentMovement;
 
@@ -188,15 +188,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
         }
     }
 
-    public float grav;
-
     void FixedUpdate()
     {
         if (!paused)
         {
             currentMovement();
-            Tick(Time.fixedDeltaTime);
-            Tock(Time.deltaTime);
         }
     }
 
@@ -232,10 +228,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     #region Movement Methods
 
-    float maxX = 10f, maxZ = 10f;
-
-    bool jumping = false;
-
     void DefaultMovement()          //Den metod som används för att röra spelaren när denne inte låst kameran på en fiende
     {
         camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
@@ -255,6 +247,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
         {
             Jump(false);
         }
+        Tick(Time.fixedDeltaTime);
+        Tock(Time.deltaTime);
     }
 
     IEnumerator JumpEnumerator(float verticalSpeed)
@@ -265,7 +259,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
         {
             transform.Translate(Vector3.up * force);
             force -= Time.deltaTime;
-            if (force < 0f)
+            Vector3 origin = transform.position + (Vector3.up * groundDistance);
+            RaycastHit hit;
+            float dis = groundDistance + 0.2f;
+            if (force < 0f || Physics.Raycast(origin, Vector3.up, out hit, dis, ignoreLayers))
                 break;
             yield return new WaitForFixedUpdate();
         }
