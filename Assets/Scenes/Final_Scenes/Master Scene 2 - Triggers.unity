@@ -5682,8 +5682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadNames:
   - Scene 13 - Bossroom
-  - Scene 11 - Temple Interior Lower Storage Hall 2Scene 11 - Temple Interior Lower
-    Storage Hall 2
+  - Scene 11 - Temple Interior Lower Storage Hall 2
   - Scene 9 - Temple Interior Lower Storage Area 1
   unloadNames: []
 --- !u!23 &1342096718
@@ -7498,8 +7497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadNames:
   - Scene 13 - Bossroom
-  - Scene 11 - Temple Interior Lower Storage Hall 2Scene 11 - Temple Interior Lower
-    Storage Hall 2
+  - Scene 11 - Temple Interior Lower Storage Hall 2
   - Scene 9 - Temple Interior Lower Storage Area 1
   unloadNames: []
 --- !u!23 &1870220056

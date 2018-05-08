@@ -7019,6 +7019,16 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9ee47d4811f77c40b47ef900ec40a09, type: 2}
   m_IsPrefabParent: 0
@@ -7316,6 +7326,10 @@ Prefab:
       propertyPath: m_Radius
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1327773764188656, guid: cc1e6733f77fdde4ea6300ff6a686ce2, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc1e6733f77fdde4ea6300ff6a686ce2, type: 2}
   m_IsPrefabParent: 0
@@ -7376,7 +7390,7 @@ MonoBehaviour:
   - Scene 6 - Temple Exterior 6
   - Scene 2 - Canyon
   - Scene 3 - Desert Mountains 1
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 4 - Desert Mountains 2
   - Scene 4 - Desert Mountains 1
   - Desert_Caves_Final
@@ -7406,7 +7420,7 @@ MonoBehaviour:
   - Scene 1 - Start Area & Canyon
   - Scene 1 and 2 Bridge
   - Scene 6 - Temple Exterior 6
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
 --- !u!114 &420798527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7430,7 +7444,7 @@ MonoBehaviour:
   - Scene 1 - Start Area & Canyon
   - Scene 1 and 2 Bridge
   - Scene 6 - Temple Exterior 6
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
 --- !u!114 &420798528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7444,7 +7458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadNames:
   - Master Scene 2 - Triggers
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 8 - Temple Interior Great Hall Backroom
   - Scene 6 - Temple Exterior 1
   - Scene 6 - Temple Exterior 2
@@ -7475,7 +7489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadNames:
   - Master Scene 2 - Triggers
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 6 - Temple Exterior
   - Scene 6 - Temple Exterior 1
   - Scene 6 - Temple Exterior 2
@@ -7508,7 +7522,7 @@ MonoBehaviour:
   - Scene 0 - Canyon Terrain
   - Scene 1 and 2 Bridge
   - Scene 3 - Desert Mountains 1
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 6 - Temple Exterior 1
   - Scene 6 - Temple Terrain
   - Scene 6 - Temple Exterior 2
@@ -7535,7 +7549,7 @@ MonoBehaviour:
   - Scene 0 - Canyon Terrain
   - Scene 1 and 2 Bridge
   - Scene 6 - Temple Exterior 6
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 2 - Canyon
   - Scene 3 - Desert Mountains 1
   unloadNames:
@@ -7558,7 +7572,7 @@ MonoBehaviour:
   - Scene 3 - Desert Mountains 1
   - Scene 4 - Desert Mountains 1
   - Scene 4 - Desert Mountains 2
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 6 - Temple Exterior 6
   unloadNames:
   - Scene 1 - Start Area & Canyon
