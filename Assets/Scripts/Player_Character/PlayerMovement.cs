@@ -131,19 +131,21 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Animator anim;
 
-    private float stamina;
+    private float stamina, delta, h, v, moveAmount, groundDistance = 0.6f;
 
     private Transform cam;
 
-    private Vector3 camForward;
+    private Vector3 camForward, moveDir;
 
     private CameraFollow camFollow;
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
-    private bool paused = false;
+    private bool paused = false, onGround;
 
     Movement currentMovement;
+
+    LayerMask ignoreLayers;
 
     #endregion
 
@@ -175,12 +177,20 @@ public class PlayerMovement : MonoBehaviour, IPausable
         FindObjectOfType<PauseManager>().Pausables.Add(this);
         anim = GetComponent<Animator>();
         camFollow = FindObjectOfType<CameraFollow>();
+        ignoreLayers = ~(1 << 8);
     }
 
     void FixedUpdate()
     {
         if (!paused)
+            GetInput();
             currentMovement();
+            Tick(Time.fixedDeltaTime);
+    }
+
+    void LateUpdate()
+    {
+        Tock(Time.deltaTime);
     }
 
     #endregion
@@ -209,23 +219,33 @@ public class PlayerMovement : MonoBehaviour, IPausable
     void DefaultMovement()          //Den metod som används för att röra spelaren när denne inte låst kameran på en fiende
     {
         camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        Vector3 move = h * cam.right + v * camForward;
-        move *= moveSpeed;
+
+        Vector3 vertical = v * camForward;
+        Vector3 horizontal = h * cam.right;
+
+        moveDir = (vertical + horizontal).normalized;
+
+        float m = Mathf.Abs(v) + Mathf.Abs(h);
+
+        moveAmount = (Mathf.Clamp01(m));
+
+        anim.SetFloat("Speed", moveAmount);
+
+        //Vector3 move = h * cam.right + v * camForward;
+        //move *= moveSpeed;
         //rb.velocity = new Vector3(Mathf.Clamp(move.x * moveSpeed, -maxX, maxX), rb.velocity.y, Mathf.Clamp(move.z * moveSpeed, -maxX, maxX));
         //rb.AddForce((move * moveSpeed) * Time.deltaTime, ForceMode.Force);
         //rb.AddForce(move * moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
         //rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -maxX, maxX), rb.velocity.y, Mathf.Clamp(rb.velocity.z, -maxZ, maxZ));
-        anim.SetFloat("Speed", move.magnitude);
-        if (move.magnitude > 0.01f)
-        {
-            rb.rotation = Quaternion.LookRotation(move);
-        }
-        if (Input.GetButtonDown("Jump"))
-        {
-            Jump(false);
-        }
+        //    anim.SetFloat("Speed", move.magnitude);
+        //    if (move.magnitude > 0.01f)
+        //    {
+        //        rb.rotation = Quaternion.LookRotation(move);
+        //    }
+        //    if (Input.GetButtonDown("Jump"))
+        //    {
+        //        Jump(false);
+        //    }
     }
 
     void LockOnMovement()          //Den metod som används för att röra spelaren när denne låst kameran på en fiende
@@ -241,4 +261,61 @@ public class PlayerMovement : MonoBehaviour, IPausable
     }
 
     #endregion
+
+    public void GetInput()
+    {
+        h = Input.GetAxis("Horizontal");
+        v = Input.GetAxis("Vertical");
+    }
+
+    public void Tick(float d)
+    {
+        delta = d;
+
+        rb.drag = (moveAmount > 0 || !onGround) ? 0 : 4;
+
+        if (onGround)
+        {
+            rb.velocity = moveDir * (moveSpeed * moveAmount * delta);
+        }
+
+        Vector3 targetDir = moveDir;
+
+        if(targetDir == Vector3.zero)
+        {
+            targetDir = transform.forward;
+        }
+
+        Quaternion tr = Quaternion.LookRotation(targetDir);
+        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, delta * moveAmount * rotspeed);
+        transform.rotation = targetRotation;
+    }
+
+    public bool OnGround()
+    {
+        bool r = false;
+
+        Vector3 origin = transform.position + (Vector3.up * groundDistance);
+        Vector3 dir = Vector3.down;
+        float dis = groundDistance + 0.4f;
+
+        RaycastHit hit;
+
+        if(Physics.Raycast(origin, dir, out hit, dis, ignoreLayers))
+        {
+            r = true;
+
+            Vector3 targetPos = hit.point;
+            transform.position = targetPos;
+        }
+
+        return r;
+    }
+
+    public void Tock(float d)
+    {
+        delta = d;
+
+        onGround = OnGround();
+    }
 }
