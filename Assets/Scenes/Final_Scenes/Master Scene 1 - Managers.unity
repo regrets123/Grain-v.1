@@ -9,7 +9,7 @@ OcclusionCullingSettings:
     smallestHole: 0.25
     backfaceThreshold: 100
   m_SceneGUID: 754cc078fa9c47c4899afc29f82d1a89
-  m_OcclusionCullingData: {fileID: 36300000, guid: 6da427daa1285084ebe45f653f2aec28,
+  m_OcclusionCullingData: {fileID: 36300000, guid: 565b31a730bccb44f9e5368e3d2e79c8,
     type: 2}
 --- !u!104 &2
 RenderSettings:
@@ -53,20 +53,21 @@ LightmapSettings:
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 9
     m_Resolution: 2
-    m_BakeResolution: 40
-    m_TextureWidth: 1024
+    m_BakeResolution: 20
+    m_TextureWidth: 128
     m_TextureHeight: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
     m_CompAOExponentDirect: 0
     m_Padding: 2
-    m_LightmapParameters: {fileID: 0}
-    m_LightmapsBakeMode: 0
+    m_LightmapParameters: {fileID: 15201, guid: 0000000000000000f000000000000000,
+      type: 0}
+    m_LightmapsBakeMode: 1
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherFiltering: 1
@@ -90,7 +91,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000138, guid: 7efc3cb4b169b834db02eb5f940715e5,
+  m_LightingDataAsset: {fileID: 112000004, guid: 31000725841efc048889d74cac5f4faf,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -114,7 +115,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 1c069ee9ef9c33c418b28d9ddc95715c, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 41ffefff6c217a24bb9166e620f58777, type: 2}
 --- !u!1001 &1006850
 Prefab:
   m_ObjectHideFlags: 0
@@ -6908,6 +6909,126 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9ee47d4811f77c40b47ef900ec40a09, type: 2}
   m_IsPrefabParent: 0
@@ -7205,6 +7326,10 @@ Prefab:
       propertyPath: m_Radius
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1327773764188656, guid: cc1e6733f77fdde4ea6300ff6a686ce2, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc1e6733f77fdde4ea6300ff6a686ce2, type: 2}
   m_IsPrefabParent: 0
@@ -7265,7 +7390,7 @@ MonoBehaviour:
   - Scene 6 - Temple Exterior 6
   - Scene 2 - Canyon
   - Scene 3 - Desert Mountains 1
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 4 - Desert Mountains 2
   - Scene 4 - Desert Mountains 1
   - Desert_Caves_Final
@@ -7295,7 +7420,7 @@ MonoBehaviour:
   - Scene 1 - Start Area & Canyon
   - Scene 1 and 2 Bridge
   - Scene 6 - Temple Exterior 6
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
 --- !u!114 &420798527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7319,7 +7444,7 @@ MonoBehaviour:
   - Scene 1 - Start Area & Canyon
   - Scene 1 and 2 Bridge
   - Scene 6 - Temple Exterior 6
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
 --- !u!114 &420798528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7333,7 +7458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadNames:
   - Master Scene 2 - Triggers
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 8 - Temple Interior Great Hall Backroom
   - Scene 6 - Temple Exterior 1
   - Scene 6 - Temple Exterior 2
@@ -7364,7 +7489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadNames:
   - Master Scene 2 - Triggers
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 6 - Temple Exterior
   - Scene 6 - Temple Exterior 1
   - Scene 6 - Temple Exterior 2
@@ -7397,7 +7522,7 @@ MonoBehaviour:
   - Scene 0 - Canyon Terrain
   - Scene 1 and 2 Bridge
   - Scene 3 - Desert Mountains 1
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 6 - Temple Exterior 1
   - Scene 6 - Temple Terrain
   - Scene 6 - Temple Exterior 2
@@ -7424,7 +7549,7 @@ MonoBehaviour:
   - Scene 0 - Canyon Terrain
   - Scene 1 and 2 Bridge
   - Scene 6 - Temple Exterior 6
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 2 - Canyon
   - Scene 3 - Desert Mountains 1
   unloadNames:
@@ -7447,7 +7572,7 @@ MonoBehaviour:
   - Scene 3 - Desert Mountains 1
   - Scene 4 - Desert Mountains 1
   - Scene 4 - Desert Mountains 2
-  - Scene 5 - Temple Jagged Mountains
+  - Scene 5 - Temple Jagged
   - Scene 6 - Temple Exterior 6
   unloadNames:
   - Scene 1 - Start Area & Canyon
@@ -7523,6 +7648,48 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 2127704156}
   m_Script: {fileID: 11500000, guid: 73c40032896244449bc56950ea399fb3, type: 3}
+--- !u!1001 &632084916
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4994418629598710, guid: 81b88bde2277de0459ae519b2b9f674c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 58.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4994418629598710, guid: 81b88bde2277de0459ae519b2b9f674c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 384.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4994418629598710, guid: 81b88bde2277de0459ae519b2b9f674c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 11.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4994418629598710, guid: 81b88bde2277de0459ae519b2b9f674c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.214486
+      objectReference: {fileID: 0}
+    - target: {fileID: 4994418629598710, guid: 81b88bde2277de0459ae519b2b9f674c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.30119282
+      objectReference: {fileID: 0}
+    - target: {fileID: 4994418629598710, guid: 81b88bde2277de0459ae519b2b9f674c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.15192041
+      objectReference: {fileID: 0}
+    - target: {fileID: 4994418629598710, guid: 81b88bde2277de0459ae519b2b9f674c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.91662365
+      objectReference: {fileID: 0}
+    - target: {fileID: 4994418629598710, guid: 81b88bde2277de0459ae519b2b9f674c, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 81b88bde2277de0459ae519b2b9f674c, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &638571449
 GameObject:
   m_ObjectHideFlags: 0
@@ -8407,7 +8574,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4456647354218700, guid: 40c96716f362dd948a43916c702e22e0, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114951520643432290, guid: 40c96716f362dd948a43916c702e22e0,
         type: 2}
