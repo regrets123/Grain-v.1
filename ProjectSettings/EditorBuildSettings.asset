@@ -5,98 +5,101 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/MainMenu_JP_Final.unity
     guid: 03eec48463ae22a48a442609e1362fbb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Loading_Scene_JP.unity
     guid: d3610b365305e414cab8d114267fce46
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Master Scene 1 - Managers.unity
     guid: 754cc078fa9c47c4899afc29f82d1a89
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Master Scene 2 - Triggers.unity
     guid: 47f3a69cafe60fa42be345680bdb65c5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Credits_JP_Final.unity
     guid: 9d8f5bcba4e5e944b9be484ed2b21a9c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Desert_Caves_Final.unity
     guid: 68cc6a2d3540f6740a1228c7c12818bf
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 0 - Canyon Terrain.unity
     guid: abeb253a7ff5da647afe310b313d7475
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 1 - Start Area & Canyon.unity
     guid: 730123eb824ddb64893bbf08eccb4419
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 1 and 2 Bridge.unity
     guid: d0d2152c725aeaa45b263ef1d1d8ffde
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 2 - Canyon.unity
     guid: 5dd9a5da30024ab4faa714b779002591
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 3 - Desert Mountains 1.unity
     guid: 7d877d258b0baa8489f564d57d85d6b4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 4 - Desert Mountains 1.unity
     guid: 98e1a97124eeb9e438f788210eaad469
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 4 - Desert Mountains 2.unity
     guid: e9d9f9c3d87f5a64b89ed6a2d87f4926
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 5 - Temple Jagged.unity
     guid: 49bd2bed4ca0ddb4b99fbd3741d18870
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 6 - Temple Exterior 1.unity
     guid: 99a738c4283a39241948c7f070198638
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 6 - Temple Exterior 2.unity
     guid: f7f4517f44f7f90429fedb24391723b6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 6 - Temple Exterior 3.unity
     guid: ec233b0d2cf6e024c9935cffb45eaaee
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 6 - Temple Exterior 4.unity
     guid: b38b4880c80e6a14b82494d048ad37eb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 6 - Temple Exterior 5.unity
     guid: c370e564fa602484d9aed6a4edd16cf8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 6 - Temple Exterior 6.unity
     guid: e6a727e9a728f2a47a75f98ee1c008a4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 6 - Temple Exterior 7.unity
     guid: d9c2a00ea767af346a1acbf6772e288d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 6 - Temple Exterior Props.unity
     guid: 779d2c5eb4773914f9218aff11c25772
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 6 - Temple Terrain.unity
     guid: 4200bb43b1e11de44aa795a4d86ba622
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 7 - Temple Interior Great Hall.unity
     guid: 47e131817a71a5b4a9271ee8e237122d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 7&8 - Temple Interior Props.unity
     guid: 220d0cba5321a4846b28c4f769c856ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 8 - Temple Interior Great Hall Backroom.unity
     guid: eec99f8f6e885154bb8e0a30aaca2eca
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 9 - Temple Interior Lower Storage Area
       1.unity
     guid: 87f1ca0f278d57e43a15d01621157446
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 10 - Temple Interior Lower Great Hall.unity
     guid: 20b9533a7aa1ca242909026c0c0cc0de
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 11 - Temple Interior Lower Storage Hall
       2.unity
     guid: e83f1e8c5992ffc4e9dafd7363a52b28
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 12 - Bridge To Bossroom.unity
     guid: e3683158deea4cc4d9c9b50a12979ed3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Final_Scenes/Scene 13 - Bossroom.unity
     guid: d3860d0ad9df07640adeb7a04951bf9b
+  - enabled: 1
+    path: Assets/Scenes/Test_Scenes/CodeTestScene.unity
+    guid: c54f8bbb348256943a02d4a8d113f942
