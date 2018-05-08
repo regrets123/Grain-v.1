@@ -324,6 +324,10 @@ GameObject:
   - component: {fileID: 4444804251799862}
   - component: {fileID: 54706221581403150}
   - component: {fileID: 95862974551453918}
+  - component: {fileID: 114504604098726274}
+  - component: {fileID: 114924303129568852}
+  - component: {fileID: 114133168942152000}
+  - component: {fileID: 114724888867740010}
   m_Layer: 0
   m_Name: NewPlayer
   m_TagString: Player
@@ -1342,7 +1346,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!82 &82735600611168594
 AudioSource:
@@ -1654,6 +1658,17 @@ MonoBehaviour:
   NoiseIntensityOffset: 0.33
   NoiseVelocity: {x: 4, y: -3}
   MaxRayLength: 400
+--- !u!114 &114133168942152000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1382263821917424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf74444ad0d4e404faa1f57f6d171564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114300790554409474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1679,6 +1694,52 @@ MonoBehaviour:
   NoiseIntensityOffset: 0.33
   NoiseVelocity: {x: 4, y: -3}
   MaxRayLength: 400
+--- !u!114 &114504604098726274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1382263821917424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031382b1c38f4ff41be0f5e54f799e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114724888867740010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1382263821917424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87b1ccfe875a21b4e98da20a77e142a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+  rotspeed: 0
+  sprintSpeed: 0
+  maxStamina: 0
+  staminaRegen: 0
+  staminaRegenWait: 0
+  jumpSpeed: 0
+  jumpCooldown: 0
+  jumpTime: 0
+  dodgeCost: 0
+  dodgeCooldown: 0
+  dodgeLength: 0
+  dodgeSpeed: 0
+  safeFallDistance: 0
+  sandSteps: {fileID: 0}
+  stoneSteps: {fileID: 0}
+  woodSteps: {fileID: 0}
+  landingSand: {fileID: 0}
+  landingStone: {fileID: 0}
+  landingWood: {fileID: 0}
+  footStepsVolume: 0
+  landingVolume: 0
+  footsteps: {fileID: 0}
+  staminaBar: {fileID: 0}
 --- !u!114 &114767139746564528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1704,6 +1765,17 @@ MonoBehaviour:
   NoiseIntensityOffset: 0.37
   NoiseVelocity: {x: 4, y: -3}
   MaxRayLength: 400
+--- !u!114 &114924303129568852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1382263821917424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753516b48138f6445978b941e7404dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!137 &137648464420436646
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

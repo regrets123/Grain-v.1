@@ -9,6 +9,21 @@ public class PlayerMovement : MonoBehaviour, IPausable
 {
     #region Serialized Variables
 
+    [Header("Main Movement")]
+
+    [Space(5)]
+
+    [SerializeField]
+    float moveSpeed;
+
+    [SerializeField]
+    int rotspeed;
+
+    [SerializeField]
+    float sprintSpeed;
+
+    [Space(10)]
+
     [Header("Stamina")]
 
     [Space(5)]
@@ -29,9 +44,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
     [Space(5)]
 
     [SerializeField]
-    float moveSpeed;
-
-    [SerializeField]
     float jumpSpeed;
 
     [SerializeField]
@@ -39,18 +51,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     [SerializeField]
     float jumpTime;
-
-    [Space(10)]
-
-    [Header("Misc Movement")]
-
-    [Space(5)]
-
-    [SerializeField]
-    int rotspeed;
-
-    [SerializeField]
-    float sprintSpeed;
 
     [Space(10)]
 
@@ -177,20 +177,23 @@ public class PlayerMovement : MonoBehaviour, IPausable
         FindObjectOfType<PauseManager>().Pausables.Add(this);
         anim = GetComponent<Animator>();
         camFollow = FindObjectOfType<CameraFollow>();
-        ignoreLayers = ~(1 << 8);
+        ignoreLayers = ~(1 << 5);
     }
 
     void FixedUpdate()
     {
         if (!paused)
+        {
             GetInput();
             currentMovement();
             Tick(Time.fixedDeltaTime);
+            Tock(Time.deltaTime);
+        }
     }
 
     void LateUpdate()
     {
-        Tock(Time.deltaTime);
+        //Tock(Time.deltaTime);
     }
 
     #endregion
@@ -246,6 +249,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
         //    {
         //        Jump(false);
         //    }
+        if (onGround && Input.GetButtonDown("Jump"))
+        {
+            Jump(false);
+        }
     }
 
     void LockOnMovement()          //Den metod som används för att röra spelaren när denne låst kameran på en fiende
@@ -255,8 +262,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Jump(bool superJump)
     {
+        anim.SetTrigger("Jump");
         float verticalSpeed = superJump ? jumpSpeed * 3f : jumpSpeed;
-        rb.AddForce(Vector3.up * verticalSpeed * Time.deltaTime, ForceMode.Impulse);
+        rb.drag = 0;
+        rb.AddForce(Vector3.up * verticalSpeed/* * Time.deltaTime*/, ForceMode.Impulse);
         //rb.velocity = jumpSpeed * Vector3.up;
     }
 
@@ -272,7 +281,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         delta = d;
 
-        rb.drag = (moveAmount > 0 || !onGround) ? 0 : 4;
+        rb.drag = (moveAmount > 0 || !onGround) ? 0 : 999;
 
         if (onGround)
         {
@@ -281,7 +290,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         Vector3 targetDir = moveDir;
 
-        if(targetDir == Vector3.zero)
+        if (targetDir == Vector3.zero)
         {
             targetDir = transform.forward;
         }
@@ -290,6 +299,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, delta * moveAmount * rotspeed);
         transform.rotation = targetRotation;
     }
+
 
     public bool OnGround()
     {
@@ -301,7 +311,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         RaycastHit hit;
 
-        if(Physics.Raycast(origin, dir, out hit, dis, ignoreLayers))
+        if (Physics.Raycast(origin, dir, out hit, dis, ignoreLayers))
         {
             r = true;
 
