@@ -516,7 +516,6 @@ public class PlayerControls : MonoBehaviour, IKillable, IPausable
     {
         this.lifeForce = Mathf.Clamp(this.lifeForce + value, 0, 100);
         lifeForceBar.value = lifeForce;
-        print(lifeForce);
     }
     #endregion
 
