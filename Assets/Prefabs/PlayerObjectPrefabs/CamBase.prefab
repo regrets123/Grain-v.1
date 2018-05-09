@@ -41,6 +41,8 @@ GameObject:
   - component: {fileID: 81644730829707010}
   - component: {fileID: 114490637282228810}
   - component: {fileID: 82624057201069878}
+  - component: {fileID: 114080322785054484}
+  - component: {fileID: 114848524162039228}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -91,8 +93,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
-  far clip plane: 10000
+  near clip plane: 0.1
+  far clip plane: 1000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -199,6 +201,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114080322785054484
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1732705421200960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eed1d9cbe64423499f1fefc0ce50417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Resolution: 0
+  DefaultSpotCookie: {fileID: 2800000, guid: 5157bf6d690b6df458f6c0ce0c06d329, type: 3}
 --- !u!114 &114490637282228810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -214,10 +229,35 @@ MonoBehaviour:
   maxDistance: 8
   smooth: 10
   dollyDirAdjusted: {x: 0, y: 0, z: 0}
-  distance: 0
+  distance: 1
   layerToMask:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &114848524162039228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1732705421200960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e50e925fb93c78246bf995d9dc3a2330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  adaptiveTextureSize: 256
+  remapCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  exposureAdjustment: 1.5
+  middleGrey: 0.4
+  white: 2
+  adaptionSpeed: 1.5
+  tonemapper: {fileID: 4800000, guid: 003377fc2620a44939dadde6fe3f8190, type: 3}
+  validRenderTextureFormat: 1
 --- !u!114 &114951520643432290
 MonoBehaviour:
   m_ObjectHideFlags: 1
