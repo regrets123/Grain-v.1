@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
-    private bool paused = false, onGround, jumping = false;
+    private bool paused = false, isGrounded, jumping = false, superJump = false;
 
     Movement currentMovement;
 
@@ -160,6 +160,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         get { return this.stamina; }
         set { this.stamina = Mathf.Clamp(value, 0f, maxStamina); staminaBar.value = stamina; }
+    }
+
+    public bool IsGrounded
+    {
+        get { return isGrounded; }
+        set { IsGrounded = value; }
     }
 
     #endregion
@@ -198,7 +204,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void LateUpdate()
     {
-        //Tock(Time.deltaTime);
+        Tock(Time.deltaTime);
+        //currentMovement();
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Jump(superJump);
+        }
     }
 
     public void GetInput()
@@ -243,12 +255,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         anim.SetFloat("Speed", moveAmount);
 
-        if (OnGround() && Input.GetButtonDown("Jump"))
-        {
-            Jump(false);
-        }
-        Tick(Time.fixedDeltaTime);
-        Tock(Time.deltaTime);
+        Tick(moveSpeed);
     }
 
     IEnumerator JumpEnumerator(float verticalSpeed)
@@ -275,29 +282,36 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Jump(bool superJump)
     {
-        rb.drag = 0f;
-        jumping = true;
-        anim.SetTrigger("Jump");
+        //rb.drag = 0f;
+        //jumping = true;
+        //anim.SetTrigger("Jump");
 
-        float verticalSpeed = superJump ? jumpSpeed * 3f : jumpSpeed;
-        //rb.drag = 0;
-        //rb.AddForce(Vector3.up * verticalSpeed * Time.deltaTime, ForceMode.VelocityChange);
-        //rb.velocity += verticalSpeed * Vector3.up;
-        //moveDir.y += verticalSpeed * Time.deltaTime;
-        StartCoroutine(JumpEnumerator(verticalSpeed));
+        //float verticalSpeed = superJump ? jumpSpeed * 3f : jumpSpeed;
+        ////rb.drag = 0;
+        ////rb.AddForce(Vector3.up * verticalSpeed * Time.deltaTime, ForceMode.VelocityChange);
+        ////rb.velocity += verticalSpeed * Vector3.up;
+        ////moveDir.y += verticalSpeed * Time.deltaTime;
+        //StartCoroutine(JumpEnumerator(verticalSpeed));
+
+        Vector3 vel = rb.velocity;
+        vel.y = jumpSpeed;
+        rb.velocity = vel;
     }
 
     #endregion
 
-    public void Tick(float d)
+    public void Tick(float velocity)
     {
-        delta = d;
+        Vector3 velY = transform.forward * velocity * moveAmount;
+        velY.y = rb.velocity.y;
 
-        rb.drag = (moveAmount > 0 || !onGround || jumping) ? 0 : 999;
+        rb.drag = (moveAmount > 0 || !isGrounded || jumping) ? 0 : 4;
 
         //if (onGround)
         {
-            rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
+            rb.velocity = velY;
+            rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
+            //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
         }
 
         Vector3 targetDir = moveDir;
@@ -308,16 +322,18 @@ public class PlayerMovement : MonoBehaviour, IPausable
         }
 
         Quaternion tr = Quaternion.LookRotation(targetDir);
-        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, delta * moveAmount * rotspeed);
+        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
         transform.rotation = targetRotation;
+
+        print(targetDir);
     }
 
     public void Tock(float d)
     {
         delta = d;
 
-        onGround = OnGround();
-        jumping = !onGround;
+        isGrounded = OnGround();
+        jumping = !isGrounded;
     }
 
     public bool OnGround()
