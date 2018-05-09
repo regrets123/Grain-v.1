@@ -55,6 +55,8 @@ public class CameraFollow : MonoBehaviour, IPausable
 
     BaseEnemyScript targetToLockOn, lookAtMe;
 
+    PlayerMovement playerMovement;
+
     Quaternion toRotate, localRotation;
 
     float camDistanceXToPlayer, camDistanceYToPlayer, camDistanceZToPlayer, distance, closestDistance, targetDistance;
@@ -85,6 +87,7 @@ public class CameraFollow : MonoBehaviour, IPausable
     
     void Start()
     {
+        playerMovement = FindObjectOfType<PlayerMovement>();
         pM = FindObjectOfType<PauseManager>();
         pM.Pausables.Add(this);
         Vector3 rot = transform.localRotation.eulerAngles;
@@ -200,6 +203,7 @@ public class CameraFollow : MonoBehaviour, IPausable
                                 break;
                         }
                         lockOnSprite.transform.position += (Vector3.up * spriteOffset);
+                        playerMovement.ChangeMovement(lockOn);
                     }
                 }
             }
@@ -212,6 +216,7 @@ public class CameraFollow : MonoBehaviour, IPausable
             rotX = rot.x;
             rotY = rot.y;
             lockOn = false;
+            playerMovement.ChangeMovement(lockOn);
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") != 0f && lockOn)          //Låter spelaren välja vilken fiende kameran ska fokusera på
