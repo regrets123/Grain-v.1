@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Animator anim;
 
-    private float stamina, delta, h, v, moveAmount, groundDistance = 0.2f;
+    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f;
 
     private Transform cam;
 
@@ -204,6 +204,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (!paused)
         {
             currentMovement();
+
         }
     }
 
@@ -230,9 +231,19 @@ public class PlayerMovement : MonoBehaviour, IPausable
     public void ChangeMovement(bool combat)
     {
         if (combat)
+        {
             currentMovement = LockOnMovement;
+            anim.SetLayerWeight(2, 1);
+            moveSpeed = 5f;
+        }
         else
+        {
             currentMovement = DefaultMovement;
+            anim.SetLayerWeight(2, 0);
+            moveSpeed = 10f;
+        }
+
+        print(currentMovement.Method);
     }
 
     public void PauseMe(bool pausing)
@@ -260,29 +271,74 @@ public class PlayerMovement : MonoBehaviour, IPausable
         anim.SetFloat("Speed", moveAmount);
 
         MovePlayer(moveSpeed);
-    }
 
-    IEnumerator JumpEnumerator(float verticalSpeed)
-    {
-        float startTime = Time.time;
-        float force = verticalSpeed;
-        while (Time.time < startTime + jumpTime)
+        Vector3 targetDir = moveDir;
+
+        if (targetDir == Vector3.zero)
         {
-            transform.Translate(Vector3.up * force);
-            force -= Time.deltaTime;
-            Vector3 origin = transform.position + (Vector3.up * groundDistance);
-            RaycastHit hit;
-            float dis = groundDistance + 0.2f;
-            if (force < 0f || Physics.Raycast(origin, Vector3.up, out hit, dis, ignoreLayers))
-                break;
-            yield return new WaitForFixedUpdate();
+            targetDir = transform.forward;
         }
+
+        Quaternion tr = Quaternion.LookRotation(targetDir);
+        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
+        transform.rotation = targetRotation;
     }
 
-    void LockOnMovement()          //Den metod som används för att röra spelaren när denne låst kameran på en fiende
+    void LockOnMovement()
     {
+        camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
 
+        Vector3 vertical = v * camForward;
+        Vector3 horizontal = h * cam.right;
+
+        moveDir = (vertical + horizontal).normalized;
+
+        float _moveAmount = Mathf.Clamp(v, -1f, 1f);
+        float _direction = Mathf.Clamp(h, -1f, 1f);
+        moveAmount = _moveAmount;
+        direction = _direction;
+
+        MovePlayer(moveSpeed);
+
+        anim.SetFloat("SpeedX", direction);
+        anim.SetFloat("SpeedZ", moveAmount);
+
+        transform.LookAt(camFollow.LookAtMe.transform);
+        transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
+
+        //Vector3 targetDir = camForward;
+
+        //if (targetDir == Vector3.zero)
+        //{
+        //    targetDir = transform.forward;
+        //}
+
+        //Quaternion tr = Quaternion.LookRotation(targetDir);
+        //Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
+        //transform.rotation = targetRotation;
     }
+
+    //IEnumerator JumpEnumerator(float verticalSpeed)
+    //{
+    //    float startTime = Time.time;
+    //    float force = verticalSpeed;
+    //    while (Time.time < startTime + jumpTime)
+    //    {
+    //        transform.Translate(Vector3.up * force);
+    //        force -= Time.deltaTime;
+    //        Vector3 origin = transform.position + (Vector3.up * groundDistance);
+    //        RaycastHit hit;
+    //        float dis = groundDistance + 0.2f;
+    //        if (force < 0f || Physics.Raycast(origin, Vector3.up, out hit, dis, ignoreLayers))
+    //            break;
+    //        yield return new WaitForFixedUpdate();
+    //    }
+    //}
+
+    //void LockOnMovement()          //Den metod som används för att röra spelaren när denne låst kameran på en fiende
+    //{
+
+    //}
 
     void Jump(bool superJump)
     {
@@ -312,25 +368,26 @@ public class PlayerMovement : MonoBehaviour, IPausable
         Vector3 velY = transform.forward * velocity * moveAmount;
         velY.y = rb.velocity.y;
 
+        Vector3 velX = transform.right * velocity * direction;
+        velX.x = rb.velocity.x;
+
         rb.drag = (moveAmount > 0 || !isGrounded || jumping) ? 0 : 4;
 
-        //if (onGround)
+        if (isGrounded)
         {
-            rb.velocity = velY;
-            rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
-            //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
+            if (camFollow.LockOn)
+            {
+                Vector3 strafeVelocity = (transform.TransformDirection((new Vector3(h, 0, v)) * (velocity > 0 ? velocity : 1f)));
+                strafeVelocity.y = rb.velocity.y;
+                rb.velocity = Vector3.Lerp(rb.velocity, strafeVelocity, 20f * Time.deltaTime);
+            }
+            else
+            {
+                rb.velocity = velY;
+                rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
+                //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
+            }
         }
-
-        Vector3 targetDir = moveDir;
-
-        if (targetDir == Vector3.zero)
-        {
-            targetDir = transform.forward;
-        }
-
-        Quaternion tr = Quaternion.LookRotation(targetDir);
-        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
-        transform.rotation = targetRotation;
     }
 
     public void GroundCheck(float d)
@@ -356,4 +413,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         return false;
     }
+
+
 }
