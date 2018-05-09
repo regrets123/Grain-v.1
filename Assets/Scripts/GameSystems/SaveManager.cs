@@ -161,6 +161,7 @@ public class SaveManager : MonoBehaviour
         }
         for (int i = 2; i < SceneManager.sceneCount; i++)       //De båda masterscenerna är alltid laddade, så dessa behöver inte sparas och där för börjar i på 2
         {
+            print(SceneManager.GetSceneAt(i).name);
             scenesNode.AppendChild("<Scene Name=\"" + SceneManager.GetSceneAt(i).name + "\"/>");
         }
     }
