@@ -17,10 +17,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
     float moveSpeed;
 
     [SerializeField]
-    int rotspeed;
+    float sprintSpeed;
 
     [SerializeField]
-    float sprintSpeed;
+    int rotspeed;
 
     [Space(10)]
 
@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, isSprinting = false;
 
     Movement currentMovement;
 
@@ -222,6 +222,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
+
+        if (Input.GetButton("Sprint"))
+            isSprinting = true;
+        else
+            isSprinting = false;
     }
 
     #endregion
@@ -270,7 +275,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         anim.SetFloat("Speed", moveAmount);
 
-        MovePlayer(moveSpeed);
+        MovePlayer(moveSpeed, isSprinting);
 
         Vector3 targetDir = moveDir;
 
@@ -298,7 +303,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         moveAmount = _moveAmount;
         direction = _direction;
 
-        MovePlayer(moveSpeed);
+        MovePlayer(moveSpeed, isSprinting);
 
         anim.SetFloat("SpeedX", direction);
         anim.SetFloat("SpeedZ", moveAmount);
@@ -363,8 +368,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     #endregion
 
-    public void MovePlayer(float velocity)
+    public void MovePlayer(float velocity, bool isSprinting)
     {
+        if (isSprinting && !camFollow.LockOn)
+            velocity = sprintSpeed;
+        else
+            velocity = moveSpeed;
+
         Vector3 velY = transform.forward * velocity * moveAmount;
         velY.y = rb.velocity.y;
 
