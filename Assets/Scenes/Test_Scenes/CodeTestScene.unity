@@ -313,41 +313,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1382263821917424, guid: 2ca68d53a812e8b448928230f6b0f646,
     type: 2}
   m_PrefabInternal: {fileID: 1564472343}
---- !u!114 &1457670539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1457670538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87b1ccfe875a21b4e98da20a77e142a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxStamina: 100
-  staminaRegen: 1
-  staminaRegenWait: 1
-  moveSpeed: 4
-  jumpSpeed: 2
-  jumpCooldown: 1
-  jumpTime: 1
-  rotspeed: 15
-  sprintSpeed: 10
-  dodgeCost: 10
-  dodgeCooldown: 1
-  dodgeLength: 1
-  dodgeSpeed: 1
-  safeFallDistance: 10
-  sandSteps: {fileID: 0}
-  stoneSteps: {fileID: 0}
-  woodSteps: {fileID: 0}
-  landingSand: {fileID: 0}
-  landingStone: {fileID: 0}
-  landingWood: {fileID: 0}
-  footStepsVolume: 0
-  landingVolume: 0
-  footsteps: {fileID: 0}
-  staminaBar: {fileID: 0}
 --- !u!136 &1457670540
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -416,12 +381,12 @@ Prefab:
     - target: {fileID: 54706221581403150, guid: 2ca68d53a812e8b448928230f6b0f646,
         type: 2}
       propertyPath: m_Mass
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 54706221581403150, guid: 2ca68d53a812e8b448928230f6b0f646,
         type: 2}
       propertyPath: m_AngularDrag
-      value: 999
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 54706221581403150, guid: 2ca68d53a812e8b448928230f6b0f646,
         type: 2}
@@ -442,6 +407,26 @@ Prefab:
         type: 2}
       propertyPath: m_Drag
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
+        type: 2}
+      propertyPath: moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 54706221581403150, guid: 2ca68d53a812e8b448928230f6b0f646,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
+        type: 2}
+      propertyPath: rotspeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
+        type: 2}
+      propertyPath: jumpSpeed
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
