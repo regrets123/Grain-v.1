@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 /*By Björn Andersson && Andreas Nilsson*/
 
@@ -144,11 +145,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false;
 
-    Movement currentMovement;
+    private Movement currentMovement;
 
-    LayerMask ignoreLayers;
+    private LayerMask ignoreLayers;
+
+    private PlayerCombat combat;
 
     #endregion
 
@@ -177,6 +180,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Awake()
     {
+        combat = GetComponent<PlayerCombat>();
         currentMovement = DefaultMovement;
         this.stamina = maxStamina;
         cam = FindObjectOfType<Camera>().transform;
@@ -207,20 +211,14 @@ public class PlayerMovement : MonoBehaviour, IPausable
         }
     }
 
-    void LateUpdate()
-    {
-        //currentMovement();
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            Jump(superJump);
-        }
-    }
-
     public void GetInput()
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
+        if (Input.GetButtonDown("Jump"))
+        {
+            jump = true;
+        }
     }
 
     #endregion
@@ -260,6 +258,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
         anim.SetFloat("Speed", moveAmount);
 
         MovePlayer(moveSpeed);
+        if (jump)
+            Jump(superJump);
+        jump = false;
     }
 
     IEnumerator JumpEnumerator(float verticalSpeed)
@@ -336,16 +337,22 @@ public class PlayerMovement : MonoBehaviour, IPausable
     public void GroundCheck(float d)
     {
         delta = d;
-
+        bool inAir = jumping;
         isGrounded = OnGround();
         jumping = !isGrounded;
+        if (!jumping && inAir)
+        {
+            print(Math.Round(rb.velocity.y, 5));
+            if (rb.velocity.y < 0f && rb.velocity.y + safeFallDistance < 0f)
+                combat.TakeDamage((int)-(rb.velocity.y + safeFallDistance), DamageType.Falling);      //Fallskada(?)
+        }
     }
 
     public bool OnGround()
     {
         Vector3 origin = transform.position + (Vector3.up * groundDistance);
         Vector3 dir = Vector3.down;
-        float dis = groundDistance + 0.1f;
+        float dis = groundDistance + 0.3f;
 
         RaycastHit hit;
 
