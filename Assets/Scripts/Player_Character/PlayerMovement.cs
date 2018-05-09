@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
-    private bool paused = false, onGround;
+    private bool paused = false, onGround, jumping = false;
 
     Movement currentMovement;
 
@@ -180,20 +180,31 @@ public class PlayerMovement : MonoBehaviour, IPausable
         ignoreLayers = ~(1 << 5);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (!paused)
         {
             GetInput();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (!paused)
+        {
             currentMovement();
-            Tick(Time.fixedDeltaTime);
-            Tock(Time.deltaTime);
         }
     }
 
     void LateUpdate()
     {
         //Tock(Time.deltaTime);
+    }
+
+    public void GetInput()
+    {
+        h = Input.GetAxis("Horizontal");
+        v = Input.GetAxis("Vertical");
     }
 
     #endregion
@@ -217,8 +228,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     #region Movement Methods
 
-    float maxX = 10f, maxZ = 10f;
-
     void DefaultMovement()          //Den metod som används för att röra spelaren när denne inte låst kameran på en fiende
     {
         camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
@@ -234,24 +243,28 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         anim.SetFloat("Speed", moveAmount);
 
-        //Vector3 move = h * cam.right + v * camForward;
-        //move *= moveSpeed;
-        //rb.velocity = new Vector3(Mathf.Clamp(move.x * moveSpeed, -maxX, maxX), rb.velocity.y, Mathf.Clamp(move.z * moveSpeed, -maxX, maxX));
-        //rb.AddForce((move * moveSpeed) * Time.deltaTime, ForceMode.Force);
-        //rb.AddForce(move * moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
-        //rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -maxX, maxX), rb.velocity.y, Mathf.Clamp(rb.velocity.z, -maxZ, maxZ));
-        //    anim.SetFloat("Speed", move.magnitude);
-        //    if (move.magnitude > 0.01f)
-        //    {
-        //        rb.rotation = Quaternion.LookRotation(move);
-        //    }
-        //    if (Input.GetButtonDown("Jump"))
-        //    {
-        //        Jump(false);
-        //    }
-        if (onGround && Input.GetButtonDown("Jump"))
+        if (OnGround() && Input.GetButtonDown("Jump"))
         {
             Jump(false);
+        }
+        Tick(Time.fixedDeltaTime);
+        Tock(Time.deltaTime);
+    }
+
+    IEnumerator JumpEnumerator(float verticalSpeed)
+    {
+        float startTime = Time.time;
+        float force = verticalSpeed;
+        while (Time.time < startTime + jumpTime)
+        {
+            transform.Translate(Vector3.up * force);
+            force -= Time.deltaTime;
+            Vector3 origin = transform.position + (Vector3.up * groundDistance);
+            RaycastHit hit;
+            float dis = groundDistance + 0.2f;
+            if (force < 0f || Physics.Raycast(origin, Vector3.up, out hit, dis, ignoreLayers))
+                break;
+            yield return new WaitForFixedUpdate();
         }
     }
 
@@ -262,30 +275,29 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Jump(bool superJump)
     {
+        rb.drag = 0f;
+        jumping = true;
         anim.SetTrigger("Jump");
+
         float verticalSpeed = superJump ? jumpSpeed * 3f : jumpSpeed;
-        rb.drag = 0;
-        rb.AddForce(Vector3.up * verticalSpeed/* * Time.deltaTime*/, ForceMode.Impulse);
-        //rb.velocity = jumpSpeed * Vector3.up;
+        //rb.drag = 0;
+        //rb.AddForce(Vector3.up * verticalSpeed * Time.deltaTime, ForceMode.VelocityChange);
+        //rb.velocity += verticalSpeed * Vector3.up;
+        //moveDir.y += verticalSpeed * Time.deltaTime;
+        StartCoroutine(JumpEnumerator(verticalSpeed));
     }
 
     #endregion
-
-    public void GetInput()
-    {
-        h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
-    }
 
     public void Tick(float d)
     {
         delta = d;
 
-        rb.drag = (moveAmount > 0 || !onGround) ? 0 : 999;
+        rb.drag = (moveAmount > 0 || !onGround || jumping) ? 0 : 999;
 
-        if (onGround)
+        //if (onGround)
         {
-            rb.velocity = moveDir * (moveSpeed * moveAmount * delta);
+            rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
         }
 
         Vector3 targetDir = moveDir;
@@ -300,6 +312,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
         transform.rotation = targetRotation;
     }
 
+    public void Tock(float d)
+    {
+        delta = d;
+
+        onGround = OnGround();
+        jumping = !onGround;
+    }
 
     public bool OnGround()
     {
@@ -320,12 +339,5 @@ public class PlayerMovement : MonoBehaviour, IPausable
         }
 
         return r;
-    }
-
-    public void Tock(float d)
-    {
-        delta = d;
-
-        onGround = OnGround();
     }
 }
