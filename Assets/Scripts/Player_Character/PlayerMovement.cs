@@ -44,7 +44,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
     [Space(5)]
 
     [SerializeField]
-    float jumpSpeed;
+    float jumpForce;
+
+    [SerializeField]
+    float superJumpForce;
 
     [SerializeField]
     float jumpCooldown;
@@ -131,7 +134,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Animator anim;
 
-    private float stamina, delta, h, v, moveAmount, groundDistance = 0.6f;
+    private float stamina, delta, h, v, moveAmount, groundDistance = 0.2f;
 
     private Transform cam;
 
@@ -188,6 +191,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Update()
     {
+        GroundCheck(Time.deltaTime);
+
         if (!paused)
         {
             GetInput();
@@ -204,7 +209,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void LateUpdate()
     {
-        Tock(Time.deltaTime);
         //currentMovement();
 
         if (Input.GetButtonDown("Jump"))
@@ -255,7 +259,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         anim.SetFloat("Speed", moveAmount);
 
-        Tick(moveSpeed);
+        MovePlayer(moveSpeed);
     }
 
     IEnumerator JumpEnumerator(float verticalSpeed)
@@ -283,8 +287,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
     void Jump(bool superJump)
     {
         //rb.drag = 0f;
-        //jumping = true;
-        //anim.SetTrigger("Jump");
 
         //float verticalSpeed = superJump ? jumpSpeed * 3f : jumpSpeed;
         ////rb.drag = 0;
@@ -293,14 +295,19 @@ public class PlayerMovement : MonoBehaviour, IPausable
         ////moveDir.y += verticalSpeed * Time.deltaTime;
         //StartCoroutine(JumpEnumerator(verticalSpeed));
 
+        if (!isGrounded)
+            return;
+
+        jumping = true;
+        anim.SetTrigger("Jump");
         Vector3 vel = rb.velocity;
-        vel.y = jumpSpeed;
+        vel.y = superJump ? superJumpForce : jumpForce;
         rb.velocity = vel;
     }
 
     #endregion
 
-    public void Tick(float velocity)
+    public void MovePlayer(float velocity)
     {
         Vector3 velY = transform.forward * velocity * moveAmount;
         velY.y = rb.velocity.y;
@@ -324,11 +331,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
         Quaternion tr = Quaternion.LookRotation(targetDir);
         Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
         transform.rotation = targetRotation;
-
-        print(targetDir);
     }
 
-    public void Tock(float d)
+    public void GroundCheck(float d)
     {
         delta = d;
 
@@ -338,22 +343,17 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     public bool OnGround()
     {
-        bool r = false;
-
         Vector3 origin = transform.position + (Vector3.up * groundDistance);
         Vector3 dir = Vector3.down;
-        float dis = groundDistance + 0.4f;
+        float dis = groundDistance + 0.1f;
 
         RaycastHit hit;
 
         if (Physics.Raycast(origin, dir, out hit, dis, ignoreLayers))
         {
-            r = true;
-
-            Vector3 targetPos = hit.point;
-            transform.position = targetPos;
+            return true;
         }
 
-        return r;
+        return false;
     }
 }
