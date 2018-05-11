@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     private LayerMask ignoreLayers;
 
     private PlayerCombat combat;
-    
+
     private string currentMovementType = "Default";
 
     private Collider playerCollider;
@@ -259,6 +259,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
         {
             jump = true;
         }
+        else if (Input.GetButtonDown("Dodge"))
+            StartCoroutine("Dodge");
     }
 
     #endregion
@@ -315,6 +317,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     #endregion
 
+    //Olika metoder som främst används via delegatmetoden currentMovement för att röra spelaren på olika sätt
     #region Movement Methods
 
     void DefaultMovement()          //Den metod som används för att röra spelaren när denne inte låst kameran på en fiende
@@ -340,7 +343,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void DodgeMovement()
     {
-
+        if (dodgeVelocity == null)
+            dodgeVelocity = (transform.forward + new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")) * dodgeSpeed);
+        rb.velocity = (Vector3)dodgeVelocity;
     }
 
     void DashMovement()
@@ -378,19 +383,19 @@ public class PlayerMovement : MonoBehaviour, IPausable
             rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
         }
 
-            Vector3 targetDir = moveDir;
+        Vector3 targetDir = moveDir;
 
-            if (targetDir == Vector3.zero)
-            {
-                targetDir = transform.forward;
-            }
-
-            Quaternion tr = Quaternion.LookRotation(targetDir);
-            Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
-            transform.rotation = targetRotation;
-
-            //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
+        if (targetDir == Vector3.zero)
+        {
+            targetDir = transform.forward;
         }
+
+        Quaternion tr = Quaternion.LookRotation(targetDir);
+        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
+        transform.rotation = targetRotation;
+
+        //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
+    }
 
     #endregion
 
@@ -458,7 +463,15 @@ public class PlayerMovement : MonoBehaviour, IPausable
     #endregion
 
     #region Coroutines
-    
+
+    IEnumerator Dodge()
+    {
+        ChangeMovement("Dodge");
+        yield return new WaitForSeconds(dodgeLength);
+        dodgeVelocity = null;
+        ChangeMovement("Previous");
+    }
+
     IEnumerator JumpEnumerator(float verticalSpeed)
     {
         float startTime = Time.time;
