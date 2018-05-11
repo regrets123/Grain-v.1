@@ -19,7 +19,7 @@ public class OpenDoor : MonoBehaviour, IInteractable
 
     Animator anim, animDoor;
 
-    PlayerControls playerToMove;
+    PlayerInteractions playerToMove;
 
     MovementType previousMovement;
 
@@ -30,13 +30,13 @@ public class OpenDoor : MonoBehaviour, IInteractable
         animDoor = doorToOpen.gameObject.GetComponent<Animator>();
     }
 
-    public void Interact(PlayerControls player)     //Spelar upp en animation medan spelaren drar i en spak för att öppna en dörr
+    public void Interact(PlayerInteractions player)     //Spelar upp en animation medan spelaren drar i en spak för att öppna en dörr
     {
         playerToMove = player;
         StartCoroutine("MovePlayerToInteract");
         player.InteractTime = 5.13f;
         anim.SetTrigger("LeverPull");
-        playerToMove.Anim.SetTrigger("PullLever");
+        //playerToMove.Anim.SetTrigger("PullLever");
         StartCoroutine("OpenSesame");
     }
 

@@ -12,6 +12,8 @@ public enum EquipableType       //Indikerar vilken typ av föremål något är s
 
 public class InventoryManager : MonoBehaviour
 {
+    #region Non-Serialized Variables
+
     GameObject inventoryMenu, upgradeOptions, equipButton, upgradeButton, favoriteButton, applyUpgradeButton, closeUpgradesButton;
 
     Image equippedWeaponImage, equippedAbilityImage, currentEquipableImage, currentUpgradeImage;
@@ -19,9 +21,7 @@ public class InventoryManager : MonoBehaviour
     List<GameObject> equippableWeapons, equippableAbilities, consumables, favoriteItems, itemUpgrades;
 
     List<GameObject>[] playerInventory = new List<GameObject>[4];
-
-    PlayerControls player;
-
+    
     InputManager inputManager;
 
     Button[] inventoryButtons = new Button[12];
@@ -43,6 +43,14 @@ public class InventoryManager : MonoBehaviour
     Text equippableName, upgradeName, upgradeInfo;
 
     bool coolingDown = false, itemSelected = false, upgrading = false, equippingFavorite = false, upgradeSelected = false;
+
+    PlayerCombat combat;
+
+    PlayerAbilities abilities;
+
+    #endregion
+
+    #region Properties
 
     public List<GameObject>[] PlayerInventory
     {
@@ -126,15 +134,17 @@ public class InventoryManager : MonoBehaviour
         get { return this.equippedWeaponImage; }
     }
 
+    #endregion
+
+    #region Main Methods
+
     private void Awake()        //Hittar alla objekt relevanta för inventoryt då det skapas. Eftersom spelaren instanssierar inventoryt och det inte ligger i scenen från början kan dessa värden inte serialiseras.
     {
-        if (FindObjectOfType<PlayerControls>().Inventory != null)
-        {
-            Destroy(this);
-        }
+        abilities = GetComponent<PlayerAbilities>();
+        combat = GetComponent<PlayerCombat>();
         menuManager = FindObjectOfType<MenuManager>();
         defaultIcon = Resources.Load<Sprite>("EmptySlot");
-        this.player = FindObjectOfType<PlayerControls>();
+        //this.player = FindObjectOfType<PlayerControls>();
         pM = FindObjectOfType<PauseManager>();
         inputManager = FindObjectOfType<InputManager>();
         playerInventory[0] = new List<GameObject>();
@@ -359,12 +369,14 @@ public class InventoryManager : MonoBehaviour
         if (!coolingDown && (Input.GetKeyDown("r") || Input.GetAxis("Fire2") == -1f))      //Låter spelaren dra och stoppa undan det senast equippade vapnet
         {
             StartCoroutine(MenuCooldown());
-            if (player.CurrentWeapon != null)
-                player.Equip(null);
-            else if (player.LastEquippedWeapon != null)
-                player.Equip(player.LastEquippedWeapon);
+            if (combat.CurrentWeapon != null)
+                combat.EquipWeapon(null);
+            else if (combat.LastEquippedWeapon != null)
+                combat.EquipWeapon(combat.LastEquippedWeapon);
         }
     }
+
+    #endregion
 
     public string[] ReportAvailableUpgrades()
     {
@@ -378,7 +390,7 @@ public class InventoryManager : MonoBehaviour
 
     void UnEquipWeapon()        //Stoppar undan ett vapen
     {
-        player.UnEquipWeapon();
+        combat.UnEquipWeapon();
     }
 
     public string[] ReportFavorites()       //Meddelar SaveManagern vilka föremål som finns bland spelarens favoriter
@@ -395,7 +407,21 @@ public class InventoryManager : MonoBehaviour
     {
         if (playerInventory[3] == null || playerInventory[3].Count <= favoriteIndex || playerInventory[3][favoriteIndex] == null)
             return;
-        player.Equip(playerInventory[3][favoriteIndex]);
+        //player.Equip(playerInventory[3][favoriteIndex]);
+        switch(playerInventory[3][favoriteIndex].GetComponent<BaseEquippableObject>().MyType)
+        {
+            case EquipableType.Weapon:
+                combat.EquipWeapon(playerInventory[3][favoriteIndex]);
+                break;
+
+            case EquipableType.Ability:
+                abilities.EquipAbility(playerInventory[3][favoriteIndex]);
+                break;
+
+            case EquipableType.Consumable:
+
+                break;
+        }
         StartCoroutine(DisplayEquippedFavorite(favoriteIndex));
         if (controllerInput)
             StartCoroutine("HighlightControllerInput");
@@ -642,7 +668,21 @@ public class InventoryManager : MonoBehaviour
         {
             return;
         }
-        player.Equip(playerInventory[displayCollection][collectionIndex]);
+        switch (playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().MyType)
+        {
+            case EquipableType.Weapon:
+                combat.EquipWeapon(playerInventory[displayCollection][collectionIndex]);
+                break;
+
+            case EquipableType.Ability:
+                abilities.EquipAbility(playerInventory[displayCollection][collectionIndex]);
+                break;
+
+            case EquipableType.Consumable:
+                //dont even know
+                break;
+        }
+        //player.Equip(playerInventory[displayCollection][collectionIndex]);
     }
 
     public void AddFavorite()   //Lägger till ett föremål bland spelarens favoriter

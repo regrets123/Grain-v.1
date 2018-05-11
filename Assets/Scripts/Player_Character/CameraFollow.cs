@@ -203,7 +203,7 @@ public class CameraFollow : MonoBehaviour, IPausable
                                 break;
                         }
                         lockOnSprite.transform.position += (Vector3.up * spriteOffset);
-                        playerMovement.ChangeMovement(lockOn);
+                        playerMovement.ChangeMovement("LockOn");
                     }
                 }
             }
@@ -216,7 +216,7 @@ public class CameraFollow : MonoBehaviour, IPausable
             rotX = rot.x;
             rotY = rot.y;
             lockOn = false;
-            playerMovement.ChangeMovement(lockOn);
+            playerMovement.ChangeMovement("Default");
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") != 0f && lockOn)          //Låter spelaren välja vilken fiende kameran ska fokusera på

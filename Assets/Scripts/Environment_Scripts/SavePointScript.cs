@@ -11,10 +11,10 @@ public class SavePointScript : MonoBehaviour, IInteractable
         GetComponent<Renderer>().material = newMat;
     }
 
-    public void Interact(PlayerControls player)         //Sparar spelet då spelaren interagerar med scriptet
+    public void Interact(PlayerInteractions player)         //Sparar spelet då spelaren interagerar med scriptet
     {
-        player.RestoreHealth(1000);
-        player.Stamina = 1000;
+        player.GetComponent<PlayerCombat>().RestoreHealth(1000);
+        player.GetComponent<PlayerMovement>().Stamina = 1000;
         SaveManager saver = FindObjectOfType<SaveManager>();
         saver.SaveGame(this.gameObject);
     }

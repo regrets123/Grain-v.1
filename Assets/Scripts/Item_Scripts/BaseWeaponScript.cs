@@ -126,12 +126,14 @@ public class BaseWeaponScript : BaseEquippableObject
     public IEnumerator AttackCooldown()         //Hindrar vapnet från att attackera under en viss tid efter det attackerat
     {
         this.canAttack = false;
-        if (equipper is PlayerControls)
+        if (equipper is PlayerCombat)
         {
+            /*
             previousMovement = player.CurrentMovementType;
             player.CurrentMovementType = MovementType.Attacking;
             yield return new WaitForSeconds(currentSpeed);
             player.CurrentMovementType = previousMovement;
+            */
         }
         else if (equipper is BaseEnemyScript)
         {
@@ -145,9 +147,13 @@ public class BaseWeaponScript : BaseEquippableObject
             print("nu gick nåt åt helvete");
         }
         this.canAttack = true;
-        if (equipper is PlayerControls)
-            (equipper as PlayerControls).CurrentMovementType = MovementType.Idle;
+        /*
+        if (equipper is PlayerCombat)
+            (equipper as PlayerCombat).CurrentMovementType = MovementType.Idle;
         else
+            (equipper as BaseEnemyScript).CurrentMovementType = MovementType.Idle;
+            */
+            if (equipper is BaseEnemyScript)
             (equipper as BaseEnemyScript).CurrentMovementType = MovementType.Idle;
     }
 

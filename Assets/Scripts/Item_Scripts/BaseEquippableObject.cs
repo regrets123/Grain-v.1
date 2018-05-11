@@ -15,9 +15,13 @@ public class BaseEquippableObject : MonoBehaviour {     //Script som alla förem
     [SerializeField]
     protected EquipableType myType;
 
-    protected PlayerControls player;
-
     protected bool equipped = false;
+
+    protected PlayerCombat combat;
+
+    protected PlayerMovement movement;
+
+    protected PlayerAbilities abilities;
 
     public string ObjectName
     {
@@ -36,6 +40,8 @@ public class BaseEquippableObject : MonoBehaviour {     //Script som alla förem
 
     protected virtual void Start()
     {
-        this.player = FindObjectOfType<PlayerControls>();
+        combat = FindObjectOfType<PlayerCombat>();
+        movement = FindObjectOfType<PlayerMovement>();
+        abilities = FindObjectOfType<PlayerAbilities>();
     }
 }

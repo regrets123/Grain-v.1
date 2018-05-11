@@ -450,7 +450,7 @@ public class PlayerControls : MonoBehaviour, IKillable, IPausable
             {
                 previousMovementType = currentMovementType;
                 currentMovementType = MovementType.Interacting;
-                currentInteractable.Interact(this);
+                //currentInteractable.Interact(this);
                 this.currentInteractable = null;
                 move = Vector3.zero;
                 StartCoroutine("NonMovingInteract");

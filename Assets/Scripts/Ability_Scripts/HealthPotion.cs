@@ -13,6 +13,6 @@ public class HealthPotion : BaseAbilityScript
     public override void UseAbility()
     {
         base.UseAbility();
-        player.RestoreHealth(amount);
+        combat.RestoreHealth(amount);
     }
 }
