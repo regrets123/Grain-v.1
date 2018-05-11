@@ -23,6 +23,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
     [SerializeField]
     float sprintSpeed;
 
+    [SerializeField]
+    float slopeLimit;
+
+    [SerializeField]
+    bool airControl = false;
+
     [Space(10)]
 
     [Header("Stamina")]
@@ -125,6 +131,21 @@ public class PlayerMovement : MonoBehaviour, IPausable
     [SerializeField]
     Slider staminaBar;
 
+    [Space(10)]
+
+    [Header("Physics Material")]
+
+    [Space(5)]
+
+    [SerializeField]
+    PhysicMaterial slipperyMaterial;
+
+    [SerializeField]
+    PhysicMaterial frictionMaterial;
+
+    [SerializeField]
+    PhysicMaterial maxFrictionMaterial;
+
     #endregion
 
     #region Non-Serialized Variables
@@ -153,6 +174,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private PlayerCombat combat;
 
+    private Collider playerCollider;
+
+    private RaycastHit groundHit;
+
     #endregion
 
     #region Properties
@@ -180,6 +205,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Awake()
     {
+        playerCollider = GetComponent<Collider>();
         combat = GetComponent<PlayerCombat>();
         currentMovement = DefaultMovement;
         this.stamina = maxStamina;
@@ -315,23 +341,24 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         rb.drag = (moveAmount > 0 || !isGrounded || jumping) ? 0 : 4;
 
-        //if (onGround)
+        if ((isGrounded || airControl) && !Sliding())
         {
             rb.velocity = velY;
             rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
+
+            Vector3 targetDir = moveDir;
+
+            if (targetDir == Vector3.zero)
+            {
+                targetDir = transform.forward;
+            }
+
+            Quaternion tr = Quaternion.LookRotation(targetDir);
+            Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
+            transform.rotation = targetRotation;
+
             //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
         }
-
-        Vector3 targetDir = moveDir;
-
-        if (targetDir == Vector3.zero)
-        {
-            targetDir = transform.forward;
-        }
-
-        Quaternion tr = Quaternion.LookRotation(targetDir);
-        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
-        transform.rotation = targetRotation;
     }
 
     public void GroundCheck(float d)
@@ -342,10 +369,18 @@ public class PlayerMovement : MonoBehaviour, IPausable
         jumping = !isGrounded;
         if (!jumping && inAir)
         {
-            print(Math.Round(rb.velocity.y, 5));
+            //print(Math.Round(rb.velocity.y, 5));
             if (rb.velocity.y < 0f && rb.velocity.y + safeFallDistance < 0f)
                 combat.TakeDamage((int)-(rb.velocity.y + safeFallDistance), DamageType.Falling);      //Fallskada(?)
         }
+        print(GroundAngle());
+
+        if (!Sliding() && !inAir && moveDir != Vector3.zero)
+            playerCollider.material = frictionMaterial;
+        else if (!Sliding() && !inAir && moveDir == Vector3.zero)
+            playerCollider.material = maxFrictionMaterial;
+        else
+            playerCollider.material = slipperyMaterial;
     }
 
     public bool OnGround()
@@ -354,13 +389,34 @@ public class PlayerMovement : MonoBehaviour, IPausable
         Vector3 dir = Vector3.down;
         float dis = groundDistance + 0.3f;
 
-        RaycastHit hit;
-
-        if (Physics.Raycast(origin, dir, out hit, dis, ignoreLayers))
+        if (Physics.Raycast(origin, dir, out groundHit, dis, ignoreLayers))
         {
             return true;
         }
-
         return false;
+    }
+
+    public bool Sliding()
+    {
+        if (GroundAngle() > slopeLimit)
+        {
+            isGrounded = false;
+            float slideVelocity = (GroundAngle() - slopeLimit) * 2f;
+            slideVelocity = Mathf.Clamp(slideVelocity, 0, 10);
+            rb.velocity = new Vector3(rb.velocity.x, -slideVelocity, rb.velocity.z);
+
+            return true;
+        }
+        else
+        {
+            isGrounded = true;
+            return false;
+        }
+    }
+
+    float GroundAngle()
+    {
+        float groundAngle = Vector3.Angle(groundHit.normal, Vector3.up);
+        return Mathf.Abs(groundAngle);
     }
 }
