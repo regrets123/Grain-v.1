@@ -131,7 +131,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         if (pM == null)
             return;
         pM.Pausables.Add(this);
-        aggroIndicator.SetActive(false);
+        //aggroIndicator.SetActive(false);
     }
 
     void Update()
@@ -196,7 +196,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         else
         {
             int finalDamage = ModifyDamage(incomingDamage, dmgType);
-
             if (finalDamage <= 0)
             {
                 return;
@@ -226,10 +225,10 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
                     break;
             }
             health -= finalDamage;
-            healthBar.value = health;
+            //healthBar.value = health;
             poise -= incomingDamage;
 
-            if (incomingDamage < health && poise < incomingDamage)
+            if (dmgType != DamageType.Falling && incomingDamage < health && poise < incomingDamage)
             {
                 StartCoroutine("Stagger");
             }

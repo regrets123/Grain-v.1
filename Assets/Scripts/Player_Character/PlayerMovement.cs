@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 /*By Björn Andersson && Andreas Nilsson*/
 
@@ -17,10 +18,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
     float moveSpeed;
 
     [SerializeField]
-    float sprintSpeed;
+    int rotspeed;
 
     [SerializeField]
-    int rotspeed;
+    float sprintSpeed;
 
     [Space(10)]
 
@@ -134,7 +135,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Animator anim;
 
-    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f;
+    private float stamina, delta, h, v, moveAmount, groundDistance = 0.2f;
 
     private Transform cam;
 
@@ -144,11 +145,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false, isSprinting = false;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false;
 
-    Movement currentMovement;
+    private Movement currentMovement;
 
-    LayerMask ignoreLayers;
+    private LayerMask ignoreLayers;
+
+    private PlayerCombat combat;
 
     #endregion
 
@@ -177,6 +180,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Awake()
     {
+        combat = GetComponent<PlayerCombat>();
         currentMovement = DefaultMovement;
         this.stamina = maxStamina;
         cam = FindObjectOfType<Camera>().transform;
@@ -204,17 +208,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (!paused)
         {
             currentMovement();
-
-        }
-    }
-
-    void LateUpdate()
-    {
-        //currentMovement();
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            Jump(superJump);
         }
     }
 
@@ -222,11 +215,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
-
-        if (Input.GetButton("Sprint"))
-            isSprinting = true;
-        else
-            isSprinting = false;
+        if (Input.GetButtonDown("Jump"))
+        {
+            jump = true;
+        }
     }
 
     #endregion
@@ -236,19 +228,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
     public void ChangeMovement(bool combat)
     {
         if (combat)
-        {
             currentMovement = LockOnMovement;
-            anim.SetLayerWeight(2, 1);
-            moveSpeed = 5f;
-        }
         else
-        {
             currentMovement = DefaultMovement;
-            anim.SetLayerWeight(2, 0);
-            moveSpeed = 10f;
-        }
-
-        print(currentMovement.Method);
     }
 
     public void PauseMe(bool pausing)
@@ -275,75 +257,33 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         anim.SetFloat("Speed", moveAmount);
 
-        MovePlayer(moveSpeed, isSprinting);
-
-        Vector3 targetDir = moveDir;
-
-        if (targetDir == Vector3.zero)
-        {
-            targetDir = transform.forward;
-        }
-
-        Quaternion tr = Quaternion.LookRotation(targetDir);
-        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
-        transform.rotation = targetRotation;
+        MovePlayer(moveSpeed);
+        if (jump)
+            Jump(superJump);
+        jump = false;
     }
 
-    void LockOnMovement()
+    IEnumerator JumpEnumerator(float verticalSpeed)
     {
-        camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
-
-        Vector3 vertical = v * camForward;
-        Vector3 horizontal = h * cam.right;
-
-        moveDir = (vertical + horizontal).normalized;
-
-        float _moveAmount = Mathf.Clamp(v, -1f, 1f);
-        float _direction = Mathf.Clamp(h, -1f, 1f);
-        moveAmount = _moveAmount;
-        direction = _direction;
-
-        MovePlayer(moveSpeed, isSprinting);
-
-        anim.SetFloat("SpeedX", direction);
-        anim.SetFloat("SpeedZ", moveAmount);
-
-        transform.LookAt(camFollow.LookAtMe.transform);
-        transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
-
-        //Vector3 targetDir = camForward;
-
-        //if (targetDir == Vector3.zero)
-        //{
-        //    targetDir = transform.forward;
-        //}
-
-        //Quaternion tr = Quaternion.LookRotation(targetDir);
-        //Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
-        //transform.rotation = targetRotation;
+        float startTime = Time.time;
+        float force = verticalSpeed;
+        while (Time.time < startTime + jumpTime)
+        {
+            transform.Translate(Vector3.up * force);
+            force -= Time.deltaTime;
+            Vector3 origin = transform.position + (Vector3.up * groundDistance);
+            RaycastHit hit;
+            float dis = groundDistance + 0.2f;
+            if (force < 0f || Physics.Raycast(origin, Vector3.up, out hit, dis, ignoreLayers))
+                break;
+            yield return new WaitForFixedUpdate();
+        }
     }
 
-    //IEnumerator JumpEnumerator(float verticalSpeed)
-    //{
-    //    float startTime = Time.time;
-    //    float force = verticalSpeed;
-    //    while (Time.time < startTime + jumpTime)
-    //    {
-    //        transform.Translate(Vector3.up * force);
-    //        force -= Time.deltaTime;
-    //        Vector3 origin = transform.position + (Vector3.up * groundDistance);
-    //        RaycastHit hit;
-    //        float dis = groundDistance + 0.2f;
-    //        if (force < 0f || Physics.Raycast(origin, Vector3.up, out hit, dis, ignoreLayers))
-    //            break;
-    //        yield return new WaitForFixedUpdate();
-    //    }
-    //}
+    void LockOnMovement()          //Den metod som används för att röra spelaren när denne låst kameran på en fiende
+    {
 
-    //void LockOnMovement()          //Den metod som används för att röra spelaren när denne låst kameran på en fiende
-    //{
-
-    //}
+    }
 
     void Jump(bool superJump)
     {
@@ -368,51 +308,51 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     #endregion
 
-    public void MovePlayer(float velocity, bool isSprinting)
+    public void MovePlayer(float velocity)
     {
-        if (isSprinting && !camFollow.LockOn)
-            velocity = sprintSpeed;
-        else
-            velocity = moveSpeed;
-
         Vector3 velY = transform.forward * velocity * moveAmount;
         velY.y = rb.velocity.y;
 
-        Vector3 velX = transform.right * velocity * direction;
-        velX.x = rb.velocity.x;
-
         rb.drag = (moveAmount > 0 || !isGrounded || jumping) ? 0 : 4;
 
-        if (isGrounded)
+        //if (onGround)
         {
-            if (camFollow.LockOn)
-            {
-                Vector3 strafeVelocity = (transform.TransformDirection((new Vector3(h, 0, v)) * (velocity > 0 ? velocity : 1f)));
-                strafeVelocity.y = rb.velocity.y;
-                rb.velocity = Vector3.Lerp(rb.velocity, strafeVelocity, 20f * Time.deltaTime);
-            }
-            else
-            {
-                rb.velocity = velY;
-                rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
-                //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
-            }
+            rb.velocity = velY;
+            rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
+            //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
         }
+
+        Vector3 targetDir = moveDir;
+
+        if (targetDir == Vector3.zero)
+        {
+            targetDir = transform.forward;
+        }
+
+        Quaternion tr = Quaternion.LookRotation(targetDir);
+        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
+        transform.rotation = targetRotation;
     }
 
     public void GroundCheck(float d)
     {
         delta = d;
-
+        bool inAir = jumping;
         isGrounded = OnGround();
         jumping = !isGrounded;
+        if (!jumping && inAir)
+        {
+            print(Math.Round(rb.velocity.y, 5));
+            if (rb.velocity.y < 0f && rb.velocity.y + safeFallDistance < 0f)
+                combat.TakeDamage((int)-(rb.velocity.y + safeFallDistance), DamageType.Falling);      //Fallskada(?)
+        }
     }
 
     public bool OnGround()
     {
         Vector3 origin = transform.position + (Vector3.up * groundDistance);
         Vector3 dir = Vector3.down;
-        float dis = groundDistance + 0.1f;
+        float dis = groundDistance + 0.3f;
 
         RaycastHit hit;
 
@@ -423,6 +363,4 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         return false;
     }
-
-
 }
