@@ -12,22 +12,23 @@ public class MagicDash : BaseAbilityScript
     public override void UseAbility()    //Activated from the BaseAbility script. If the player have enough stamina the ability will activate and drain the staminaCost
     {
             base.UseAbility();
-            player.Anim.SetTrigger("Dash");
+            //player.Anim.SetTrigger("Dash");
             StartCoroutine("Dash");
     }
 
     protected override void Update()
     {
-        if ((player.CurrentMovementType == MovementType.Idle
+        if (/*(player.CurrentMovementType == MovementType.Idle
            || player.CurrentMovementType == MovementType.Sprinting //Låter spelaren använda abilities när den inte attackerar, dodgar eller liknande
            || player.CurrentMovementType == MovementType.Walking
            || player.CurrentMovementType == MovementType.Jumping)
-           && Input.GetButtonDown("Ability")
-           && !coolingDown && !player.Dead)
+           && */Input.GetButtonDown("Ability")
+           && !coolingDown && !combat.Dead)
         {
-            if (player.Stamina >= abilityCost)      //Gör så att MagicDash drar stamina istället för lifeforce
+            if (movement.Stamina >= abilityCost)      //Gör så att MagicDash drar stamina istället för lifeforce
             {
-                player.StaminaBar.value = player.Stamina;
+                //player.StaminaBar.value = player.Stamina;
+                movement.Stamina -= abilityCost;
                 UseAbility();
             }
         }
@@ -36,8 +37,10 @@ public class MagicDash : BaseAbilityScript
 
     IEnumerator Dash()    //Enumerator smooths out the dash so it doesn't happen instantaneously
     {
-        player.CurrentMovementType = MovementType.Dashing;
+        //player.CurrentMovementType = MovementType.Dashing;
+        movement.ChangeMovement("Dash");
         yield return new WaitForSeconds(duration);
-        player.CurrentMovementType = MovementType.Running;
+        movement.ChangeMovement("Default");
+        //player.CurrentMovementType = MovementType.Running;
     }
 }

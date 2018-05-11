@@ -6,7 +6,7 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    void Interact(PlayerControls player);
+    void Interact(PlayerInteractions player);
 }
 
 public class PickUpable : MonoBehaviour, IInteractable
@@ -14,10 +14,10 @@ public class PickUpable : MonoBehaviour, IInteractable
     [SerializeField]
     GameObject item;
 
-    public void Interact(PlayerControls player)     //Låter spelaren plocka upp ett föremål och lägga det i inventoryt
+    public void Interact(PlayerInteractions player)     //Låter spelaren plocka upp ett föremål och lägga det i inventoryt
     {
         player.InteractTime = 2f;
-        player.Anim.SetTrigger("PickUp");
+        //player.Anim.SetTrigger("PickUp");
         StartCoroutine("DetachItem");
         player.Inventory.NewEquippable(item);
         Destroy(this.gameObject, 2);

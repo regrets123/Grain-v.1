@@ -113,6 +113,27 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         get { return dead; }
     }
 
+    public BaseWeaponScript CurrentWeapon
+    {
+        get { return this.currentWeapon; }
+    }
+
+    public GameObject LastEquippedWeapon
+    {
+        get { return this.lastEquippedWeapon; }
+    }
+
+    public int Health
+    {
+        get { return this.health; }
+        set { this.health = value; this.healthBar.value = health; }
+    }
+
+    public Slider HealthBar
+    {
+        get { return this.healthBar; }
+    }
+
     #endregion
 
     #region Main Methods
@@ -121,7 +142,8 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         movement = GetComponent<PlayerMovement>();
         health = maxHealth;
-        //Find healthBar
+        healthBar = GameObject.Find("HealthSlider").GetComponent<Slider>();
+        aggroIndicator = GameObject.Find("CombatIndicator");
         if (healthBar != null)
         {
             healthBar.maxValue = maxHealth;
@@ -131,7 +153,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         if (pM == null)
             return;
         pM.Pausables.Add(this);
-        //aggroIndicator.SetActive(false);
+        aggroIndicator.SetActive(false);
     }
 
     void Update()
