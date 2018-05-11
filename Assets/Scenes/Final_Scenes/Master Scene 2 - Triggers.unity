@@ -151,7 +151,7 @@ MonoBehaviour:
   loadNames:
   - Scene 2 - Canyon
   unloadNames:
-  - Scene 1 - Start Area & Canyon
+  - Scene 1 - Start Area and Canyon
 --- !u!23 &19359394
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1676,7 +1676,7 @@ MonoBehaviour:
   - Scene 12 - Bridge To Bossroom
   unloadNames:
   - Scene 8 - Temple Interior Great Hall Backroom
-  - Scene 7&8 - Temple Interior Props
+  - Scene 7 and 8 - Temple Interior Props
 --- !u!23 &306495275
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4377,7 +4377,7 @@ GameObject:
   - component: {fileID: 1034339507}
   - component: {fileID: 1034339506}
   m_Layer: 0
-  m_Name: Load/Unload Scene 3/1&2 Bridge
+  m_Name: Load/Unload Scene 3/1 and 2 Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5849,7 +5849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadNames:
   - Scene 7 - Temple Interior Great Hall
-  - Scene 7&8 - Temple Interior Props
+  - Scene 7 and 8 - Temple Interior Props
   unloadNames:
   - Scene 3 - Desert Mountains 1
 --- !u!23 &1382856666
@@ -6413,7 +6413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadNames:
-  - Scene 1 - Start Area & Canyon
+  - Scene 1 - Start Area and Canyon
   unloadNames:
   - Scene 2 - Canyon
 --- !u!1 &1539750570
@@ -7193,7 +7193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadNames:
   - Scene 8 - Temple Interior Great Hall Backroom
-  - Scene 7&8 - Temple Interior Props
+  - Scene 7 and 8 - Temple Interior Props
   - Scene 11 - Temple Interior Lower Storage Hall 2
   unloadNames: []
 --- !u!23 &1830856173
@@ -7570,7 +7570,7 @@ GameObject:
   - component: {fileID: 1872567481}
   - component: {fileID: 1872567480}
   m_Layer: 0
-  m_Name: Load/Unload Scene 1&2 Bridge/3
+  m_Name: Load/Unload Scene 1 and 2 Bridge/3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

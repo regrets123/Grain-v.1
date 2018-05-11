@@ -2061,7 +2061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3897059, g: 0.02865485, b: 0.02865485, a: 1}
+  m_Color: {r: 0.83137256, g: 0.11764706, b: 0.8901961, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2211,6 +2211,7 @@ MonoBehaviour:
   bossNameText: {fileID: 114123366886945098}
   blackHole: {fileID: 1401129260235364, guid: a7990bad0e2c06e4db19a9071c70dabf, type: 2}
   vortexPos: {fileID: 4979368194083258}
+  myDrop: {fileID: 0}
 --- !u!114 &114189599433057948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2289,7 +2290,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: f90d2507e89a0584ea6daf857dfefaa1, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

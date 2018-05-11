@@ -1,28 +1,28 @@
 fileFormatVersion: 2
-guid: 346075405d1ef33439b785bc00295ae3
-timeCreated: 1523973254
+guid: 84aeba4a26d6058479d5c0da29d51903
+timeCreated: 1525854529
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Mesh_InnerTempleDoorWay_SF
-    100004: Mesh_L_InnerTempleDoor_SF
-    100006: Mesh_R_InnerTempleDoor_SF
+    100002: Mesh_InnerTempleGateWay_SF
+    100004: Mesh_L_InnerTempleGateDoor_SF
+    100006: Mesh_R_InnerTempleGateDoor_SF
     400000: //RootNode
-    400002: Mesh_InnerTempleDoorWay_SF
-    400004: Mesh_L_InnerTempleDoor_SF
-    400006: Mesh_R_InnerTempleDoor_SF
+    400002: Mesh_InnerTempleGateWay_SF
+    400004: Mesh_L_InnerTempleGateDoor_SF
+    400006: Mesh_R_InnerTempleGateDoor_SF
     2100000: Mat_InnerTempleDoor_SF
-    2300000: Mesh_InnerTempleDoorWay_SF
-    2300002: Mesh_L_InnerTempleDoor_SF
-    2300004: Mesh_R_InnerTempleDoor_SF
-    3300000: Mesh_InnerTempleDoorWay_SF
-    3300002: Mesh_L_InnerTempleDoor_SF
-    3300004: Mesh_R_InnerTempleDoor_SF
-    4300000: Mesh_InnerTempleDoorWay_SF
-    4300002: Mesh_R_InnerTempleDoor_SF
-    4300004: Mesh_L_InnerTempleDoor_SF
+    2300000: Mesh_InnerTempleGateWay_SF
+    2300002: Mesh_L_InnerTempleGateDoor_SF
+    2300004: Mesh_R_InnerTempleGateDoor_SF
+    3300000: Mesh_InnerTempleGateWay_SF
+    3300002: Mesh_L_InnerTempleGateDoor_SF
+    3300004: Mesh_R_InnerTempleGateDoor_SF
+    4300000: Mesh_InnerTempleGateWay_SF
+    4300002: Mesh_R_InnerTempleGateDoor_SF
+    4300004: Mesh_L_InnerTempleGateDoor_SF
   externalObjects: {}
   materials:
     importMaterials: 0
