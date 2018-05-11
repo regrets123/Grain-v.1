@@ -344,8 +344,15 @@ public class PlayerMovement : MonoBehaviour, IPausable
     void DodgeMovement()
     {
         if (dodgeVelocity == null)
-            dodgeVelocity = (transform.forward + new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")) * dodgeSpeed);
-        rb.velocity = (Vector3)dodgeVelocity;
+        {
+            //dodgeVelocity = transform.forward + (new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")) * dodgeSpeed);
+            //print(dodgeVelocity);
+            dodgeVelocity = new Vector3(rb.transform.right.x * Input.GetAxis("Horizontal") * dodgeSpeed, 0f, rb.transform.forward.z * Input.GetAxis("Vertical") * dodgeSpeed);
+            if (dodgeVelocity == Vector3.zero)
+                dodgeVelocity = rb.transform.forward * dodgeSpeed;
+        }
+        rb.AddForce((Vector3)dodgeVelocity, ForceMode.Impulse);
+        //rb.velocity = (Vector3)dodgeVelocity;
     }
 
     void DashMovement()
