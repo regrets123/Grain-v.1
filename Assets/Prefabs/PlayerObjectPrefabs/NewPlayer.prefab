@@ -1347,7 +1347,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!82 &82735600611168594
 AudioSource:
@@ -1706,6 +1706,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031382b1c38f4ff41be0f5e54f799e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxLifeForce: 0
+  abilityCooldown: 0
+  currentRune: {fileID: 0}
+  abilityPos: {fileID: 0}
 --- !u!114 &114724888867740010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1719,7 +1723,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   rotspeed: 20
-  sprintSpeed: 0
+  sprintSpeed: 20
+  slopeLimit: 0
+  airControl: 0
   maxStamina: 0
   staminaRegen: 0
   staminaRegenWait: 0
@@ -1731,7 +1737,7 @@ MonoBehaviour:
   dodgeCooldown: 0
   dodgeLength: 0
   dodgeSpeed: 0
-  safeFallDistance: 0
+  safeFallDistance: 50
   sandSteps: {fileID: 0}
   stoneSteps: {fileID: 0}
   woodSteps: {fileID: 0}
@@ -1742,6 +1748,10 @@ MonoBehaviour:
   landingVolume: 0
   footsteps: {fileID: 0}
   staminaBar: {fileID: 0}
+  slipperyMaterial: {fileID: 13400000, guid: d72f7d1be06c1524c9d016e975e83693, type: 2}
+  frictionMaterial: {fileID: 13400000, guid: 81727822094969342a044ecd61a74311, type: 2}
+  maxFrictionMaterial: {fileID: 13400000, guid: 19253750a822eff4ebb1783f142f17dc,
+    type: 2}
 --- !u!114 &114767139746564528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1778,14 +1788,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753516b48138f6445978b941e7404dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 100
   leechAmount: 0
-  invulerabilityTime: 0
+  invulnerabilityTime: 0
   staggerTime: 0
   maxPoise: 0
   poiseCooldown: 0
   armor: 0
   leechPercentage: 0
+  attackCooldown: 0
   weaponPosition: {fileID: 0}
   swordSheathe: {fileID: 0}
   swordUnsheathe: {fileID: 0}
@@ -1800,7 +1811,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1382263821917424}
-  m_Material: {fileID: 13400000, guid: d72f7d1be06c1524c9d016e975e83693, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3

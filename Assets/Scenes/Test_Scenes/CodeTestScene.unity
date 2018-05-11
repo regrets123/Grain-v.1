@@ -992,21 +992,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114924303129568852, guid: 2ca68d53a812e8b448928230f6b0f646,
-        type: 2}
-      propertyPath: maxHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
-        type: 2}
-      propertyPath: sprintSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
-        type: 2}
-      propertyPath: safeFallDistance
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
   m_IsPrefabParent: 0

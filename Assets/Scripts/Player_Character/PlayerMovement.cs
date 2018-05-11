@@ -220,9 +220,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
         this.stamina = maxStamina;
         cam = FindObjectOfType<Camera>().transform;
         rb = GetComponent<Rigidbody>();
-        staminaBar = GameObject.Find("StaminaSlider").GetComponent<Slider>();
-        staminaBar.maxValue = maxStamina;
-        staminaBar.value = stamina;
+        //staminaBar = GameObject.Find("StaminaSlider").GetComponent<Slider>();
+        //staminaBar.maxValue = maxStamina;
+        //staminaBar.value = stamina;
         FindObjectOfType<PauseManager>().Pausables.Add(this);
         anim = GetComponent<Animator>();
         camFollow = FindObjectOfType<CameraFollow>();
