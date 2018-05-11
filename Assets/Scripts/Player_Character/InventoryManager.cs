@@ -142,12 +142,8 @@ public class InventoryManager : MonoBehaviour
     {
         abilities = GetComponent<PlayerAbilities>();
         combat = GetComponent<PlayerCombat>();
-        if (FindObjectOfType<PlayerControls>().Inventory != null)
-        {
-            Destroy(this);
-        }
-        closeInventoryButton = GameObject.Find("CloseInventoryButton").GetComponent<Button>();
-        closeInventoryButton.onClick.AddListener(HideInventory);
+        //closeInventoryButton = GameObject.Find("CloseInventoryButton").GetComponent<Button>();
+        //closeInventoryButton.onClick.AddListener(HideInventory);
         menuManager = FindObjectOfType<MenuManager>();
         defaultIcon = Resources.Load<Sprite>("EmptySlot");
         //this.player = FindObjectOfType<PlayerControls>();

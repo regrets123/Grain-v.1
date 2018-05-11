@@ -305,19 +305,19 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
             if (nuOfClicks == 1)
             {
-                anim.SetTrigger("LightAttack1");
+               // anim.SetTrigger("LightAttack1");
                 secondsUntilResetClick = 1.5f;
             }
 
             if (nuOfClicks == 2)
             {
-                anim.SetTrigger("LightAttack2");
+               //anim.SetTrigger("LightAttack2");
                 secondsUntilResetClick = 1.5f;
             }
 
             if (nuOfClicks == 3)
             {
-                anim.SetTrigger("LightAttack3");
+                //anim.SetTrigger("LightAttack3");
                 nuOfClicks = 0;
                 attackCooldown = 1f;
                 currentWeapon.CurrentSpeed = 1f;

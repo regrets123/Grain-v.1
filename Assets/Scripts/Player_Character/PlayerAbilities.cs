@@ -63,7 +63,7 @@ public class PlayerAbilities : MonoBehaviour, IPausable {
     }
 
     void Update () {
-		if (Input.GetButtonDown("Ability") && !BaseAbilityScript.CoolingDown && paused)
+		if (Input.GetButtonDown("Ability") && currentAbility != null && !BaseAbilityScript.CoolingDown && paused)
         {
             currentAbility.UseAbility();
         }

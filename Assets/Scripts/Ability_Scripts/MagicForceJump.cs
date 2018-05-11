@@ -18,14 +18,14 @@ public class MagicForceJump : BaseAbilityScript
             //instantiate a magic jump circle
             StartCoroutine("SuperJump");
     }
-    
+    /*
     protected override void Update()
     {
-        if (/*(player.CurrentMovementType == MovementType.Idle
+        if ((player.CurrentMovementType == MovementType.Idle
            || player.CurrentMovementType == MovementType.Sprinting //Låter spelaren använda abilities när den inte attackerar, dodgar eller liknande
            || player.CurrentMovementType == MovementType.Walking
            || player.CurrentMovementType == MovementType.Jumping)
-           && */Input.GetButtonDown("Ability")
+           && Input.GetButtonDown("Ability")
            && !coolingDown && !combat.Dead)
         {
             if (movement.Stamina >= abilityCost)          //Får magicforcejump att dra stamina istället för lifeforce
@@ -34,7 +34,7 @@ public class MagicForceJump : BaseAbilityScript
                 UseAbility();
             }
         }
-    }
+    }*/
 
     IEnumerator SuperJump()
     {   

@@ -131,7 +131,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Rigidbody rb;
 
-    private MovementType currentMovementType = MovementType.Idle;
 
     private Animator anim;
 
@@ -139,7 +138,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Transform cam;
 
-    private Vector3 camForward, moveDir, dodgeVelocity;
+    private Vector3 camForward, moveDir;
 
     private CameraFollow camFollow;
 
@@ -149,19 +148,23 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Movement currentMovement;
 
+    private Movement previousMovement;
+
     private LayerMask ignoreLayers;
 
     private PlayerCombat combat;
 
+    private string currentMovementType = "Default";
+
     //private Vector3? dashDir, dodgeDir;
 
-    private Vector3? dashVelocity;
+    private Vector3? dashVelocity, dodgeVelocity;
 
     #endregion
 
     #region Properties
 
-    public MovementType CurrentMovementType
+    public string CurrentMovementType
     {
         get { return this.currentMovementType; }
     }
@@ -191,6 +194,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         combat = GetComponent<PlayerCombat>();
         currentMovement = DefaultMovement;
+        previousMovement = DefaultMovement;
         this.stamina = maxStamina;
         cam = FindObjectOfType<Camera>().transform;
         rb = GetComponent<Rigidbody>();
@@ -238,22 +242,42 @@ public class PlayerMovement : MonoBehaviour, IPausable
     public void ChangeMovement(string movementType)
     {
         dashVelocity = null;
-        switch(movementType)
+        dodgeVelocity = null;
+        switch (movementType)
         {
+            case "Previous":
+                currentMovement = previousMovement;
+                currentMovementType = currentMovement == DefaultMovement ? "Default" : "LockOn";
+                break;
+
             case "Default":
+                currentMovementType = "Default";
                 currentMovement = DefaultMovement;
+                previousMovement = currentMovement;
                 break;
 
             case "LockOn":
+                currentMovementType = "LockOn";
                 currentMovement = LockOnMovement;
+                previousMovement = currentMovement;
                 break;
 
             case "Dash":
-                currentMovement = DashMovement;
+                if (currentMovement == LockOnMovement || currentMovement == DefaultMovement)
+                {
+                    currentMovementType = "Dash";
+                    previousMovement = currentMovement;
+                    currentMovement = DashMovement;
+                }
                 break;
 
             case "Dodge":
-
+                if (currentMovement == LockOnMovement || currentMovement == DefaultMovement)
+                {
+                    currentMovementType = "Dodge";
+                    previousMovement = currentMovement;
+                    currentMovement = DodgeMovement;
+                }
                 break;
         }
     }
@@ -288,37 +312,14 @@ public class PlayerMovement : MonoBehaviour, IPausable
         jump = false;
     }
 
-    void DashMovement()
+    void DodgeMovement()
     {
-        if (dashVelocity == null)
-        {
-            dashVelocity = transform.forward * 3;
-            rb.AddForce((Vector3)dashVelocity, ForceMode.Force);
-            //rb.velocity.y = 0f;
-            //move += dashVelocity * Time.deltaTime;
-            //dashDir = move;
-        }
-        else
-        {
-            rb.AddForce((Vector3)dashVelocity, ForceMode.Force);
-        }
+
     }
 
-    IEnumerator JumpEnumerator(float verticalSpeed)
+    void DashMovement()
     {
-        float startTime = Time.time;
-        float force = verticalSpeed;
-        while (Time.time < startTime + jumpTime)
-        {
-            transform.Translate(Vector3.up * force);
-            force -= Time.deltaTime;
-            Vector3 origin = transform.position + (Vector3.up * groundDistance);
-            RaycastHit hit;
-            float dis = groundDistance + 0.2f;
-            if (force < 0f || Physics.Raycast(origin, Vector3.up, out hit, dis, ignoreLayers))
-                break;
-            yield return new WaitForFixedUpdate();
-        }
+        rb.velocity = transform.forward * moveSpeed * 3;
     }
 
     void LockOnMovement()          //Den metod som används för att röra spelaren när denne låst kameran på en fiende
@@ -337,8 +338,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
         vel.y = superJump ? superJumpForce : jumpForce;
         rb.velocity = vel;
     }
-
-    #endregion
 
     public void MovePlayer(float velocity)
     {
@@ -364,6 +363,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
         Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
         transform.rotation = targetRotation;
     }
+
+    #endregion
+
+    #region Ground Checks
 
     public void GroundCheck(float d)
     {
@@ -393,4 +396,27 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         return false;
     }
+
+    #endregion
+
+    #region Coroutines
+    
+    IEnumerator JumpEnumerator(float verticalSpeed)
+    {
+        float startTime = Time.time;
+        float force = verticalSpeed;
+        while (Time.time < startTime + jumpTime)
+        {
+            transform.Translate(Vector3.up * force);
+            force -= Time.deltaTime;
+            Vector3 origin = transform.position + (Vector3.up * groundDistance);
+            RaycastHit hit;
+            float dis = groundDistance + 0.2f;
+            if (force < 0f || Physics.Raycast(origin, Vector3.up, out hit, dis, ignoreLayers))
+                break;
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    #endregion
 }

@@ -30,14 +30,14 @@ public class BaseAbilityScript : BaseEquippableObject       //Ett script alla ma
     {
         abilities.StartCoroutine("AbilityCooldown");       //Startar en cooldown när spelaren använder en ability
     }
-
+/*
     protected virtual void Update()
     {
-        if (/*(player.CurrentMovementType == MovementType.Idle
+        if ((player.CurrentMovementType == MovementType.Idle
             || player.CurrentMovementType == MovementType.Sprinting //Låter spelaren använda abilities när den inte attackerar, dodgar eller liknande
             || player.CurrentMovementType == MovementType.Walking
             || player.CurrentMovementType == MovementType.Jumping)
-            && */Input.GetButtonDown("Ability")
+            && Input.GetButtonDown("Ability")
             && !coolingDown && !combat.Dead)
         {
             if (abilities.LifeForce >= abilityCost)    //Drar resurser för att använda abilities
@@ -50,5 +50,5 @@ public class BaseAbilityScript : BaseEquippableObject       //Ett script alla ma
             }
             UseAbility();
         }
-    }
+    }*/
 }
