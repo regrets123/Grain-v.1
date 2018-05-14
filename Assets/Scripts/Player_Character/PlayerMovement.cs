@@ -155,7 +155,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Rigidbody rb;
 
-
     private Animator anim;
 
     private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f, staminaRegenCountdown;
@@ -240,6 +239,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         if (!paused && !interacting)
         {
+            GroundCheck(Time.deltaTime);
             GetInput();
         }
     }
@@ -365,7 +365,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         jump = false;
     }
 
-    void DodgeMovement()
+    void DodgeMovement()        //Metod som används för att få spelaren att göra en rull-dodge
     {
         if (dodgeVelocity == null)
         {
@@ -379,7 +379,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         //rb.velocity = (Vector3)dodgeVelocity;
     }
 
-    void DashMovement()
+    void DashMovement()         //Metod som används för att få spelaren att göra en dash
     {
         rb.velocity = transform.forward * moveSpeed * 3;
     }
@@ -556,7 +556,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         dodgeVelocity = null;
         ChangeMovement("Previous");
     }
-
+    /*
     IEnumerator JumpEnumerator(float verticalSpeed)
     {
         float startTime = Time.time;
@@ -573,7 +573,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
             yield return new WaitForFixedUpdate();
         }
     }
-
+    */
     #endregion
 }
 
