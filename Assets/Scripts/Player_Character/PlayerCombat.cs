@@ -247,7 +247,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
                     break;
             }
             health -= finalDamage;
-            //healthBar.value = health;
+            healthBar.value = health;
             poise -= incomingDamage;
 
             if (dmgType != DamageType.Falling && incomingDamage < health && poise < incomingDamage)

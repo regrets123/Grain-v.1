@@ -152,10 +152,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Rigidbody rb;
 
-
     private Animator anim;
 
-    private float stamina, delta, h, v, moveAmount, groundDistance = 0.2f;
+    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f;
 
     private Transform cam;
 
@@ -235,10 +234,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Update()
     {
-        GroundCheck(Time.deltaTime);
-
         if (!paused && !interacting)
         {
+            GroundCheck(Time.deltaTime);
             GetInput();
         }
     }
@@ -247,6 +245,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         if (!paused && !interacting)
         {
+            GroundCheck(Time.deltaTime);
             currentMovement();
         }
     }
@@ -282,12 +281,16 @@ public class PlayerMovement : MonoBehaviour, IPausable
                 currentMovementType = "Default";
                 currentMovement = DefaultMovement;
                 previousMovement = currentMovement;
+                anim.SetLayerWeight(2, 0);
+                moveSpeed = 10f;
                 break;
 
             case "LockOn":
                 currentMovementType = "LockOn";
                 currentMovement = LockOnMovement;
                 previousMovement = currentMovement;
+                anim.SetLayerWeight(2, 1);
+                moveSpeed = 5f;
                 break;
 
             case "Dash":
@@ -336,12 +339,24 @@ public class PlayerMovement : MonoBehaviour, IPausable
         anim.SetFloat("Speed", moveAmount);
 
         MovePlayer(moveSpeed);
+
+        Vector3 targetDir = moveDir;
+
+        if (targetDir == Vector3.zero)
+        {
+            targetDir = transform.forward;
+        }
+
+        Quaternion tr = Quaternion.LookRotation(targetDir);
+        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
+        transform.rotation = targetRotation;
+
         if (jump)
             Jump(superJump);
         jump = false;
     }
 
-    void DodgeMovement()
+    void DodgeMovement()        //Metod som används för att få spelaren att göra en rull-dodge
     {
         if (dodgeVelocity == null)
         {
@@ -355,14 +370,32 @@ public class PlayerMovement : MonoBehaviour, IPausable
         //rb.velocity = (Vector3)dodgeVelocity;
     }
 
-    void DashMovement()
+    void DashMovement()         //Metod som används för att få spelaren att göra en dash
     {
         rb.velocity = transform.forward * moveSpeed * 3;
     }
 
     void LockOnMovement()          //Den metod som används för att röra spelaren när denne låst kameran på en fiende
     {
+        camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
+        
+        Vector3 vertical = v * camForward;
+        Vector3 horizontal = h * cam.right;
+        
+        moveDir = (vertical + horizontal).normalized;
 
+        float _moveAmount = Mathf.Clamp(v, -1f, 1f);
+        float _direction = Mathf.Clamp(h, -1f, 1f);
+        moveAmount = _moveAmount;
+        direction = _direction;
+        
+        MovePlayer(moveSpeed);
+        
+        anim.SetFloat("SpeedX", direction);
+        anim.SetFloat("SpeedZ", moveAmount);
+        
+        transform.LookAt(camFollow.LookAtMe.transform);
+        transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
     }
 
     void Jump(bool superJump)
@@ -381,25 +414,26 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         Vector3 velY = transform.forward * velocity * moveAmount;
         velY.y = rb.velocity.y;
+        Vector3 velX = transform.right * velocity * direction;
+        velX.x = rb.velocity.x;
 
         rb.drag = (moveAmount > 0 || !isGrounded || jumping) ? 0 : 4;
 
-        if ((isGrounded || airControl) && !Sliding())
+        if (camFollow.LockOn)
         {
-            rb.velocity = velY;
-            rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
+            Vector3 strafeVelocity = (transform.TransformDirection((new Vector3(h, 0, v)) * (velocity > 0 ? velocity : 1f)));
+            strafeVelocity.y = rb.velocity.y;
+            rb.velocity = Vector3.Lerp(rb.velocity, strafeVelocity, 20f * Time.deltaTime);
+        }
+        else
+        {
+            if ((isGrounded || airControl) && !Sliding())
+            {
+                rb.velocity = velY;
+                rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
+            }
         }
 
-        Vector3 targetDir = moveDir;
-
-        if (targetDir == Vector3.zero)
-        {
-            targetDir = transform.forward;
-        }
-
-        Quaternion tr = Quaternion.LookRotation(targetDir);
-        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
-        transform.rotation = targetRotation;
 
         //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
     }
@@ -434,9 +468,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         Vector3 origin = transform.position + (Vector3.up * groundDistance);
         Vector3 dir = Vector3.down;
-        float dis = groundDistance + 0.3f;
+        float dis = groundDistance + 0.5f;
 
-        if (Physics.Raycast(origin, dir, out groundHit, dis, ignoreLayers))
+        if (Physics.SphereCast(origin, ((CapsuleCollider)playerCollider).radius -0.1f, dir, out groundHit, dis, ignoreLayers))
         {
             return true;
         }
@@ -448,9 +482,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (GroundAngle() > slopeLimit)
         {
             isGrounded = false;
-            float slideVelocity = (GroundAngle() - slopeLimit) * 2f;
-            slideVelocity = Mathf.Clamp(slideVelocity, 0, 10);
-            rb.velocity = new Vector3(rb.velocity.x, -slideVelocity, rb.velocity.z);
+            //float slideVelocity = (GroundAngle() - slopeLimit) * 2f;
+            //slideVelocity = Mathf.Clamp(slideVelocity, 0, 10);
+            //rb.velocity = new Vector3(rb.velocity.x, -slideVelocity, rb.velocity.z);
 
             return true;
         }
@@ -464,6 +498,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     float GroundAngle()
     {
         float groundAngle = Vector3.Angle(groundHit.normal, Vector3.up);
+        print(Mathf.Abs(groundAngle));
         return Mathf.Abs(groundAngle);
     }
 
@@ -478,7 +513,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         dodgeVelocity = null;
         ChangeMovement("Previous");
     }
-
+    /*
     IEnumerator JumpEnumerator(float verticalSpeed)
     {
         float startTime = Time.time;
@@ -495,7 +530,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
             yield return new WaitForFixedUpdate();
         }
     }
-
+    */
     #endregion
 }
 
