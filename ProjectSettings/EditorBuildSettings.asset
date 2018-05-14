@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Final_Scenes/MainMenu_JP_Final.unity
     guid: 03eec48463ae22a48a442609e1362fbb
   - enabled: 1
+    path: Assets/Scenes/Final_Scenes/Credits_JP_Final.unity
+    guid: 9d8f5bcba4e5e944b9be484ed2b21a9c
+  - enabled: 1
+    path: Assets/Scenes/Final_Scenes/Desert_Caves_Final.unity
+    guid: 68cc6a2d3540f6740a1228c7c12818bf
+  - enabled: 1
     path: Assets/Scenes/Final_Scenes/Loading_Scene_JP.unity
     guid: d3610b365305e414cab8d114267fce46
   - enabled: 1
@@ -18,16 +24,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Final_Scenes/Master Scene 2 - Triggers.unity
     guid: 47f3a69cafe60fa42be345680bdb65c5
   - enabled: 1
-    path: Assets/Scenes/Final_Scenes/Credits_JP_Final.unity
-    guid: 9d8f5bcba4e5e944b9be484ed2b21a9c
-  - enabled: 1
-    path: Assets/Scenes/Final_Scenes/Desert_Caves_Final.unity
-    guid: 68cc6a2d3540f6740a1228c7c12818bf
-  - enabled: 1
     path: Assets/Scenes/Final_Scenes/Scene 0 - Canyon Terrain.unity
     guid: abeb253a7ff5da647afe310b313d7475
   - enabled: 1
-    path: Assets/Scenes/Final_Scenes/Scene 1 - Start Area & Canyon.unity
+    path: Assets/Scenes/Final_Scenes/Scene 1 - Start Area and Canyon.unity
     guid: 730123eb824ddb64893bbf08eccb4419
   - enabled: 1
     path: Assets/Scenes/Final_Scenes/Scene 1 and 2 Bridge.unity
@@ -78,7 +78,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Final_Scenes/Scene 7 - Temple Interior Great Hall.unity
     guid: 47e131817a71a5b4a9271ee8e237122d
   - enabled: 1
-    path: Assets/Scenes/Final_Scenes/Scene 7&8 - Temple Interior Props.unity
+    path: Assets/Scenes/Final_Scenes/Scene 7 and 8 - Temple Interior Props.unity
     guid: 220d0cba5321a4846b28c4f769c856ab
   - enabled: 1
     path: Assets/Scenes/Final_Scenes/Scene 8 - Temple Interior Great Hall Backroom.unity
@@ -100,6 +100,3 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Final_Scenes/Scene 13 - Bossroom.unity
     guid: d3860d0ad9df07640adeb7a04951bf9b
-  - enabled: 1
-    path: Assets/Scenes/Test_Scenes/CodeTestScene.unity
-    guid: c54f8bbb348256943a02d4a8d113f942
