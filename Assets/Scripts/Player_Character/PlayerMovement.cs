@@ -44,6 +44,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
     [SerializeField]
     float staminaRegenWait;
 
+    [SerializeField]
+    float staminaSprintDrain;
+
     [Space(10)]
 
     [Header("Jump")]
@@ -155,7 +158,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Animator anim;
 
-    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f;
+    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f, staminaRegenCountdown;
 
     private Transform cam;
 
@@ -165,7 +168,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false;
 
     private Movement currentMovement;
 
@@ -224,9 +227,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
         this.stamina = maxStamina;
         cam = FindObjectOfType<Camera>().transform;
         rb = GetComponent<Rigidbody>();
-        //staminaBar = GameObject.Find("StaminaSlider").GetComponent<Slider>();
-        //staminaBar.maxValue = maxStamina;
-        //staminaBar.value = stamina;
+        staminaBar = GameObject.Find("StaminaSlider").GetComponent<Slider>();
+        staminaBar.maxValue = maxStamina;
+        staminaBar.value = stamina;
         FindObjectOfType<PauseManager>().Pausables.Add(this);
         anim = GetComponent<Animator>();
         camFollow = FindObjectOfType<CameraFollow>();
@@ -254,12 +257,18 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
+
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
         }
         else if (Input.GetButtonDown("Dodge"))
             StartCoroutine("Dodge");
+
+        if (Input.GetButton("Sprint") && stamina >= staminaSprintDrain)
+            isSprinting = true;
+                else
+            isSprinting = false;
     }
 
     #endregion
@@ -412,6 +421,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     public void MovePlayer(float velocity)
     {
+        velocity = StaminaHandler(velocity);
+
         Vector3 velY = transform.forward * velocity * moveAmount;
         velY.y = rb.velocity.y;
         Vector3 velX = transform.right * velocity * direction;
@@ -436,6 +447,34 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
 
         //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
+    }
+
+    float StaminaHandler(float velocity)
+    {
+        print("wait" + staminaRegenWait);
+        print("Countdown" + staminaRegenCountdown);
+        if (isSprinting && !camFollow.LockOn)
+        {
+            velocity = sprintSpeed;
+            staminaRegenCountdown = staminaRegenWait;
+            stamina -= staminaSprintDrain * Time.deltaTime;
+            staminaBar.value = stamina;
+        }
+        else
+        {
+            velocity = moveSpeed;
+
+            if (staminaRegenCountdown > 0)
+            {
+                staminaRegenCountdown -= Time.deltaTime;
+            }
+            if (staminaRegenCountdown <= 0)
+            {
+                stamina = Mathf.Clamp(stamina + staminaRegen, 0f, maxStamina);
+                staminaBar.value = stamina;
+            }
+        }
+        return velocity;
     }
 
     #endregion
@@ -498,13 +537,17 @@ public class PlayerMovement : MonoBehaviour, IPausable
     float GroundAngle()
     {
         float groundAngle = Vector3.Angle(groundHit.normal, Vector3.up);
-        print(Mathf.Abs(groundAngle));
         return Mathf.Abs(groundAngle);
     }
 
     #endregion
 
     #region Coroutines
+
+    IEnumerator StaminaWait()
+    {
+        yield return new WaitForSeconds(staminaRegenWait);
+    }
 
     IEnumerator Dodge()
     {

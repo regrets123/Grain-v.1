@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 114133168942152000}
   - component: {fileID: 114724888867740010}
   - component: {fileID: 136651673800343788}
+  - component: {fileID: 114530334131406128}
   m_Layer: 0
   m_Name: NewPlayer
   m_TagString: Player
@@ -1706,10 +1707,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031382b1c38f4ff41be0f5e54f799e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLifeForce: 0
-  abilityCooldown: 0
-  currentRune: {fileID: 0}
+  maxLifeForce: 100
+  abilityCooldown: 2
+  currentRune: {fileID: 212641815548389076}
   abilityPos: {fileID: 0}
+--- !u!114 &114530334131406128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1382263821917424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff66b12d2264ac49807deea48921da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114724888867740010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1724,11 +1736,12 @@ MonoBehaviour:
   moveSpeed: 10
   rotspeed: 20
   sprintSpeed: 20
-  slopeLimit: 0
+  slopeLimit: 45
   airControl: 0
-  maxStamina: 0
-  staminaRegen: 0
-  staminaRegenWait: 0
+  maxStamina: 100
+  staminaRegen: 0.1
+  staminaRegenWait: 2
+  staminaSprintDrain: 5
   jumpForce: 20
   superJumpForce: 40
   jumpCooldown: 0
@@ -1797,7 +1810,7 @@ MonoBehaviour:
   armor: 0
   leechPercentage: 0
   attackCooldown: 0
-  weaponPosition: {fileID: 0}
+  weaponPosition: {fileID: 4478453923885014}
   swordSheathe: {fileID: 0}
   swordUnsheathe: {fileID: 0}
   lightAttack1: {fileID: 0}
