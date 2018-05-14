@@ -9,9 +9,25 @@ using UnityEngine.UI;
 
 public class LoadingManager : MonoBehaviour {
 
-    public Slider progressBar;
-    public GameObject loadingScreen;
-    public Text progressText;
+    [SerializeField]
+    Slider progressBar;
+
+    [SerializeField]
+    GameObject loadingScreen;
+
+    [SerializeField]
+    Text progressText;
+
+    public GameObject LoadingScreen
+    {
+        get { return this.loadingScreen; }
+    }
+
+    public bool Loaded
+    {
+        get;
+        set;
+    }
 
     public void LoadScene (string scene)
     {
@@ -27,15 +43,15 @@ public class LoadingManager : MonoBehaviour {
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
-
+            Loaded = false;
             progressBar.value = progress;
             progressText.text = progress * 100 + "%";
             print(progressBar.value);
             print(progressText.text);
             print(operation.progress);
-
             yield return null;
         }
+        Loaded = true;
     }
 
 }
