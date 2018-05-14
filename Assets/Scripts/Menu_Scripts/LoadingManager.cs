@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/* By Johanna Pettersson
- * Följande kod är lånad från: <https://www.youtube.com/watch?v=YMj2qPq9CP8&t=350s> */
+/* By Johanna Pettersson && Björn Andersson
+ * Delar av följande kod är lånad från: <https://www.youtube.com/watch?v=YMj2qPq9CP8&t=350s> */
 
 public class LoadingManager : MonoBehaviour
 {

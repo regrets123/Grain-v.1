@@ -362,7 +362,7 @@ public class SaveManager : MonoBehaviour
         lM.LoadingScreen.SetActive(false);
     }
 
-    public bool SceneLoaded()
+    bool SceneLoaded()
     {
         return lM.Loaded;
     }
