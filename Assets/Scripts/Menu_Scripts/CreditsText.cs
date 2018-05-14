@@ -54,6 +54,8 @@ public class CreditsText : MonoBehaviour {
         this.gameObject.transform.parent.gameObject.SetActive(false);
         if (isEndScreen)
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             SceneManager.LoadScene(0);
         }
         else if (!isEndScreen)

@@ -284,7 +284,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         {
             case "Previous":
                 currentMovement = previousMovement;
-                currentMovementType = currentMovement == DefaultMovement ? "Default" : "LockOn";
+                ChangeMovement(currentMovement == DefaultMovement ? "Default" : "LockOn");
                 break;
 
             case "Default":
@@ -306,6 +306,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
             case "Dash":
                 if (currentMovement == LockOnMovement || currentMovement == DefaultMovement)
                 {
+                    anim.SetTrigger("Dash");
                     currentMovementType = "Dash";
                     previousMovement = currentMovement;
                     currentMovement = DashMovement;
@@ -315,6 +316,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
             case "Dodge":
                 if (currentMovement == LockOnMovement || currentMovement == DefaultMovement)
                 {
+                    anim.SetTrigger("Dodge");
                     currentMovementType = "Dodge";
                     previousMovement = currentMovement;
                     currentMovement = DodgeMovement;
@@ -346,7 +348,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         moveAmount = (Mathf.Clamp01(m));
 
-        anim.SetFloat("Speed", moveAmount);
+        anim.SetFloat("Speed", rb.velocity.magnitude);
 
         MovePlayer(moveSpeed);
 
@@ -370,14 +372,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         if (dodgeVelocity == null)
         {
-            //dodgeVelocity = transform.forward + (new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")) * dodgeSpeed);
-            //print(dodgeVelocity);
-            dodgeVelocity = new Vector3(rb.transform.right.x * Input.GetAxis("Horizontal") * dodgeSpeed, 0f, rb.transform.forward.z * Input.GetAxis("Vertical") * dodgeSpeed);
+            dodgeVelocity = moveDir;
             if (dodgeVelocity == Vector3.zero)
-                dodgeVelocity = rb.transform.forward * dodgeSpeed;
+                dodgeVelocity = rb.transform.forward * 4;
         }
-        rb.AddForce((Vector3)dodgeVelocity, ForceMode.Impulse);
-        //rb.velocity = (Vector3)dodgeVelocity;
+        rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
     }
 
     void DashMovement()         //Metod som används för att få spelaren att göra en dash
@@ -445,9 +444,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
                 rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
             }
         }
-
-
-        //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
     }
 
     float StaminaHandler(float velocity)
@@ -489,7 +485,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         if (!jumping && inAir && rb.velocity.y < -safeFallDistance)
         {
-            //print(Math.Round(rb.velocity.y, 5));
             if (rb.velocity.y < 0f && rb.velocity.y + safeFallDistance < 0f)
                 combat.TakeDamage((int)-(rb.velocity.y + safeFallDistance), DamageType.Falling);      //Fallskada
         }
@@ -550,24 +545,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         dodgeVelocity = null;
         ChangeMovement("Previous");
     }
-    /*
-    IEnumerator JumpEnumerator(float verticalSpeed)
-    {
-        float startTime = Time.time;
-        float force = verticalSpeed;
-        while (Time.time < startTime + jumpTime)
-        {
-            transform.Translate(Vector3.up * force);
-            force -= Time.deltaTime;
-            Vector3 origin = transform.position + (Vector3.up * groundDistance);
-            RaycastHit hit;
-            float dis = groundDistance + 0.2f;
-            if (force < 0f || Physics.Raycast(origin, Vector3.up, out hit, dis, ignoreLayers))
-                break;
-            yield return new WaitForFixedUpdate();
-        }
-    }
-    */
+
     #endregion
 }
 
