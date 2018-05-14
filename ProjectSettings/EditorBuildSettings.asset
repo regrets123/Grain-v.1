@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Final_Scenes/Scene 0 - Canyon Terrain.unity
     guid: abeb253a7ff5da647afe310b313d7475
   - enabled: 1
-    path: Assets/Scenes/Final_Scenes/Scene 1 - Start Area & Canyon.unity
+    path: Assets/Scenes/Final_Scenes/Scene 1 - Start Area and Canyon.unity
     guid: 730123eb824ddb64893bbf08eccb4419
   - enabled: 1
     path: Assets/Scenes/Final_Scenes/Scene 1 and 2 Bridge.unity
@@ -78,7 +78,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Final_Scenes/Scene 7 - Temple Interior Great Hall.unity
     guid: 47e131817a71a5b4a9271ee8e237122d
   - enabled: 1
-    path: Assets/Scenes/Final_Scenes/Scene 7&8 - Temple Interior Props.unity
+    path: Assets/Scenes/Final_Scenes/Scene 7 and 8 - Temple Interior Props.unity
     guid: 220d0cba5321a4846b28c4f769c856ab
   - enabled: 1
     path: Assets/Scenes/Final_Scenes/Scene 8 - Temple Interior Great Hall Backroom.unity
