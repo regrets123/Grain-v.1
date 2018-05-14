@@ -142,6 +142,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         movement = GetComponent<PlayerMovement>();
         health = maxHealth;
+        anim = GetComponent<Animator>();
         healthBar = GameObject.Find("HealthSlider").GetComponent<Slider>();
         aggroIndicator = GameObject.Find("CombatIndicator");
         if (healthBar != null)
@@ -171,7 +172,11 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
             }
             if (Input.GetButtonDown("Fire1"))
             {
-                LightAttack();
+                if (!attacked)
+                {
+                    LightAttack();
+                    attacked = true;
+                }
             }
         }
 
@@ -305,19 +310,19 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
             if (nuOfClicks == 1)
             {
-               // anim.SetTrigger("LightAttack1");
+                anim.SetTrigger("LightAttack1");
                 secondsUntilResetClick = 1.5f;
             }
 
             if (nuOfClicks == 2)
             {
-               //anim.SetTrigger("LightAttack2");
+                anim.SetTrigger("LightAttack2");
                 secondsUntilResetClick = 1.5f;
             }
 
             if (nuOfClicks == 3)
             {
-                //anim.SetTrigger("LightAttack3");
+                anim.SetTrigger("LightAttack3");
                 nuOfClicks = 0;
                 attackCooldown = 1f;
                 currentWeapon.CurrentSpeed = 1f;
