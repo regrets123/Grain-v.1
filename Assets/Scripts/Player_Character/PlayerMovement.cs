@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     [SerializeField]
     float slopeLimit;
 
+    [Tooltip("SICK AIR BRAH!")]
     [SerializeField]
     bool airControl = false;
 
@@ -451,8 +452,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     float StaminaHandler(float velocity)
     {
-        print("wait" + staminaRegenWait);
-        print("Countdown" + staminaRegenCountdown);
         if (isSprinting && !camFollow.LockOn)
         {
             velocity = sprintSpeed;
@@ -543,11 +542,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
     #endregion
 
     #region Coroutines
-
-    IEnumerator StaminaWait()
-    {
-        yield return new WaitForSeconds(staminaRegenWait);
-    }
 
     IEnumerator Dodge()
     {

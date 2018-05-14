@@ -82,7 +82,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     int health, nuOfClicks = 0;
 
-    bool invulnerable = false, dead = false, canSheathe = true, burning = false, attacked = false, paused = false, fallInvulnerability = false;
+    bool invulnerable = false, dead = false, canSheathe = true, burning = false, attacked = false, paused = false, fallInvulnerability = false, combo1 = false, combo2 = false;
 
     float secondsUntilResetClick, attackCountdown = 0f, interactTime, dashedTime, poiseReset, poise, timeToBurn = 0f;
 
@@ -141,6 +141,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     void Start()
     {
         movement = GetComponent<PlayerMovement>();
+        anim = GetComponent<Animator>();
         health = maxHealth;
         healthBar = GameObject.Find("HealthSlider").GetComponent<Slider>();
         aggroIndicator = GameObject.Find("CombatIndicator");
@@ -303,24 +304,23 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
             nuOfClicks++;
 
-            if (nuOfClicks == 1)
+            if (!combo1 && !combo2)
             {
-               // anim.SetTrigger("LightAttack1");
+                anim.SetTrigger("LightAttack1");
                 secondsUntilResetClick = 1.5f;
             }
-
-            if (nuOfClicks == 2)
+            else if (combo1)
             {
-               //anim.SetTrigger("LightAttack2");
-                secondsUntilResetClick = 1.5f;
+               anim.SetTrigger("LightAttack2");
+                //secondsUntilResetClick = 1.5f;
+
             }
-
-            if (nuOfClicks == 3)
+            else if (combo2)
             {
-                //anim.SetTrigger("LightAttack3");
-                nuOfClicks = 0;
-                attackCooldown = 1f;
-                currentWeapon.CurrentSpeed = 1f;
+                anim.SetTrigger("LightAttack3");
+                //    nuOfClicks = 0;
+                //    attackCooldown = 1f;
+                //    currentWeapon.CurrentSpeed = 1f;
             }
 
             SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
@@ -382,6 +382,11 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         RestoreHealth(Mathf.RoundToInt(floatDmg / 100f) * leechPercentage);
     }
 
+    IEnumerator ComboWindow()
+    {
+        yield return new WaitForSeconds(3);
+    }
+
     int ModifyDamage(int damage, DamageType dmgType)    //Modifies damage depending on armor, resistance etc
     {
         if (dmgType == DamageType.Physical)
@@ -422,6 +427,36 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
         //iM.SetInputMode(InputMode.Paused);
         deathScreen.SetActive(true);
+    }
+
+    void Combo1WindowStart()
+    {
+        combo1 = true;
+        //anim.SetBool("Combo", combo1);
+        StartCoroutine("ComboWindow");
+        combo1 = false;
+        print(combo1);
+    }
+
+    void Combo1WindowEnd()
+    {
+        combo1 = false;
+        print(combo1);
+        //anim.SetBool("Combo", combo1);
+    }
+
+    void Combo2WindowStart()
+    {
+        combo2 = true;
+        StartCoroutine("ComboWindow");
+        combo2 = false;
+        //anim.SetBool("Combo", combo2);
+    }
+
+    void Combo2WindowEnd()
+    {
+        combo2 = false;
+        //anim.SetBool("Combo", combo2);
     }
 
     #endregion
@@ -473,6 +508,8 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         this.currentWeapon = null;
     }
     #endregion
+
+    #region Coroutines
 
     IEnumerator SheathingTimer()                //Spawnar och despawnar vapen efter en viss tid för att matcha med animationer
     {
@@ -530,4 +567,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         timeToBurn = 0f;
         burning = false;
     }
+
+    #endregion
 }
