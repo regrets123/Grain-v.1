@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 /*By Björn Andersson*/
 
+public interface IKillable          //Interface som används av spelaren och alla fiender samt eventuella förstörbara objekt
+{
+    void LightAttack();
+    void HeavyAttack();
+    void TakeDamage(int damage, DamageType dmgType);
+    void Kill();
+}
+
 public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 {
     #region Serialized Variables

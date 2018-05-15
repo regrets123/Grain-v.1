@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ClimbableScript : MonoBehaviour {
 
+    /*
     [SerializeField]
     Transform finalClimbingPosition;
 
@@ -38,4 +39,5 @@ public class ClimbableScript : MonoBehaviour {
         player.StartCoroutine("Climb",  myAnim);
         //player.gameObject.transform.position = finalClimbingPosition.position;
     }
+    */
 }

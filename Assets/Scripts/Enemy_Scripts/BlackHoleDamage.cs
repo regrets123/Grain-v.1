@@ -13,8 +13,8 @@ public class BlackHoleDamage : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            other.GetComponent<PlayerControls>().TakeDamage(blackHoleDamage, DamageType.Physical);      //Får spelaren att ta skada då denne sugs in i det svarta hålet
-            other.gameObject.GetComponent<PlayerControls>().StartCoroutine("Invulnerability");
+            other.GetComponent<PlayerCombat>().TakeDamage(blackHoleDamage, DamageType.Physical);      //Får spelaren att ta skada då denne sugs in i det svarta hålet
+            other.gameObject.GetComponent<PlayerCombat>().StartCoroutine("Invulnerability");
         }
     }
 		
