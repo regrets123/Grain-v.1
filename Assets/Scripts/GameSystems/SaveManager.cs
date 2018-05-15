@@ -59,8 +59,11 @@ public class SaveManager : MonoBehaviour
 
     InputManager inputManager;
 
+    LoadingManager lM;
+
     private void Start()  //Startar spelet på olika sätt beroende på om det är ett nytt eller sparat spel
     {
+        lM = FindObjectOfType<LoadingManager>();
         inputManager = FindObjectOfType<InputManager>();
         currentGame = new XmlDocument();
         player = FindObjectOfType<PlayerControls>();
@@ -346,10 +349,22 @@ public class SaveManager : MonoBehaviour
     void LoadSavedScenes()          //Laddar in sparade scener
     {
         XPathNodeIterator savedScenes = xNav.Select("/SavedState/LoadedScenes/Scene/@Name");
+        StartCoroutine(LoadingScenes(savedScenes));
+    }
+
+    IEnumerator LoadingScenes(XPathNodeIterator savedScenes)
+    {
         foreach (XPathNavigator scene in savedScenes)
         {
-            StartCoroutine(DynamicSceneManager.Instance.Load(scene.Value));
+            lM.LoadScene(scene.Value);
+            yield return new WaitUntil(() => SceneLoaded() == true);
         }
+        lM.LoadingScreen.SetActive(false);
+    }
+
+    bool SceneLoaded()
+    {
+        return lM.Loaded;
     }
 
     void ReskinSavePoints()     //Ger använda checkpoints ett nytt material för att indikera att de använts

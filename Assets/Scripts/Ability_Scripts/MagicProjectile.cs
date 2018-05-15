@@ -6,12 +6,17 @@ using UnityEngine;
 
 public class MagicProjectile : BaseAbilityScript
 {
-    public GameObject magicProjectilePrefab;
-    public Camera cameraPosition;
+    [SerializeField]
+    GameObject magicProjectilePrefab;
+    
+    [SerializeField]
+    Camera cameraPosition;
 
     //A currently public float, 
     //so you can adjust the speed as necessary.
-    public float speed = 20.0f;
+
+    [SerializeField]
+    float speed = 20.0f;
 
     public override void UseAbility()
     {
@@ -19,7 +24,7 @@ public class MagicProjectile : BaseAbilityScript
         //instantiate a magic projectile
         GameObject magicProjectile = Instantiate(magicProjectilePrefab, transform.position, transform.rotation);
 
-
+        abilities.Anim.SetTrigger("");
         //Add a force to the magic going forward form your current position.
         magicProjectile.GetComponent<Rigidbody>().AddForce(magicProjectile.transform.forward * speed, ForceMode.Impulse);
     }

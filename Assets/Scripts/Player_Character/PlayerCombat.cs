@@ -82,7 +82,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     int health, nuOfClicks = 0;
 
-    bool invulnerable = false, dead = false, canSheathe = true, burning = false, attacked = false, paused = false, fallInvulnerability = false;
+    bool invulnerable = false, dead = false, canSheathe = true, burning = false, attacked = false, paused = false, fallInvulnerability = false, combo1 = false, combo2 = false;
 
     float secondsUntilResetClick, attackCountdown = 0f, interactTime, dashedTime, poiseReset, poise, timeToBurn = 0f;
 
@@ -107,6 +107,11 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     #endregion
 
     #region Properties
+
+    public GameObject WeaponToEquip
+    {
+        set { this.weaponToEquip = value; }
+    }
 
     public bool Dead
     {
@@ -141,6 +146,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     void Start()
     {
         movement = GetComponent<PlayerMovement>();
+        anim = GetComponent<Animator>();
         health = maxHealth;
         healthBar = GameObject.Find("HealthSlider").GetComponent<Slider>();
         aggroIndicator = GameObject.Find("CombatIndicator");
@@ -158,7 +164,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void Update()
     {
-        if (!paused && currentWeapon != null && currentWeapon.CanAttack && movement.IsGrounded && this.currentWeapon != null && this.currentWeapon.CanAttack)     //Låter spelaren slåss
+        if (!paused && currentWeapon != null && movement.IsGrounded && this.currentWeapon != null && this.currentWeapon.CanAttack)     //Låter spelaren slåss
                                                                                                                                                                   //&& (currentMovementType == MovementType.Idle || currentMovementType == MovementType.Running || currentMovementType == MovementType.Sprinting || currentMovementType == MovementType.Walking || currentMovementType != MovementType.Stagger))
         {
             if (Input.GetAxisRaw("Fire2") < -0.5 || Input.GetButtonDown("Fire2"))
@@ -178,16 +184,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         if (attacked && (Input.GetAxisRaw("Fire2") > -0.5 || Input.GetAxisRaw("Fire2") < 0.5))
         {
             attacked = false;
-        }
-
-        if (secondsUntilResetClick > 0)
-        {
-            secondsUntilResetClick -= Time.deltaTime;
-        }
-
-        if (attackCountdown > 0)
-        {
-            attackCountdown -= Time.deltaTime;
         }
 
         if (poiseReset > 0)
@@ -285,86 +281,43 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     public void LightAttack()    //Sets the current movement type as attacking and which attack move thats used
     {
-        if (movement.IsGrounded && attackCountdown <= 0f)
+        if (movement.IsGrounded)
         {
-            this.currentWeapon.Attack(1f, false);
-            this.currentWeapon.StartCoroutine("AttackCooldown");
-
-            attackCooldown = 0.5f;
-
-            currentWeapon.CurrentSpeed = 0.5f;
-
-            if (secondsUntilResetClick <= 0)
+            if (!combo1 && !combo2)
             {
-                nuOfClicks = 0;
+                anim.SetTrigger("LightAttack1");
             }
-
-            Mathf.Clamp(nuOfClicks, 0, 3);
-
-            nuOfClicks++;
-
-            if (nuOfClicks == 1)
+            else if (combo1 && !combo2)
             {
-               // anim.SetTrigger("LightAttack1");
-                secondsUntilResetClick = 1.5f;
+                combo1 = false;
+               anim.SetTrigger("LightAttack2");
+
             }
-
-            if (nuOfClicks == 2)
+            else if (!combo1 && combo2)
             {
-               //anim.SetTrigger("LightAttack2");
-                secondsUntilResetClick = 1.5f;
-            }
-
-            if (nuOfClicks == 3)
-            {
-                //anim.SetTrigger("LightAttack3");
-                nuOfClicks = 0;
-                attackCooldown = 1f;
-                currentWeapon.CurrentSpeed = 1f;
+                combo2 = false;
+                anim.SetTrigger("LightAttack3");
             }
 
             SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
-
-            attackCountdown = attackCooldown;
         }
     }
 
     public void HeavyAttack()    //Sets the current movement type as attacking and which attack move thats used
     {
-        if (movement.IsGrounded && attackCountdown <= 0f)
+        if (movement.IsGrounded)
         {
-            //currentMovementType = MovementType.Attacking;
-
-            attackCooldown = 0.5f;
-
-            currentWeapon.CurrentSpeed = 0.5f;
-
-            if (secondsUntilResetClick <= 0)
-            {
-                nuOfClicks = 0;
-            }
-
-            Mathf.Clamp(nuOfClicks, 0, 2);
-
-            nuOfClicks++;
-
-            if (nuOfClicks == 1)
+            if (!combo1)
             {
                 anim.SetTrigger("HeavyAttack1");
-                secondsUntilResetClick = 1.5f;
             }
-
-            if (nuOfClicks == 2 || nuOfClicks == 3)
+            else if (combo1)
             {
+                combo1 = false;
                 anim.SetTrigger("HeavyAttack2");
-                nuOfClicks = 0;
-                attackCooldown = 1f;
             }
+
             SoundManager.instance.RandomizeSfx(heavyAttack1, heavyAttack2);
-
-            attackCountdown = attackCooldown;
-
-            StartCoroutine("HeavyAttackWait");
         }
     }
 
@@ -380,6 +333,11 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         RestoreHealth(((damageDealt / 10) * leechAmount));
         float floatDmg = damageDealt;
         RestoreHealth(Mathf.RoundToInt(floatDmg / 100f) * leechPercentage);
+    }
+
+    IEnumerator ComboWindow()
+    {
+        yield return new WaitForSeconds(3);
     }
 
     int ModifyDamage(int damage, DamageType dmgType)    //Modifies damage depending on armor, resistance etc
@@ -424,6 +382,43 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         deathScreen.SetActive(true);
     }
 
+    void Combo1WindowStart()
+    {
+        combo1 = true;
+        currentWeapon.CanAttack = true;
+        ////anim.SetBool("Combo", combo1);
+        //StartCoroutine("ComboWindow");
+        //combo1 = false;
+    }
+
+    void Combo1WindowEnd()
+    {
+        combo1 = false;
+        //anim.SetBool("Combo", combo1);
+    }
+
+    void Combo2WindowStart()
+    {
+        currentWeapon.CanAttack = true;
+        combo2 = true;
+
+        //StartCoroutine("ComboWindow");
+        //combo2 = false;
+        //anim.SetBool("Combo", combo2);
+    }
+
+    void Combo2WindowEnd()
+    {
+        combo2 = false;
+
+        //anim.SetBool("Combo", combo2);
+    }
+
+    public bool CanAttack()
+    {
+        currentWeapon.CanAttack = false;
+        return currentWeapon.CanAttack;
+    }
     #endregion
 
     public void RestoreHealth(int amount)           //Låter spelaren få tillbaka liv
@@ -433,7 +428,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     }
 
     #region Equipment
-    void SheatheAndUnsheathe()          //Drar och stoppar undan vapen
+    public void SheatheAndUnsheathe()          //Drar och stoppar undan vapen
     {
         if (!dead && canSheathe)
         {
@@ -454,7 +449,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
     }
 
-    public void EquipWeapon(GameObject weaponToEquip)    //Code for equipping different weapons
+    void EquipWeapon(GameObject weaponToEquip)    //Code for equipping different weapons
     {
         if (dead)
             return;
@@ -464,6 +459,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
         this.currentWeapon = Instantiate(weaponToEquip, weaponPosition).GetComponent<BaseWeaponScript>();
         this.currentWeapon.Equipper = this;
+        this.lastEquippedWeapon = weaponToEquip;
         FindObjectOfType<SaveManager>().CheckIfUpgraded(this.currentWeapon);
     }
 
@@ -473,6 +469,8 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         this.currentWeapon = null;
     }
     #endregion
+
+    #region Coroutines
 
     IEnumerator SheathingTimer()                //Spawnar och despawnar vapen efter en viss tid för att matcha med animationer
     {
@@ -530,4 +528,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         timeToBurn = 0f;
         burning = false;
     }
+
+    #endregion
 }

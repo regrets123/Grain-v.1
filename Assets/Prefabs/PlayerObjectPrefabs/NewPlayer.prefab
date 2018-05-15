@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 114133168942152000}
   - component: {fileID: 114724888867740010}
   - component: {fileID: 136651673800343788}
+  - component: {fileID: 114530334131406128}
   m_Layer: 0
   m_Name: NewPlayer
   m_TagString: Player
@@ -596,6 +597,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1679995413499300
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4732350252941752}
+  m_Layer: 0
+  m_Name: AbilityPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1681277126981056
 GameObject:
   m_ObjectHideFlags: 1
@@ -839,6 +855,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4327005740224330}
+  - {fileID: 4732350252941752}
   m_Father: {fileID: 4437745083620030}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1237,6 +1254,19 @@ Transform:
   m_Father: {fileID: 4641024526682632}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4732350252941752
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1679995413499300}
+  m_LocalRotation: {x: -0.48492742, y: 0.5313131, z: -0.53028953, w: 0.4487145}
+  m_LocalPosition: {x: 0.015, y: -0.001, z: -0.318}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4237755524591674}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -187.372, y: -87.983, z: 88.10899}
 --- !u!4 &4745474674687134
 Transform:
   m_ObjectHideFlags: 1
@@ -1706,10 +1736,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031382b1c38f4ff41be0f5e54f799e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLifeForce: 0
-  abilityCooldown: 0
-  currentRune: {fileID: 0}
-  abilityPos: {fileID: 0}
+  maxLifeForce: 100
+  abilityCooldown: 2
+  currentRune: {fileID: 212641815548389076}
+  abilityPos: {fileID: 4732350252941752}
+--- !u!114 &114530334131406128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1382263821917424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff66b12d2264ac49807deea48921da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114724888867740010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1724,13 +1765,14 @@ MonoBehaviour:
   moveSpeed: 10
   rotspeed: 20
   sprintSpeed: 20
-  slopeLimit: 0
+  slopeLimit: 45
   airControl: 0
-  maxStamina: 0
-  staminaRegen: 0
-  staminaRegenWait: 0
+  maxStamina: 100
+  staminaRegen: 0.1
+  staminaRegenWait: 2
+  staminaSprintDrain: 5
   jumpForce: 20
-  superJumpForce: 40
+  superJumpForce: 75
   jumpCooldown: 0
   jumpTime: 0
   dodgeCost: 0
@@ -1796,13 +1838,13 @@ MonoBehaviour:
   poiseCooldown: 0
   armor: 0
   leechPercentage: 0
-  attackCooldown: 0
-  weaponPosition: {fileID: 0}
+  attackCooldown: 1
+  weaponPosition: {fileID: 4478453923885014}
   swordSheathe: {fileID: 0}
   swordUnsheathe: {fileID: 0}
-  lightAttack1: {fileID: 0}
-  lightAttack2: {fileID: 0}
-  lightAttack3: {fileID: 0}
+  lightAttack1: {fileID: 8300000, guid: ebda4a0832e0eee4491fb13d19ecf429, type: 3}
+  lightAttack2: {fileID: 8300000, guid: ebda4a0832e0eee4491fb13d19ecf429, type: 3}
+  lightAttack3: {fileID: 8300000, guid: ebda4a0832e0eee4491fb13d19ecf429, type: 3}
   heavyAttack1: {fileID: 0}
   heavyAttack2: {fileID: 0}
 --- !u!136 &136651673800343788

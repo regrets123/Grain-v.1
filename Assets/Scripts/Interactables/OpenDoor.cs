@@ -36,7 +36,7 @@ public class OpenDoor : MonoBehaviour, IInteractable
         StartCoroutine("MovePlayerToInteract");
         player.InteractTime = 5.13f;
         anim.SetTrigger("LeverPull");
-        //playerToMove.Anim.SetTrigger("PullLever");
+        playerToMove.Anim.SetTrigger("PullLever");
         StartCoroutine("OpenSesame");
     }
 

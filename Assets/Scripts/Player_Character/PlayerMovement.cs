@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     [SerializeField]
     float slopeLimit;
 
+    [Tooltip("SICK AIR BRAH!")]
     [SerializeField]
     bool airControl = false;
 
@@ -43,6 +44,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     [SerializeField]
     float staminaRegenWait;
+
+    [SerializeField]
+    float staminaSprintDrain;
 
     [Space(10)]
 
@@ -154,7 +158,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Animator anim;
 
-    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f;
+    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f, staminaRegenCountdown;
 
     private Transform cam;
 
@@ -164,7 +168,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false;
 
     private Movement currentMovement;
 
@@ -210,6 +214,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
         set { this.interacting = value; }
     }
 
+    public Animator Anim
+    {
+        get { return this.anim; }
+    }
+
     #endregion
 
     #region Main Methods
@@ -223,9 +232,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
         this.stamina = maxStamina;
         cam = FindObjectOfType<Camera>().transform;
         rb = GetComponent<Rigidbody>();
-        //staminaBar = GameObject.Find("StaminaSlider").GetComponent<Slider>();
-        //staminaBar.maxValue = maxStamina;
-        //staminaBar.value = stamina;
+        staminaBar = GameObject.Find("StaminaSlider").GetComponent<Slider>();
+        staminaBar.maxValue = maxStamina;
+        staminaBar.value = stamina;
         FindObjectOfType<PauseManager>().Pausables.Add(this);
         anim = GetComponent<Animator>();
         camFollow = FindObjectOfType<CameraFollow>();
@@ -254,12 +263,18 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
+
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
         }
         else if (Input.GetButtonDown("Dodge"))
             StartCoroutine("Dodge");
+
+        if (Input.GetButton("Sprint") && stamina >= staminaSprintDrain)
+            isSprinting = true;
+        else
+            isSprinting = false;
     }
 
     #endregion
@@ -272,9 +287,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
         dodgeVelocity = null;
         switch (movementType)
         {
+            case "None":
+                currentMovement = NoMovement;
+                break;
+
             case "Previous":
                 currentMovement = previousMovement;
-                currentMovementType = currentMovement == DefaultMovement ? "Default" : "LockOn";
+                ChangeMovement(currentMovement == DefaultMovement ? "Default" : "LockOn");
                 break;
 
             case "Default":
@@ -296,6 +315,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
             case "Dash":
                 if (currentMovement == LockOnMovement || currentMovement == DefaultMovement)
                 {
+                    anim.SetTrigger("Dash");
                     currentMovementType = "Dash";
                     previousMovement = currentMovement;
                     currentMovement = DashMovement;
@@ -305,6 +325,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
             case "Dodge":
                 if (currentMovement == LockOnMovement || currentMovement == DefaultMovement)
                 {
+                    anim.SetTrigger("Dodge");
                     currentMovementType = "Dodge";
                     previousMovement = currentMovement;
                     currentMovement = DodgeMovement;
@@ -336,7 +357,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         moveAmount = (Mathf.Clamp01(m));
 
-        anim.SetFloat("Speed", moveAmount);
+        anim.SetFloat("Speed", rb.velocity.magnitude);
 
         MovePlayer(moveSpeed);
 
@@ -360,14 +381,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         if (dodgeVelocity == null)
         {
-            //dodgeVelocity = transform.forward + (new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")) * dodgeSpeed);
-            //print(dodgeVelocity);
-            dodgeVelocity = new Vector3(rb.transform.right.x * Input.GetAxis("Horizontal") * dodgeSpeed, 0f, rb.transform.forward.z * Input.GetAxis("Vertical") * dodgeSpeed);
+            dodgeVelocity = moveDir;
             if (dodgeVelocity == Vector3.zero)
-                dodgeVelocity = rb.transform.forward * dodgeSpeed;
+                dodgeVelocity = rb.transform.forward * 4;
         }
-        rb.AddForce((Vector3)dodgeVelocity, ForceMode.Impulse);
-        //rb.velocity = (Vector3)dodgeVelocity;
+        rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
     }
 
     void DashMovement()         //Metod som används för att få spelaren att göra en dash
@@ -375,43 +393,52 @@ public class PlayerMovement : MonoBehaviour, IPausable
         rb.velocity = transform.forward * moveSpeed * 3;
     }
 
+    void NoMovement()
+    {
+        return;
+    }
+
     void LockOnMovement()          //Den metod som används för att röra spelaren när denne låst kameran på en fiende
     {
         camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
-        
+
         Vector3 vertical = v * camForward;
         Vector3 horizontal = h * cam.right;
-        
+
         moveDir = (vertical + horizontal).normalized;
 
         float _moveAmount = Mathf.Clamp(v, -1f, 1f);
         float _direction = Mathf.Clamp(h, -1f, 1f);
         moveAmount = _moveAmount;
         direction = _direction;
-        
+
         MovePlayer(moveSpeed);
-        
+
         anim.SetFloat("SpeedX", direction);
         anim.SetFloat("SpeedZ", moveAmount);
-        
+
         transform.LookAt(camFollow.LookAtMe.transform);
         transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
     }
 
-    void Jump(bool superJump)
+    public void Jump(bool superJump)
     {
-        if (!isGrounded)
+        if (!isGrounded || !OnGround())
             return;
 
         jumping = true;
-        anim.SetTrigger("Jump");
+        if (!superJump)
+            anim.SetTrigger("Jump");
         Vector3 vel = rb.velocity;
         vel.y = superJump ? superJumpForce : jumpForce;
         rb.velocity = vel;
+        superJump = false;
     }
 
     public void MovePlayer(float velocity)
     {
+        velocity = StaminaHandler(velocity);
+
         Vector3 velY = transform.forward * velocity * moveAmount;
         velY.y = rb.velocity.y;
         Vector3 velX = transform.right * velocity * direction;
@@ -433,9 +460,32 @@ public class PlayerMovement : MonoBehaviour, IPausable
                 rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
             }
         }
+    }
 
+    float StaminaHandler(float velocity)
+    {
+        if (isSprinting && !camFollow.LockOn)
+        {
+            velocity = sprintSpeed;
+            staminaRegenCountdown = staminaRegenWait;
+            stamina -= staminaSprintDrain * Time.deltaTime;
+            staminaBar.value = stamina;
+        }
+        else
+        {
+            velocity = moveSpeed;
 
-        //rb.velocity = new Vector3(moveDir.x * (moveSpeed * moveAmount * delta), rb.velocity.y, moveDir.z * (moveSpeed * moveAmount * delta));
+            if (staminaRegenCountdown > 0)
+            {
+                staminaRegenCountdown -= Time.deltaTime;
+            }
+            if (staminaRegenCountdown <= 0)
+            {
+                stamina = Mathf.Clamp(stamina + staminaRegen, 0f, maxStamina);
+                staminaBar.value = stamina;
+            }
+        }
+        return velocity;
     }
 
     #endregion
@@ -446,12 +496,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         delta = d;
         bool inAir = jumping;
+        anim.SetBool("Falling", inAir);
         isGrounded = OnGround();
         jumping = !isGrounded;
 
         if (!jumping && inAir && rb.velocity.y < -safeFallDistance)
         {
-            //print(Math.Round(rb.velocity.y, 5));
+            anim.SetTrigger("Landing");
             if (rb.velocity.y < 0f && rb.velocity.y + safeFallDistance < 0f)
                 combat.TakeDamage((int)-(rb.velocity.y + safeFallDistance), DamageType.Falling);      //Fallskada
         }
@@ -470,7 +521,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         Vector3 dir = Vector3.down;
         float dis = groundDistance + 0.5f;
 
-        if (Physics.SphereCast(origin, ((CapsuleCollider)playerCollider).radius -0.1f, dir, out groundHit, dis, ignoreLayers))
+        if (Physics.SphereCast(origin, ((CapsuleCollider)playerCollider).radius - 0.1f, dir, out groundHit, dis, ignoreLayers))
         {
             return true;
         }
@@ -498,7 +549,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
     float GroundAngle()
     {
         float groundAngle = Vector3.Angle(groundHit.normal, Vector3.up);
-        print(Mathf.Abs(groundAngle));
         return Mathf.Abs(groundAngle);
     }
 
@@ -513,24 +563,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         dodgeVelocity = null;
         ChangeMovement("Previous");
     }
-    /*
-    IEnumerator JumpEnumerator(float verticalSpeed)
-    {
-        float startTime = Time.time;
-        float force = verticalSpeed;
-        while (Time.time < startTime + jumpTime)
-        {
-            transform.Translate(Vector3.up * force);
-            force -= Time.deltaTime;
-            Vector3 origin = transform.position + (Vector3.up * groundDistance);
-            RaycastHit hit;
-            float dis = groundDistance + 0.2f;
-            if (force < 0f || Physics.Raycast(origin, Vector3.up, out hit, dis, ignoreLayers))
-                break;
-            yield return new WaitForFixedUpdate();
-        }
-    }
-    */
+
     #endregion
 }
 
