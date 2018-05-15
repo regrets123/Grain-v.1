@@ -2,8 +2,8 @@
 <SavedState>
   <PlayerInfo>
     <Transform>
-      <Position X="" Y="" Z=""/>
-      <Rotation X="" Y="" Z="" W=""/>
+      <Position X="98.68" Y="221.71" Z="118.4"/>
+      <Rotation X="0" Y="50.685" Z="0" W="0.1551"/>
     </Transform>
     <Inventory>
       <Upgrades>
@@ -16,8 +16,8 @@
     <Resources HP ="" Stamina="" LifeForce=""/>
   </PlayerInfo>
   <CameraTransform>
-    <Position X="" Y="" Z=""/>
-    <Rotation X="" Y="" Z="" W=""/>
+    <Position X="95.73" Y="224.97" Z="118.4"/>
+    <Rotation X="30" Y="45" Z="0" W="0.1519"/>
   </CameraTransform>
   <UsedSavePoints>
   </UsedSavePoints>

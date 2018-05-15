@@ -22,7 +22,7 @@ public class HoundAI : BaseEnemyScript
         weapon2.GetComponent<BaseWeaponScript>().GetComponent<Collider>().enabled = false;
     }
 
-    protected override void Aggro(PlayerControls newTarget)
+    protected override void Aggro(PlayerCombat newTarget)
     {
         StartCoroutine(AggroHowl(newTarget));       //Fryser Hound och får den att yla då den upptäcker spelaren innan den blir aggressiv
     }
@@ -76,7 +76,7 @@ public class HoundAI : BaseEnemyScript
             nav.destination = target.gameObject.transform.position;
         }
     }
-    IEnumerator AggroHowl(PlayerControls newTarget)     //Hound ylar innan den blir aggressiv mot spelaren
+    IEnumerator AggroHowl(PlayerCombat newTarget)     //Hound ylar innan den blir aggressiv mot spelaren
     {
         transform.LookAt(newTarget.transform);
         transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);

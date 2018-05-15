@@ -50,7 +50,7 @@ public class LoadingManager : MonoBehaviour
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
             Loaded = false;
             progressBar.value = progress;
-            progressText.text = progress * 100 + "%";
+            progressText.text = Mathf.RoundToInt(progress * 100) + "%";
             print(progressBar.value);
             print(progressText.text);
             print(operation.progress);

@@ -38,7 +38,7 @@ public class RaiderAI : BaseEnemyScript
         StartCoroutine("AttackCooldown");
     }
 
-    protected override void Aggro(PlayerControls newTarget)
+    protected override void Aggro(PlayerCombat newTarget)
     {
         base.Aggro(newTarget);
         SoundManager.instance.RandomizeSfx(raiderHowl, raiderHowl);     //Raidern blir aggressiv mot spelaren som alla andra fiender, men gör också ett ljud då detta händer

@@ -8,7 +8,7 @@ public class AntiFallDamageScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerControls player = other.GetComponent<PlayerControls>();
+        PlayerCombat player = other.GetComponent<PlayerCombat>();
         if (player != null)
         {
             player.StartCoroutine("PreventFallDamage");     //Hindrar spelaren från att ta fallskada under en viss tid
