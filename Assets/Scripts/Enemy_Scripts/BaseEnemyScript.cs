@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 /*By Björn Andersson*/
 
+public enum MovementType            //Håller koll på hur spelaren rör sig för tillfället för att tillåta och hindra spelaren att göra vissa saker
+{
+    Idle, Walking, Sprinting, Attacking, Dodging, Dashing, Jumping, Running, Interacting, SuperJumping, Stagger
+}
+
 public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
 {
     #region Serialized Variables
@@ -58,7 +63,7 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
 
     protected PauseManager pM;
 
-    protected PlayerControls target;
+    protected PlayerCombat target;
 
     protected SphereCollider aggroBubble;
 
@@ -70,18 +75,13 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
 
     protected Vector3 initialPos;
 
+    protected MovementType currentMovementType, previousMovementType;
+
     public bool Alive
     {
         get { return this.alive; }
     }
-
-    protected MovementType currentMovementType, previousMovementType;
-
-    public MovementType CurrentMovementType
-    {
-        get { return this.currentMovementType; }
-        set { this.currentMovementType = value; }
-    }
+    
     #endregion
 
     public string UnitName
@@ -220,15 +220,15 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
         if (alive && other.gameObject.tag == "Player")
         {
             if (target == null)
-                Aggro(other.gameObject.GetComponent<PlayerControls>());
-            else if (target == other.gameObject.GetComponent<PlayerControls>())
+                Aggro(other.gameObject.GetComponent<PlayerCombat>());
+            else if (target == other.gameObject.GetComponent<PlayerCombat>())
             {
                 StopCoroutine("LoseAggroTimer");
             }
         }
     }
 
-    protected virtual void Aggro(PlayerControls newTarget)       //Får fienden att bli aggressiv mot spelaren
+    protected virtual void Aggro(PlayerCombat newTarget)       //Får fienden att bli aggressiv mot spelaren
     {
         if (this.initialPos == null)
             this.initialPos = this.transform.position;
@@ -265,7 +265,7 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
                 break;
 
             case DamageType.Leech:
-                FindObjectOfType<PlayerControls>().Leech(damage);
+                FindObjectOfType<PlayerCombat>().Leech(damage);
                 break;
         }
         if (incomingDamage < health && poise < incomingDamage)
@@ -358,10 +358,10 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
         SoundManager.instance.RandomizeSfx(death);
         this.target = null;
         nav.isStopped = true;
-        PlayerControls player = FindObjectOfType<PlayerControls>();
-        if (player.Inventory.EquippableAbilities != null && player.Inventory.EquippableAbilities.Count > 0)
+        PlayerAbilities abilities = FindObjectOfType<PlayerAbilities>();
+        if (abilities.GetComponent<InventoryManager>().EquippableAbilities != null && abilities.GetComponent<InventoryManager>().EquippableAbilities.Count > 0)
         {
-            Instantiate(soul, transform.position, Quaternion.identity).GetComponent<LifeForceTransmitterScript>().StartMe(player, lifeForce, this);
+            Instantiate(soul, transform.position, Quaternion.identity).GetComponent<LifeForceTransmitterScript>().StartMe(abilities, lifeForce, this);
         }
         Destroy(gameObject, 7);
     }

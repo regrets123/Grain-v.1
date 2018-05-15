@@ -36,7 +36,7 @@ public class SaveManager : MonoBehaviour
     int maxSaves;
 
     [SerializeField]
-    GameObject camBase;
+    GameObject camBase, player;
 
     [SerializeField]
     GameObject[] allItems;
@@ -55,7 +55,13 @@ public class SaveManager : MonoBehaviour
 
     XPathNavigator xNav;
 
-    PlayerControls player;
+    PlayerCombat combat;
+
+    PlayerAbilities abilities;
+
+    PlayerMovement movement;
+
+    InventoryManager inventoryManager;
 
     InputManager inputManager;
 
@@ -64,9 +70,12 @@ public class SaveManager : MonoBehaviour
     private void Start()  //Startar spelet på olika sätt beroende på om det är ett nytt eller sparat spel
     {
         lM = FindObjectOfType<LoadingManager>();
-        inputManager = FindObjectOfType<InputManager>();
         currentGame = new XmlDocument();
-        player = FindObjectOfType<PlayerControls>();
+        LoadSavedScenes();
+    }
+
+    private void StartGame()
+    {
         if (File.Exists(Application.dataPath + "/SaveToLoad.xml"))
         {
             LoadGame();
@@ -78,7 +87,6 @@ public class SaveManager : MonoBehaviour
         }
         if (xNav == null)
             xNav = currentGame.CreateNavigator();
-        LoadSavedScenes();
     }
 
     private void Update()           //Temporary AF Fuckers
@@ -186,9 +194,9 @@ public class SaveManager : MonoBehaviour
 
     void SavePlayerResources()      //Sparar spelarens resurser till XML
     {
-        xNav.SelectSingleNode("/SavedState/PlayerInfo/Resources/@Stamina").SetValue(player.Stamina.ToString());
-        xNav.SelectSingleNode("/SavedState/PlayerInfo/Resources/@HP").SetValue(player.Health.ToString());
-        xNav.SelectSingleNode("/SavedState/PlayerInfo/Resources/@LifeForce").SetValue(player.LifeForce.ToString());
+        xNav.SelectSingleNode("/SavedState/PlayerInfo/Resources/@Stamina").SetValue(movement.Stamina.ToString());
+        xNav.SelectSingleNode("/SavedState/PlayerInfo/Resources/@HP").SetValue(combat.Health.ToString());
+        xNav.SelectSingleNode("/SavedState/PlayerInfo/Resources/@LifeForce").SetValue(abilities.LifeForce.ToString());
     }
 
     void SaveCamTransform()         //Sparar kamerans position & rotation till XML
@@ -206,7 +214,7 @@ public class SaveManager : MonoBehaviour
     {
         XPathNodeIterator nodes = xNav.Select("/SavedState/PlayerInfo/Inventory//Item/@Name");
         XPathNavigator inventory = xNav.SelectSingleNode("//Inventory");
-        foreach (string itemName in player.Inventory.ReportItems())
+        foreach (string itemName in inventoryManager.ReportItems())
         {
             if (nodes.Count == 0)
             {
@@ -235,12 +243,12 @@ public class SaveManager : MonoBehaviour
                 allOldFavorites[i].ParentNode.RemoveChild(allOldFavorites[i]);
             }
         }
-        foreach (string favName in player.Inventory.ReportFavorites())
+        foreach (string favName in inventoryManager.ReportFavorites())
         {
             favoritesNode.AppendChild("<Favorite Name =\"" + favName + "\"/>");
         }
         nodes = xNav.Select("/SavedState/PlayerInfo/Inventory//Item/@Name");
-        string[] weaponNames = player.Inventory.ReportWeaponNames();
+        string[] weaponNames = inventoryManager.ReportWeaponNames();
         XPathNavigator upgradesNode = xNav.SelectSingleNode("//AppliedUpgrades");
         //XPathNodeIterator oldAppliedUpgrades = upgradesNode.SelectChildren(XPathNodeType.All);
         XmlNodeList oldAppliedUpgrades = currentGame.SelectNodes("//AppliedUpgrade");
@@ -252,7 +260,7 @@ public class SaveManager : MonoBehaviour
             }
         }
         upgradesNode = xNav.SelectSingleNode("//AppliedUpgrades");
-        string[][] newUpgrades = player.Inventory.ReportWeaponUpgrades();
+        string[][] newUpgrades = inventoryManager.ReportWeaponUpgrades();
         int index = 0;
         foreach (string[] upgradeInfo in newUpgrades)
         {
@@ -278,7 +286,7 @@ public class SaveManager : MonoBehaviour
                 oldAvailableUpgrades[i].ParentNode.RemoveChild(oldAvailableUpgrades[i]);
             }
         }
-        foreach (string upgradeName in player.Inventory.ReportAvailableUpgrades())
+        foreach (string upgradeName in inventoryManager.ReportAvailableUpgrades())
         {
             upgradesNode.AppendChild("<AvailableUpgrade Name=\"" + upgradeName + "\"/>");
         }
@@ -333,8 +341,6 @@ public class SaveManager : MonoBehaviour
         }
         this.currentGame.Load(currentSave.SavePath);
         this.xNav = currentGame.CreateNavigator();
-        MovePlayer();
-        MoveCamera();
         LoadInventory();
         ReskinSavePoints();
         if (File.Exists(Application.dataPath + "/Settings.xml"))
@@ -359,7 +365,18 @@ public class SaveManager : MonoBehaviour
             lM.LoadScene(scene.Value);
             yield return new WaitUntil(() => SceneLoaded() == true);
         }
+        Vector3 newPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@Z").Value));
+        Quaternion newRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@W").Value));
+        Vector3 newCameraPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").Value));
+        Quaternion newCameraRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@W").Value));
+        Instantiate(player, newPos, newRot);
+        Instantiate(camBase, newCameraPos, newCameraRot);
+        abilities = player.GetComponent<PlayerAbilities>();
+        movement = player.GetComponent<PlayerMovement>();
+        combat = player.GetComponent<PlayerCombat>();
+        inventoryManager = player.GetComponent<InventoryManager>();
         lM.LoadingScreen.SetActive(false);
+        StartGame();
     }
 
     bool SceneLoaded()
@@ -388,12 +405,12 @@ public class SaveManager : MonoBehaviour
                 if (node.Value == item.GetComponent<BaseEquippableObject>().ObjectName)
                 {
                     GameObject newItem = Instantiate(item);
-                    player.Inventory.NewEquippable(newItem);
+                    inventoryManager.NewEquippable(newItem);
                     while (favorites.MoveNext())
                     {
                         if (favorites.Current.Value == newItem.GetComponent<BaseEquippableObject>().ObjectName)
                         {
-                            player.Inventory.AddFavorite(newItem);
+                            inventoryManager.AddFavorite(newItem);
                             break;
                         }
                     }
@@ -406,7 +423,7 @@ public class SaveManager : MonoBehaviour
             {
                 if (upgrade.Value == upgradePrefab.GetComponent<BaseEquippableObject>().ObjectName)
                 {
-                    player.Inventory.AddUpgrade(upgradePrefab);
+                    inventoryManager.AddUpgrade(upgradePrefab);
                 }
             }
         }
@@ -439,7 +456,7 @@ public class SaveManager : MonoBehaviour
                 int upgradeLvl = int.Parse(thisUpgrade.GetAttribute("Level", ""));
                 for (int i = 0; i < upgradeLvl; i++)
                 {
-                    player.CurrentWeapon.ApplyUpgrade(newUpgrade);
+                    combat.CurrentWeapon.ApplyUpgrade(newUpgrade);
                 }
                 break;
             }
@@ -469,17 +486,13 @@ public class SaveManager : MonoBehaviour
         SceneManager.LoadScene("Master Scene 1 - Managers");
     }
 
-    void MovePlayer()       //Flyttas spelaren till en sparad position
-    {
-        StartCoroutine("MovePlayerWait");
-    }
 
     void MoveCamera()       //Flyttar kameran till en sparad position
     {
-        Vector3 newPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").Value));
-        Quaternion newRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@W").Value));
-        camBase.transform.position = newPos;
-        camBase.transform.rotation = newRot;
+        Vector3 newCameraPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").Value));
+        Quaternion newCameraRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@W").Value));
+        camBase.transform.position = newCameraPos;
+        camBase.transform.rotation = newCameraRot;
     }
 
     IEnumerator MovePlayerWait() //Flyttar spelaren efter en viss tid för att ge banan tid att ladda in så spelaren inte faller genom marken innan marken existerar

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LifeForceTransmitterScript : MonoBehaviour
 {
-    PlayerControls target;
+    PlayerAbilities target;
 
     int lifeForceAmount;
 
@@ -20,7 +20,7 @@ public class LifeForceTransmitterScript : MonoBehaviour
 
     float speed = 2f;
 
-    public void StartMe(PlayerControls target, int lifeForceAmount, BaseEnemyScript spawner)     //Då det blev problem att hindra scriptet från att ärva från MonoBehaviour och använda en konstruktor agerar denna metod som en improviserad konstruktor
+    public void StartMe(PlayerAbilities target, int lifeForceAmount, BaseEnemyScript spawner)     //Då det blev problem att hindra scriptet från att ärva från MonoBehaviour och använda en konstruktor agerar denna metod som en improviserad konstruktor
     {
         this.startPos = transform.position;
         this.target = target;

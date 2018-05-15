@@ -37,10 +37,10 @@ public class CameraFollow : MonoBehaviour, IPausable
     [SerializeField]
     GameObject cameraObj;
     [SerializeField]
-    GameObject playerObj;
-    [SerializeField]
     GameObject lockOnSpritePrefab;
-    [SerializeField]
+
+    GameObject playerObj;
+
     GameObject cameraFollowObj;
 
     GameObject lockOnSprite;
@@ -88,6 +88,8 @@ public class CameraFollow : MonoBehaviour, IPausable
     void Start()
     {
         playerMovement = FindObjectOfType<PlayerMovement>();
+        playerObj = playerMovement.gameObject;
+        cameraFollowObj = playerMovement.CameraFollowObj;
         pM = FindObjectOfType<PauseManager>();
         pM.Pausables.Add(this);
         Vector3 rot = transform.localRotation.eulerAngles;
