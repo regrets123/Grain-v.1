@@ -417,6 +417,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         Vector3 vel = rb.velocity;
         vel.y = superJump ? superJumpForce : jumpForce;
         rb.velocity = vel;
+        superJump = false;
     }
 
     public void MovePlayer(float velocity)
