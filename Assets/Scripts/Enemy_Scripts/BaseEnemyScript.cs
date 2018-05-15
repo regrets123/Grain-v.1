@@ -77,17 +77,28 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
 
     protected MovementType currentMovementType, previousMovementType;
 
+
+    #endregion
+
+    #region Properties
+
     public bool Alive
     {
         get { return this.alive; }
     }
-    
-    #endregion
+
+    public MovementType CurrentMovementType
+    {
+        get { return this.currentMovementType; }
+        set { this.currentMovementType = value; }
+    }
 
     public string UnitName
     {
         get { return this.unitName; }
     }
+
+    #endregion
 
     #region Main Methods
     protected virtual void Start()      //Hittar alla relevanta saker och instansierar vapen

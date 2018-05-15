@@ -190,6 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSaves: 3
   camBase: {fileID: 87433641}
+  player: {fileID: 0}
   allItems: []
   saveMat: {fileID: 0}
   savePoints: []
@@ -5133,6 +5134,11 @@ Prefab:
       propertyPath: attackCooldown
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
+        type: 2}
+      propertyPath: cameraFollowObj
+      value: 
+      objectReference: {fileID: 2052062236}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
   m_IsPrefabParent: 0

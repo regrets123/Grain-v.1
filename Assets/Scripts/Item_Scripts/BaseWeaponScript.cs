@@ -212,10 +212,10 @@ public class BaseWeaponScript : BaseEquippableObject
     public void OnTriggerEnter(Collider other)
     {
         if ((equipper is BaseEnemyScript && (equipper as BaseEnemyScript).CurrentMovementType == MovementType.Attacking)
-            || (equipper is PlayerControls && (equipper as PlayerControls).CurrentMovementType == MovementType.Attacking))
+            || (equipper is PlayerCombat /* && (equipper as PlayerCombat).CurrentMovementType == MovementType.Attacking*/))
         {
             IKillable targetToHit = other.gameObject.GetComponent<IKillable>();
-            if (targetToHit == null || (equipper is BaseEnemyScript && targetToHit is BaseEnemyScript) || (equipper is PlayerControls && targetToHit is PlayerControls))
+            if (targetToHit == null || (equipper is BaseEnemyScript && targetToHit is BaseEnemyScript) || (equipper is PlayerCombat && targetToHit is PlayerCombat))
             {
                 return;
             }
