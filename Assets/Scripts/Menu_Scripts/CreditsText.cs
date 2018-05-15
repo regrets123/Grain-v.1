@@ -6,17 +6,24 @@ using UnityEngine.SceneManagement;
 
 /*By Johanna Pettersson*/
 
-public class CreditsText : MonoBehaviour {
+public class CreditsText : MonoBehaviour
+{
+    [SerializeField]
+    Image title;
 
-    public Image title;
-    public bool isEndScreen;
-    public GameObject mainMenu;
-    public Canvas canvas;
-    
+    [SerializeField]
+    bool isEndScreen;
+
+    [SerializeField]
+    GameObject mainMenu;
+
+    [SerializeField]
+    Canvas canvas;
+
     RectTransform canvasTransform;
     Vector3 textPosition;
 
-    float scrollTime = 0.5f;
+    private float scrollTime = 0.5f;
 
     private bool timeToScroll;
 
@@ -26,23 +33,22 @@ public class CreditsText : MonoBehaviour {
         textPosition = this.gameObject.transform.position;
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-        if(this.gameObject.activeSelf == true)
+    // Update is called once per frame
+    void Update()
+    {
+        if (this.gameObject.activeSelf == true)
         {
             StartCoroutine(FadeInText(title, 2f));
         }
 
-        if(timeToScroll == true )
+        if (timeToScroll == true)
         {
             this.gameObject.transform.Translate(Vector3.up * scrollTime);
-            if(this.gameObject.transform.position.y >= canvasTransform.rect.height /2 + 200)
+            if (this.gameObject.transform.position.y >= canvasTransform.rect.height / 2 + 200)
             {
                 Reset();
             }
         }
-
     }
 
     /* Resettar texten och tar tillbaka den till sin usprungliga position. Vi kontrollerar om det är endscreen eller inte för att veta var vi ska återvända. */
@@ -60,7 +66,7 @@ public class CreditsText : MonoBehaviour {
         }
         else if (!isEndScreen)
         {
-        mainMenu.SetActive(true);
+            mainMenu.SetActive(true);
         }
     }
 
