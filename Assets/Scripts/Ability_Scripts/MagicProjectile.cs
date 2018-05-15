@@ -6,12 +6,18 @@ using UnityEngine;
 
 public class MagicProjectile : BaseAbilityScript
 {
-    public GameObject magicProjectilePrefab;
-    public Camera cameraPosition;
+
+    [SerializeField]
+    GameObject magicProjectilePrefab;
+    
+    [SerializeField]
+    Camera cameraPosition;
 
     //A currently public float, 
     //so you can adjust the speed as necessary.
-    public float speed = 20.0f;
+
+    [SerializeField]
+    float speed = 20.0f;
 
     public override void UseAbility()
     {
