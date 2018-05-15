@@ -181,16 +181,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
             attacked = false;
         }
 
-        if (secondsUntilResetClick > 0)
-        {
-            secondsUntilResetClick -= Time.deltaTime;
-        }
-
-        if (attackCountdown > 0)
-        {
-            attackCountdown -= Time.deltaTime;
-        }
-
         if (poiseReset > 0)
         {
             poiseReset -= Time.deltaTime;
@@ -286,80 +276,43 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     public void LightAttack()    //Sets the current movement type as attacking and which attack move thats used
     {
-        if (movement.IsGrounded/* && attackCountdown <= 0f*/)
+        if (movement.IsGrounded)
         {
-            this.currentWeapon.Attack(1f, false);
-            this.currentWeapon.StartCoroutine("AttackCooldown");
-
-            //attackCooldown = 0.5f;
-
-            //currentWeapon.CurrentSpeed = 0.5f;
-            
             if (!combo1 && !combo2)
             {
-                print("?");
                 anim.SetTrigger("LightAttack1");
             }
             else if (combo1 && !combo2)
             {
-                print("??");
                 combo1 = false;
                anim.SetTrigger("LightAttack2");
-                //secondsUntilResetClick = 1.5f;
 
             }
             else if (!combo1 && combo2)
             {
-                print("???");
                 combo2 = false;
                 anim.SetTrigger("LightAttack3");
-                //    nuOfClicks = 0;
-                //    attackCooldown = 1f;
-                //    currentWeapon.CurrentSpeed = 1f;
             }
 
             SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
-
-            attackCountdown = attackCooldown;
         }
     }
 
     public void HeavyAttack()    //Sets the current movement type as attacking and which attack move thats used
     {
-        if (movement.IsGrounded && attackCountdown <= 0f)
+        if (movement.IsGrounded)
         {
-            //currentMovementType = MovementType.Attacking;
-
-            attackCooldown = 0.5f;
-
-            currentWeapon.CurrentSpeed = 0.5f;
-
-            if (secondsUntilResetClick <= 0)
-            {
-                nuOfClicks = 0;
-            }
-
-            Mathf.Clamp(nuOfClicks, 0, 2);
-
-            nuOfClicks++;
-
-            if (nuOfClicks == 1)
+            if (!combo1)
             {
                 anim.SetTrigger("HeavyAttack1");
-                secondsUntilResetClick = 1.5f;
             }
-
-            if (nuOfClicks == 2 || nuOfClicks == 3)
+            else if (combo1)
             {
+                combo1 = false;
                 anim.SetTrigger("HeavyAttack2");
-                nuOfClicks = 0;
-                attackCooldown = 1f;
             }
+
             SoundManager.instance.RandomizeSfx(heavyAttack1, heavyAttack2);
-
-            attackCountdown = attackCooldown;
-
-            StartCoroutine("HeavyAttackWait");
         }
     }
 
@@ -431,13 +384,11 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         ////anim.SetBool("Combo", combo1);
         //StartCoroutine("ComboWindow");
         //combo1 = false;
-        print("Start: " + combo1);
     }
 
     void Combo1WindowEnd()
     {
         combo1 = false;
-        print("End: " + combo1);
         //anim.SetBool("Combo", combo1);
     }
 
@@ -446,7 +397,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         currentWeapon.CanAttack = true;
         combo2 = true;
 
-        print("Start 2: " + combo1);
         //StartCoroutine("ComboWindow");
         //combo2 = false;
         //anim.SetBool("Combo", combo2);
@@ -456,7 +406,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         combo2 = false;
 
-        print("End 2: " + combo1);
         //anim.SetBool("Combo", combo2);
     }
 
