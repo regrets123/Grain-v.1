@@ -35,6 +35,8 @@ public class PlayerAbilities : MonoBehaviour, IPausable {
 
     InventoryManager inventory;
 
+    Animator anim;
+
     #endregion
 
     #region Properties
@@ -49,6 +51,12 @@ public class PlayerAbilities : MonoBehaviour, IPausable {
     {
         get { return this.LifeForceBar; }
     }
+
+    public Animator Anim
+    {
+        get { return this.anim; }
+    }
+
     #endregion
 
     #region Main Methods
@@ -60,6 +68,7 @@ public class PlayerAbilities : MonoBehaviour, IPausable {
         lifeForceBar.value = lifeForce;
         FindObjectOfType<PauseManager>().Pausables.Add(this);
         inventory = GetComponent<InventoryManager>();
+        this.anim = GetComponent<Animator>();
     }
 
     void Update () {
