@@ -74,6 +74,7 @@ public class BaseWeaponScript : BaseEquippableObject
     public bool CanAttack
     {
         get { return this.canAttack; }
+        set { canAttack = value; }
     }
 
     public float AttackSpeed

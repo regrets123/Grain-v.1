@@ -214,6 +214,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
         set { this.interacting = value; }
     }
 
+    public Animator Anim
+    {
+        get { return this.anim; }
+    }
+
     #endregion
 
     #region Main Methods
@@ -268,7 +273,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         if (Input.GetButton("Sprint") && stamina >= staminaSprintDrain)
             isSprinting = true;
-                else
+        else
             isSprinting = false;
     }
 
@@ -282,6 +287,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
         dodgeVelocity = null;
         switch (movementType)
         {
+            case "None":
+                currentMovement = NoMovement;
+                break;
+
             case "Previous":
                 currentMovement = previousMovement;
                 ChangeMovement(currentMovement == DefaultMovement ? "Default" : "LockOn");
@@ -384,39 +393,46 @@ public class PlayerMovement : MonoBehaviour, IPausable
         rb.velocity = transform.forward * moveSpeed * 3;
     }
 
+    void NoMovement()
+    {
+        return;
+    }
+
     void LockOnMovement()          //Den metod som används för att röra spelaren när denne låst kameran på en fiende
     {
         camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
-        
+
         Vector3 vertical = v * camForward;
         Vector3 horizontal = h * cam.right;
-        
+
         moveDir = (vertical + horizontal).normalized;
 
         float _moveAmount = Mathf.Clamp(v, -1f, 1f);
         float _direction = Mathf.Clamp(h, -1f, 1f);
         moveAmount = _moveAmount;
         direction = _direction;
-        
+
         MovePlayer(moveSpeed);
-        
+
         anim.SetFloat("SpeedX", direction);
         anim.SetFloat("SpeedZ", moveAmount);
-        
+
         transform.LookAt(camFollow.LookAtMe.transform);
         transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
     }
 
-    void Jump(bool superJump)
+    public void Jump(bool superJump)
     {
-        if (!isGrounded)
+        if (!isGrounded || !OnGround())
             return;
 
         jumping = true;
-        anim.SetTrigger("Jump");
+        if (!superJump)
+            anim.SetTrigger("Jump");
         Vector3 vel = rb.velocity;
         vel.y = superJump ? superJumpForce : jumpForce;
         rb.velocity = vel;
+        superJump = false;
     }
 
     public void MovePlayer(float velocity)
@@ -480,11 +496,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         delta = d;
         bool inAir = jumping;
+        anim.SetBool("Falling", inAir);
         isGrounded = OnGround();
         jumping = !isGrounded;
 
         if (!jumping && inAir && rb.velocity.y < -safeFallDistance)
         {
+            anim.SetTrigger("Landing");
             if (rb.velocity.y < 0f && rb.velocity.y + safeFallDistance < 0f)
                 combat.TakeDamage((int)-(rb.velocity.y + safeFallDistance), DamageType.Falling);      //Fallskada
         }
@@ -503,7 +521,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         Vector3 dir = Vector3.down;
         float dis = groundDistance + 0.5f;
 
-        if (Physics.SphereCast(origin, ((CapsuleCollider)playerCollider).radius -0.1f, dir, out groundHit, dis, ignoreLayers))
+        if (Physics.SphereCast(origin, ((CapsuleCollider)playerCollider).radius - 0.1f, dir, out groundHit, dis, ignoreLayers))
         {
             return true;
         }

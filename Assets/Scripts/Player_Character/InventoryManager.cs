@@ -363,18 +363,20 @@ public class InventoryManager : MonoBehaviour
                     EquipFavorite(3, controllerInput);
                 }
             }
-            if (Input.GetButtonDown("UnEquip"))
-            {
-                UnEquipWeapon();
-            }
         }
         if (!coolingDown && (Input.GetKeyDown("r") || Input.GetAxis("Fire2") == -1f))      //Låter spelaren dra och stoppa undan det senast equippade vapnet
         {
             StartCoroutine(MenuCooldown());
             if (combat.CurrentWeapon != null)
-                combat.EquipWeapon(null);
+            {
+                combat.WeaponToEquip = null;
+                combat.SheatheAndUnsheathe();
+            }
             else if (combat.LastEquippedWeapon != null)
-                combat.EquipWeapon(combat.LastEquippedWeapon);
+            {
+                combat.WeaponToEquip = combat.LastEquippedWeapon;
+                combat.SheatheAndUnsheathe();
+            }
         }
     }
 
@@ -413,7 +415,8 @@ public class InventoryManager : MonoBehaviour
         switch(playerInventory[3][favoriteIndex].GetComponent<BaseEquippableObject>().MyType)
         {
             case EquipableType.Weapon:
-                combat.EquipWeapon(playerInventory[3][favoriteIndex]);
+                combat.WeaponToEquip = playerInventory[3][favoriteIndex];
+                combat.SheatheAndUnsheathe();
                 break;
 
             case EquipableType.Ability:
@@ -673,7 +676,8 @@ public class InventoryManager : MonoBehaviour
         switch (playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().MyType)
         {
             case EquipableType.Weapon:
-                combat.EquipWeapon(playerInventory[displayCollection][collectionIndex]);
+                combat.WeaponToEquip = playerInventory[displayCollection][collectionIndex];
+                combat.SheatheAndUnsheathe();
                 break;
 
             case EquipableType.Ability:

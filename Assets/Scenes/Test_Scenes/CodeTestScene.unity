@@ -1657,6 +1657,11 @@ Prefab:
       propertyPath: lightAttack3
       value: 
       objectReference: {fileID: 8300000, guid: ebda4a0832e0eee4491fb13d19ecf429, type: 3}
+    - target: {fileID: 114924303129568852, guid: 2ca68d53a812e8b448928230f6b0f646,
+        type: 2}
+      propertyPath: attackCooldown
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
   m_IsPrefabParent: 0
