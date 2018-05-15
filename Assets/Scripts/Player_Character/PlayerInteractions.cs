@@ -23,6 +23,8 @@ public class PlayerInteractions : MonoBehaviour,IPausable {
 
     PlayerMovement movement;
 
+    Animator anim;
+
     #endregion
 
     #region Properties
@@ -37,6 +39,11 @@ public class PlayerInteractions : MonoBehaviour,IPausable {
         get { return this.inventory; }
     }
 
+    public Animator Anim
+    {
+        get { return this.anim; }
+    }
+
     #endregion
 
     #region Main Methods
@@ -47,6 +54,7 @@ public class PlayerInteractions : MonoBehaviour,IPausable {
         inventory = GetComponent<InventoryManager>();
         rb = GetComponent<Rigidbody>();
         movement = GetComponent<PlayerMovement>();
+        anim = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame

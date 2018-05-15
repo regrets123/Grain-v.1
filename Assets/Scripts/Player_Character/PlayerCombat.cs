@@ -108,6 +108,11 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     #region Properties
 
+    public GameObject WeaponToEquip
+    {
+        set { this.weaponToEquip = value; }
+    }
+
     public bool Dead
     {
         get { return dead; }
@@ -474,7 +479,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     }
 
     #region Equipment
-    void SheatheAndUnsheathe()          //Drar och stoppar undan vapen
+    public void SheatheAndUnsheathe()          //Drar och stoppar undan vapen
     {
         if (!dead && canSheathe)
         {
@@ -495,7 +500,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
     }
 
-    public void EquipWeapon(GameObject weaponToEquip)    //Code for equipping different weapons
+    void EquipWeapon(GameObject weaponToEquip)    //Code for equipping different weapons
     {
         if (dead)
             return;
@@ -505,6 +510,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
         this.currentWeapon = Instantiate(weaponToEquip, weaponPosition).GetComponent<BaseWeaponScript>();
         this.currentWeapon.Equipper = this;
+        this.lastEquippedWeapon = weaponToEquip;
         FindObjectOfType<SaveManager>().CheckIfUpgraded(this.currentWeapon);
     }
 
