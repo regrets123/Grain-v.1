@@ -48,7 +48,7 @@ public class FamineBossAI : BaseEnemyScript
             base.Update();
 
             if (alive && target != null && canAttack && weapon.GetComponent<BaseWeaponScript>().CanAttack && !target.Dead && Vector3.Distance(transform.position, target.transform.position) > 8 &&
-                Vector3.Distance(transform.position, target.transform.position) < aggroRange && this.currentMovementType != MovementType.Attacking && !consuming)
+                Vector3.Distance(transform.position, target.transform.position) < aggroRange/* && this.currentMovementType != MovementType.Attacking*/ && !consuming)
             {
                 gapCloser = Random.Range(1, 3);             //Får bossen att närma sig spelaren genom att göra en hoppattack eller en "teleport" som förflyttar bossen under marken
 
@@ -83,7 +83,7 @@ public class FamineBossAI : BaseEnemyScript
         StartCoroutine("WaveArms");
     }
 
-    protected override void Aggro(PlayerControls newTarget)
+    protected override void Aggro(PlayerCombat newTarget)
     {
         base.Aggro(newTarget);
         RandomizeOtherSfx(aggro);

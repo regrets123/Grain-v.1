@@ -26,6 +26,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
     [SerializeField]
     float slopeLimit;
 
+    [SerializeField]
+    GameObject cameraFollowObj;
+
     [Tooltip("SICK AIR BRAH!")]
     [SerializeField]
     bool airControl = false;
@@ -195,6 +198,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
     public string CurrentMovementType
     {
         get { return this.currentMovementType; }
+    }
+
+    public GameObject CameraFollowObj
+    {
+        get { return this.cameraFollowObj; }
     }
 
     public float Stamina
