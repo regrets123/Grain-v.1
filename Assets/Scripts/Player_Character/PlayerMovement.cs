@@ -423,7 +423,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     public void Jump(bool superJump)
     {
-        if (!isGrounded)
+        if (!isGrounded || !OnGround())
             return;
 
         jumping = true;
@@ -496,11 +496,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         delta = d;
         bool inAir = jumping;
+        anim.SetBool("Falling", inAir);
         isGrounded = OnGround();
         jumping = !isGrounded;
 
         if (!jumping && inAir && rb.velocity.y < -safeFallDistance)
         {
+            anim.SetTrigger("Landing");
             if (rb.velocity.y < 0f && rb.velocity.y + safeFallDistance < 0f)
                 combat.TakeDamage((int)-(rb.velocity.y + safeFallDistance), DamageType.Falling);      //Fallskada
         }
