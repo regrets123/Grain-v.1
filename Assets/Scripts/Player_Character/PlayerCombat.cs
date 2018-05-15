@@ -159,7 +159,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void Update()
     {
-        if (!paused && currentWeapon != null && currentWeapon.CanAttack && movement.IsGrounded && this.currentWeapon != null && this.currentWeapon.CanAttack)     //Låter spelaren slåss
+        if (!paused && currentWeapon != null && movement.IsGrounded && this.currentWeapon != null && this.currentWeapon.CanAttack)     //Låter spelaren slåss
                                                                                                                                                                   //&& (currentMovementType == MovementType.Idle || currentMovementType == MovementType.Running || currentMovementType == MovementType.Sprinting || currentMovementType == MovementType.Walking || currentMovementType != MovementType.Stagger))
         {
             if (Input.GetAxisRaw("Fire2") < -0.5 || Input.GetButtonDown("Fire2"))
@@ -286,37 +286,32 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     public void LightAttack()    //Sets the current movement type as attacking and which attack move thats used
     {
-        if (movement.IsGrounded && attackCountdown <= 0f)
+        if (movement.IsGrounded/* && attackCountdown <= 0f*/)
         {
             this.currentWeapon.Attack(1f, false);
             this.currentWeapon.StartCoroutine("AttackCooldown");
 
-            attackCooldown = 0.5f;
+            //attackCooldown = 0.5f;
 
-            currentWeapon.CurrentSpeed = 0.5f;
-
-            if (secondsUntilResetClick <= 0)
-            {
-                nuOfClicks = 0;
-            }
-
-            Mathf.Clamp(nuOfClicks, 0, 3);
-
-            nuOfClicks++;
-
+            //currentWeapon.CurrentSpeed = 0.5f;
+            
             if (!combo1 && !combo2)
             {
+                print("?");
                 anim.SetTrigger("LightAttack1");
-                secondsUntilResetClick = 1.5f;
             }
-            else if (combo1)
+            else if (combo1 && !combo2)
             {
+                print("??");
+                combo1 = false;
                anim.SetTrigger("LightAttack2");
                 //secondsUntilResetClick = 1.5f;
 
             }
-            else if (combo2)
+            else if (!combo1 && combo2)
             {
+                print("???");
+                combo2 = false;
                 anim.SetTrigger("LightAttack3");
                 //    nuOfClicks = 0;
                 //    attackCooldown = 1f;
@@ -432,33 +427,44 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     void Combo1WindowStart()
     {
         combo1 = true;
-        //anim.SetBool("Combo", combo1);
-        StartCoroutine("ComboWindow");
-        combo1 = false;
-        print(combo1);
+        currentWeapon.CanAttack = true;
+        ////anim.SetBool("Combo", combo1);
+        //StartCoroutine("ComboWindow");
+        //combo1 = false;
+        print("Start: " + combo1);
     }
 
     void Combo1WindowEnd()
     {
         combo1 = false;
-        print(combo1);
+        print("End: " + combo1);
         //anim.SetBool("Combo", combo1);
     }
 
     void Combo2WindowStart()
     {
+        currentWeapon.CanAttack = true;
         combo2 = true;
-        StartCoroutine("ComboWindow");
-        combo2 = false;
+
+        print("Start 2: " + combo1);
+        //StartCoroutine("ComboWindow");
+        //combo2 = false;
         //anim.SetBool("Combo", combo2);
     }
 
     void Combo2WindowEnd()
     {
         combo2 = false;
+
+        print("End 2: " + combo1);
         //anim.SetBool("Combo", combo2);
     }
 
+    public bool CanAttack()
+    {
+        currentWeapon.CanAttack = false;
+        return currentWeapon.CanAttack;
+    }
     #endregion
 
     public void RestoreHealth(int amount)           //Låter spelaren få tillbaka liv
