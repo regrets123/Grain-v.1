@@ -28,7 +28,7 @@ public class SettingsMenuScript : MonoBehaviour
 
     float musicVolume, SFXVolume, environmentalVolume, camSensitivity, startingEnvironmental, startingMusic, startingFX, startingBrightness, startingSense;
 
-    void Awake()        //Ställer in alla settings från värden sparade i XML
+    void SetCam()        //Ställer in alla settings från värden sparade i XML
     {
         camFollow = cam.GetComponent<CameraFollow>();
         if (File.Exists(Application.dataPath + "/Settings.xml"))

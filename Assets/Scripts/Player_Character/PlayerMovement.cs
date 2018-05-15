@@ -238,14 +238,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
         currentMovement = DefaultMovement;
         previousMovement = DefaultMovement;
         this.stamina = maxStamina;
-        cam = FindObjectOfType<Camera>().transform;
         rb = GetComponent<Rigidbody>();
         staminaBar = GameObject.Find("StaminaSlider").GetComponent<Slider>();
         staminaBar.maxValue = maxStamina;
         staminaBar.value = stamina;
         FindObjectOfType<PauseManager>().Pausables.Add(this);
         anim = GetComponent<Animator>();
-        camFollow = FindObjectOfType<CameraFollow>();
         ignoreLayers = ~(1 << 5);
     }
 
@@ -288,6 +286,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
     #endregion
 
     #region Public Methods
+
+    public void SetCam(Transform camTransform, CameraFollow camFollow)
+    {
+        this.cam = camTransform;
+        this.camFollow = camFollow;
+    }
 
     public void ChangeMovement(string movementType)
     {

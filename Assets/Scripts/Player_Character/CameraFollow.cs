@@ -88,6 +88,7 @@ public class CameraFollow : MonoBehaviour, IPausable
     void Start()
     {
         playerMovement = FindObjectOfType<PlayerMovement>();
+        playerMovement.SetCam(this.transform, this);
         playerObj = playerMovement.gameObject;
         cameraFollowObj = playerMovement.CameraFollowObj;
         pM = FindObjectOfType<PauseManager>();
