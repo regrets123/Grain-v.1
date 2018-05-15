@@ -13,7 +13,9 @@ public class MagicProjectile : BaseAbilityScript
     //so you can adjust the speed as necessary.
 
     [SerializeField]
-    float speed = 20.0f;
+    float defaultSpeed = 20.0f;
+
+    float speed;
 
     Vector3 dir;
 
@@ -30,12 +32,13 @@ public class MagicProjectile : BaseAbilityScript
 
         if (!camFollow.LockOn)
         {
-            dir = magicProjectile.transform.forward + Vector3.up;
-
+            dir = magicProjectile.transform.forward + Vector3.up/1.5f;
+            speed = defaultSpeed;
         }
         else if (camFollow.LockOn)
         {
-            dir = ((camFollow.LookAtMe.transform.position - magicProjectile.transform.position)/10) + Vector3.up;
+            dir = ((camFollow.LookAtMe.transform.position - magicProjectile.transform.position) / 10) + (Vector3.up / 12) * (Vector3.Distance(camFollow.LookAtMe.transform.position, magicProjectile.transform.position));
+            speed = defaultSpeed / (Vector3.Distance(camFollow.LookAtMe.transform.position, magicProjectile.transform.position) / 5.5f);
         }
 
         //Add a force to the magic going forward form your current position.
