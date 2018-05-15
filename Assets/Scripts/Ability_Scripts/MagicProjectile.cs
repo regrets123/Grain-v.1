@@ -24,8 +24,8 @@ public class MagicProjectile : BaseAbilityScript
         //instantiate a magic projectile
         GameObject magicProjectile = Instantiate(magicProjectilePrefab, transform.position, transform.rotation);
 
-        abilities.Anim.SetTrigger("");
+        abilities.Anim.SetTrigger("MagicAttack");
         //Add a force to the magic going forward form your current position.
-        magicProjectile.GetComponent<Rigidbody>().AddForce(magicProjectile.transform.forward * speed, ForceMode.Impulse);
+        magicProjectile.GetComponent<Rigidbody>().AddForce(abilities.transform.forward * speed, ForceMode.Impulse);
     }
 }
