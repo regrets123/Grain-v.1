@@ -88,6 +88,7 @@ public class CameraFollow : MonoBehaviour, IPausable
     void Start()
     {
         playerMovement = FindObjectOfType<PlayerMovement>();
+        playerMovement.SetCam(this.transform, this);
         playerObj = playerMovement.gameObject;
         cameraFollowObj = playerMovement.CameraFollowObj;
         pM = FindObjectOfType<PauseManager>();
@@ -289,6 +290,7 @@ public class CameraFollow : MonoBehaviour, IPausable
                 rotX = rot.x;
                 rotY = rot.y;
                 lockOn = false;
+                playerMovement.ChangeMovement("Default");
             }
         }
     }
