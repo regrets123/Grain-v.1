@@ -328,6 +328,7 @@ GameObject:
   - component: {fileID: 114924303129568852}
   - component: {fileID: 114133168942152000}
   - component: {fileID: 114724888867740010}
+  - component: {fileID: 114958046110274124}
   - component: {fileID: 136651673800343788}
   - component: {fileID: 114530334131406128}
   m_Layer: 0
@@ -1848,6 +1849,22 @@ MonoBehaviour:
   lightAttack3: {fileID: 8300000, guid: ebda4a0832e0eee4491fb13d19ecf429, type: 3}
   heavyAttack1: {fileID: 0}
   heavyAttack2: {fileID: 0}
+--- !u!114 &114958046110274124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1382263821917424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db91627d60ae81f44b9ee390761f8c9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawShader: {fileID: 4800000, guid: 78dea1c9516a6a649bc5a40777abc2ba, type: 3}
+  rightFoot: {fileID: 1312134940300390}
+  leftFoot: {fileID: 1819299430663384}
+  brushSize: 0.3
+  brushStrength: 1
 --- !u!136 &136651673800343788
 CapsuleCollider:
   m_ObjectHideFlags: 1

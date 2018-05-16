@@ -1000,7 +1000,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1728055315802404}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 36.4, y: 0.11, z: 33.49}
+  m_LocalPosition: {x: 21.787935, y: 0.69, z: 16.378973}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4083037441165562}
@@ -1702,7 +1702,7 @@ MonoBehaviour:
   poiseCooldown: 3
   attackColliderActivationSpeed: 1
   attackColliderDeactivationSpeed: 1
-  maxHealth: 15
+  maxHealth: 100
   lifeForce: 10
   unitName: Raider
   aggroCenter: {fileID: 1524618943842578}
