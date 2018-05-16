@@ -15,23 +15,29 @@ public class SandNoise : MonoBehaviour {
 
     private Material sandReformMaterial;
     private Terrain terrain;
-    private RenderTexture temp;
+    private TerrainDeformTracks playerTracks;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         terrain = GetComponent<Terrain>();
         sandReformMaterial = new Material(sandReformShader);
+        playerTracks = FindObjectOfType<TerrainDeformTracks>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        sandReformMaterial.SetFloat("_SandAmount", sandAmount);
-        sandReformMaterial.SetFloat("_SandOpacity", sandOpacity);
-        RenderTexture sand = (RenderTexture)terrain.materialTemplate.GetTexture("_Splat");
-        temp = RenderTexture.GetTemporary(sand.width, sand.height, 0, RenderTextureFormat.ARGBFloat);
-        Graphics.Blit(sand, temp, sandReformMaterial);
-        Graphics.Blit(temp, sand);
-        terrain.materialTemplate.SetTexture("_Splat", sand);
-        RenderTexture.ReleaseTemporary(temp);
+	void Update ()
+    {
+        if (playerTracks.SandMaterial != null)
+        {
+            sandReformMaterial.SetFloat("_SandAmount", sandAmount);
+            sandReformMaterial.SetFloat("_SandOpacity", sandOpacity);
+            RenderTexture sand = (RenderTexture)terrain.materialTemplate.GetTexture("_Splat");
+            RenderTexture temp = RenderTexture.GetTemporary(sand.width, sand.height, 0, RenderTextureFormat.ARGBFloat);
+            Graphics.Blit(sand, temp, sandReformMaterial);
+            Graphics.Blit(temp, sand);
+            terrain.materialTemplate.SetTexture("_Splat", sand);
+            RenderTexture.ReleaseTemporary(temp);
+        }
     }
 }

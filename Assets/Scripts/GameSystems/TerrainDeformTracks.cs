@@ -20,6 +20,11 @@ public class TerrainDeformTracks : MonoBehaviour
     private RaycastHit hit;
     RenderTexture temp;
 
+    public Material SandMaterial
+    {
+        get { return sandMaterial; }
+    }
+
     // Use this for initialization
     void Start()
     {
