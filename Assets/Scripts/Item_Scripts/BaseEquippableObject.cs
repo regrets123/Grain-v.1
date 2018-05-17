@@ -23,6 +23,10 @@ public class BaseEquippableObject : MonoBehaviour {     //Script som alla förem
 
     protected PlayerAbilities abilities;
 
+    protected Camera camera;
+
+    protected CameraFollow camFollow;
+
     public string ObjectName
     {
         get { return this.objectName; }
@@ -43,5 +47,7 @@ public class BaseEquippableObject : MonoBehaviour {     //Script som alla förem
         combat = FindObjectOfType<PlayerCombat>();
         movement = FindObjectOfType<PlayerMovement>();
         abilities = FindObjectOfType<PlayerAbilities>();
+        camera = FindObjectOfType<Camera>();
+        camFollow = FindObjectOfType<CameraFollow>();
     }
 }

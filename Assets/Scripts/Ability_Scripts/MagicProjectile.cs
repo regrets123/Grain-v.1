@@ -9,23 +9,39 @@ public class MagicProjectile : BaseAbilityScript
     [SerializeField]
     GameObject magicProjectilePrefab;
     
-    [SerializeField]
-    Camera cameraPosition;
-
     //A currently public float, 
     //so you can adjust the speed as necessary.
 
     [SerializeField]
-    float speed = 20.0f;
+    float defaultSpeed = 20.0f;
+
+    float speed;
+
+    Vector3 dir;
 
     public override void UseAbility()
     {
         base.UseAbility();
         //instantiate a magic projectile
-        GameObject magicProjectile = Instantiate(magicProjectilePrefab, transform.position, transform.rotation);
+        GameObject magicProjectile = Instantiate
+            (
+                magicProjectilePrefab, transform.position, new Quaternion(camera.transform.rotation.x, movement.transform.rotation.y, camera.transform.rotation.z, movement.transform.rotation.w)
+            );
 
         abilities.Anim.SetTrigger("MagicAttack");
+
+        if (!camFollow.LockOn)
+        {
+            dir = magicProjectile.transform.forward + Vector3.up/1.5f;
+            speed = defaultSpeed;
+        }
+        else if (camFollow.LockOn)
+        {
+            dir = ((camFollow.LookAtMe.transform.position - magicProjectile.transform.position) / 10) + (Vector3.up / 12) * (Vector3.Distance(camFollow.LookAtMe.transform.position, magicProjectile.transform.position));
+            speed = defaultSpeed / (Vector3.Distance(camFollow.LookAtMe.transform.position, magicProjectile.transform.position) / 5.5f);
+        }
+
         //Add a force to the magic going forward form your current position.
-        magicProjectile.GetComponent<Rigidbody>().AddForce(abilities.transform.forward * speed, ForceMode.Impulse);
+        magicProjectile.GetComponent<Rigidbody>().AddForce(dir * speed, ForceMode.Impulse);
     }
 }

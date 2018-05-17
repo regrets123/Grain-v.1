@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: CombatStance
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Mesh_MainChar
+    m_Weight: 1
+  - m_Path: root_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT/L_hip_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT/L_hip_JNT/L_knee_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT/L_hip_JNT/L_knee_JNT/L_ankle_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT/L_hip_JNT/L_knee_JNT/L_ankle_JNT/L_ball_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT/L_hip_JNT/L_knee_JNT/L_ankle_JNT/L_ball_JNT/L_toe_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT/R_hip_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT/R_hip_JNT/R_knee_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT/R_hip_JNT/R_knee_JNT/R_ankle_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT/R_hip_JNT/R_knee_JNT/R_ankle_JNT/R_ball_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/pelvis_JNT/R_hip_JNT/R_knee_JNT/R_ankle_JNT/R_ball_JNT/R_toe_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/L_clavicle_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/L_clavicle_JNT/L_shoulder_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/L_clavicle_JNT/L_shoulder_JNT/L_elbow_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/L_clavicle_JNT/L_shoulder_JNT/L_elbow_JNT/L_forearm_rollerJNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/L_clavicle_JNT/L_shoulder_JNT/L_elbow_JNT/L_wrist_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/L_clavicle_JNT/L_shoulder_JNT/L_elbow_JNT/L_wrist_JNT/L_hand_center_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/L_clavicle_JNT/L_shoulder_JNT/L_elbow_JNT/L_wrist_JNT/L_hand_center_JNT/L_hand_1_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/L_clavicle_JNT/L_shoulder_JNT/L_elbow_JNT/L_wrist_JNT/L_hand_center_JNT/L_hand_1_JNT/L_hand_2_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/R_clavicle_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/R_clavicle_JNT/R_shoulder_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_forearm_rollerJNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_wrist_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_wrist_JNT/R_hand_center_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_wrist_JNT/R_hand_center_JNT/R_hand_1_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/chest_rotate_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_wrist_JNT/R_hand_center_JNT/R_hand_1_JNT/R_hand_2_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/neck_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/neck_JNT/head_JNT
+    m_Weight: 1
+  - m_Path: root_JNT/spine_1_JNT/spine_2_JNT/spine_3_JNT/chest_JNT/neck_JNT/head_JNT/head_tipJNT
+    m_Weight: 1

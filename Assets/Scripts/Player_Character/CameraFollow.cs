@@ -290,6 +290,7 @@ public class CameraFollow : MonoBehaviour, IPausable
                 rotX = rot.x;
                 rotY = rot.y;
                 lockOn = false;
+                playerMovement.ChangeMovement("Default");
             }
         }
     }
