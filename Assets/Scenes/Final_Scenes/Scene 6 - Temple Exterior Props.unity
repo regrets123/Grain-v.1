@@ -376,7 +376,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 06543e74cefcba646b93d8d84e2f95a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.69
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 06543e74cefcba646b93d8d84e2f95a1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -384,7 +384,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 06543e74cefcba646b93d8d84e2f95a1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 34.47
+      value: 33.32
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 06543e74cefcba646b93d8d84e2f95a1, type: 3}
       propertyPath: m_LocalRotation.x
@@ -8556,8 +8556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38115baf7b9926c4791fcc9d5cf2276f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finalClimbingPosition: {fileID: 612812143}
-  myAnim: {fileID: 7400000, guid: eca1b8510582e2a4082483ae869adf77, type: 3}
 --- !u!1001 &788132019
 Prefab:
   m_ObjectHideFlags: 0
@@ -19568,8 +19566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38115baf7b9926c4791fcc9d5cf2276f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finalClimbingPosition: {fileID: 1539469666}
-  myAnim: {fileID: 7400000, guid: eca1b8510582e2a4082483ae869adf77, type: 3}
 --- !u!1001 &1847252702
 Prefab:
   m_ObjectHideFlags: 0
