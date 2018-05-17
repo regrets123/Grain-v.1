@@ -287,6 +287,14 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
             aggroIndicator.SetActive(false);
     }
 
+    void OnAnimatorMove()
+    {
+        //Vector3 newPosition = transform.position;
+        //newPosition.z += anim.GetFloat("Momentum") * Time.deltaTime;
+        //transform.position = newPosition;
+        transform.position = anim.rootPosition;
+    }
+
     public void LightAttack()    //Sets the current movement type as attacking and which attack move thats used
     {
         if (movement.IsGrounded)
@@ -298,7 +306,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
             else if (combo1 && !combo2)
             {
                 combo1 = false;
-               anim.SetTrigger("LightAttack2");
+                anim.SetTrigger("LightAttack2");
 
             }
             else if (!combo1 && combo2)
