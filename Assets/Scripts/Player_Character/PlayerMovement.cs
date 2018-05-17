@@ -297,6 +297,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         dashVelocity = null;
         dodgeVelocity = null;
+        if (combat.Dead)
+        {
+            currentMovement = NoMovement;
+            return;
+        }
         switch (movementType)
         {
             case "None":

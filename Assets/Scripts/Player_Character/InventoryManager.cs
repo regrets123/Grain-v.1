@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public enum EquipableType       //Indikerar vilken typ av föremål något är så att det kan läggas i rätt kollektion i inventoryt och att olika saker kan göras med föremålet, såsom att endast vapen kan uppgraderas
 {
-    Weapon, Ability, Consumable, ItemUpgrade
+    Weapon, Ability, Item, ItemUpgrade
 }
 
 public class InventoryManager : MonoBehaviour
@@ -21,7 +21,7 @@ public class InventoryManager : MonoBehaviour
     List<GameObject> equippableWeapons, equippableAbilities, consumables, favoriteItems, itemUpgrades;
 
     List<GameObject>[] playerInventory = new List<GameObject>[4];
-    
+
     InputManager inputManager;
 
     Button[] inventoryButtons = new Button[12];
@@ -124,7 +124,7 @@ public class InventoryManager : MonoBehaviour
         set { this.collectionIndex = value; }
     }
 
-    public Image EquippedAbilityImage
+    public Image EquippedItemImage
     {
         get { return this.equippedAbilityImage; }
     }
@@ -146,7 +146,6 @@ public class InventoryManager : MonoBehaviour
         //closeInventoryButton.onClick.AddListener(HideInventory);
         menuManager = FindObjectOfType<MenuManager>();
         defaultIcon = Resources.Load<Sprite>("EmptySlot");
-        //this.player = FindObjectOfType<PlayerControls>();
         pM = FindObjectOfType<PauseManager>();
         inputManager = FindObjectOfType<InputManager>();
         playerInventory[0] = new List<GameObject>();
@@ -364,7 +363,7 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
-        if (!coolingDown && (Input.GetKeyDown("r") || Input.GetAxis("Fire2") == -1f))      //Låter spelaren dra och stoppa undan det senast equippade vapnet
+        if (!coolingDown && (Input.GetButtonDown("QuickDraw")))      //Låter spelaren dra och stoppa undan det senast equippade vapnet
         {
             StartCoroutine(MenuCooldown());
             if (combat.CurrentWeapon != null)
@@ -385,7 +384,7 @@ public class InventoryManager : MonoBehaviour
     public string[] ReportAvailableUpgrades()
     {
         string[] upgradeNames = new string[itemUpgrades.Count];
-        for(int i = 0; i < itemUpgrades.Count; i++)
+        for (int i = 0; i < itemUpgrades.Count; i++)
         {
             upgradeNames[i] = itemUpgrades[i].GetComponent<UpgradeScript>().ObjectName;
         }
@@ -412,7 +411,7 @@ public class InventoryManager : MonoBehaviour
         if (playerInventory[3] == null || playerInventory[3].Count <= favoriteIndex || playerInventory[3][favoriteIndex] == null)
             return;
         //player.Equip(playerInventory[3][favoriteIndex]);
-        switch(playerInventory[3][favoriteIndex].GetComponent<BaseEquippableObject>().MyType)
+        switch (playerInventory[3][favoriteIndex].GetComponent<BaseEquippableObject>().MyType)
         {
             case EquipableType.Weapon:
                 combat.WeaponToEquip = playerInventory[3][favoriteIndex];
@@ -423,7 +422,7 @@ public class InventoryManager : MonoBehaviour
                 abilities.EquipAbility(playerInventory[3][favoriteIndex]);
                 break;
 
-            case EquipableType.Consumable:
+            case EquipableType.Item:
 
                 break;
         }
@@ -490,7 +489,7 @@ public class InventoryManager : MonoBehaviour
         }
         menuManager.Glow(inventoryButtons[collectionIndex].GetComponent<Outline>());
     }
-    
+
     IEnumerator HighlightControllerInput()      //Postproduktion
     {
         yield return null;
@@ -684,11 +683,10 @@ public class InventoryManager : MonoBehaviour
                 abilities.EquipAbility(playerInventory[displayCollection][collectionIndex]);
                 break;
 
-            case EquipableType.Consumable:
-                //dont even know
+            case EquipableType.Item:
+                abilities.EquipItem(playerInventory[displayCollection][collectionIndex]);
                 break;
         }
-        //player.Equip(playerInventory[displayCollection][collectionIndex]);
     }
 
     public void AddFavorite()   //Lägger till ett föremål bland spelarens favoriter
@@ -751,7 +749,7 @@ public class InventoryManager : MonoBehaviour
                 AddEquippable(equippable, 1);
                 break;
 
-            case EquipableType.Consumable:
+            case EquipableType.Item:
                 AddEquippable(equippable, 2);
                 break;
 
@@ -763,6 +761,18 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log("trying to add nonspecified equippable, gör om gör rätt");
                 break;
         }
+    }
+
+    bool CheckIfContains(int collection, string objName)            //Kollar om en kollektion redan innehåller ett föremål
+    {
+        foreach (GameObject item in playerInventory[collection])
+        {
+            if (item.GetComponent<BaseEquippableObject>().ObjectName == objName)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void SetWeaponUpgrade(string weaponName, string upgradeName, int upgradeLevel)       //Laddar in vapens uppgraderingar då ett sparat spel laddas
@@ -787,7 +797,6 @@ public class InventoryManager : MonoBehaviour
                         upgrade = Upgrade.FireUpgrade;
                         break;
                 }
-                print(upgradeLevel);
                 for (int i = 0; i < upgradeLevel; i++)
                 {
                     weaponScript.ApplyUpgrade(upgrade);
@@ -798,6 +807,11 @@ public class InventoryManager : MonoBehaviour
 
     void AddEquippable(GameObject equippable, int collection)    //Lägger till equippable i rätt collection
     {
-        playerInventory[collection].Add(equippable);
+        if (collection == 2 && equippable.GetComponent<BaseItemScript>() is HealthPotion && CheckIfContains(collection, "Health Potion"))
+        {
+            HealthPotion.AddPot(1);
+        }
+        else if (equippable.GetComponent<BaseEquippableObject>().MyType == EquipableType.ItemUpgrade || (!CheckIfContains(collection, equippable.GetComponent<BaseEquippableObject>().ObjectName)))
+            playerInventory[collection].Add(equippable);
     }
 }

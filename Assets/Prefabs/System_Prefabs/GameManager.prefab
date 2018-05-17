@@ -72,6 +72,7 @@ MonoBehaviour:
   goBackButtons:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114820794684758158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,7 +85,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSaves: 3
-  camBase: {fileID: 0}
+  camBase: {fileID: 1269810134394004, guid: 40c96716f362dd948a43916c702e22e0, type: 2}
+  player: {fileID: 1382263821917424, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
+  healthPotPrefab: {fileID: 1468566042774118, guid: 45b64b341d8e01f41b763afc48ae208f,
+    type: 2}
   allItems:
   - {fileID: 1428050422164572, guid: e037aa14484db4e4683976324d8e326d, type: 2}
   - {fileID: 1782538271173224, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
@@ -95,7 +99,15 @@ MonoBehaviour:
   - {fileID: 1861016634959722, guid: 2663b5cbab058674ba6fff41ea049cae, type: 2}
   - {fileID: 1831796699156086, guid: 32abd1e735d84da4a93e30707010d586, type: 2}
   saveMat: {fileID: 2100000, guid: 70030a5b549b7eb45b4db5c1b36eb6d1, type: 2}
-  savePoints: []
+  savePoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114922668391650850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,8 +119,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80317b7136f6d004382c56e93f12e202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingArea: Starting_Desert_Final
-  FirstProps: Starting_Props_Final
-  TerrainScene: Terrain_Scene_Final
-  Canyons: Canyons_Final
-  TempleMonument: Desert_Final
+  masterSceneTriggers: Master Scene 2 - Triggers

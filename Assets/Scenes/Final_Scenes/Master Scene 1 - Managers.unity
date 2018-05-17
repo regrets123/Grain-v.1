@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1505579, g: 0.15304813, b: 0.40104482, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -7948,6 +7948,16 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9ee47d4811f77c40b47ef900ec40a09, type: 2}
   m_IsPrefabParent: 0
@@ -10977,16 +10987,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114820794684758158, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: savePoints.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: goBackButtons.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4595259062306566, guid: a02a09056ee9dbb4e9cc6bfdcec201bc, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11019,42 +11019,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114820794684758158, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: camBase
-      value: 
-      objectReference: {fileID: 1269810134394004, guid: 40c96716f362dd948a43916c702e22e0,
-        type: 2}
-    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: pauseMenu
-      value: 
-      objectReference: {fileID: 1089629563}
-    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: settingsMenu
-      value: 
-      objectReference: {fileID: 1089629561}
-    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: deathScreen
-      value: 
-      objectReference: {fileID: 1089629567}
-    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: confirmQuitMenu
-      value: 
-      objectReference: {fileID: 1089629564}
-    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: goBackButtons.Array.data[0]
-      value: 
-      objectReference: {fileID: 1089629562}
-    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: goBackButtons.Array.data[1]
-      value: 
-      objectReference: {fileID: 1089629565}
     - target: {fileID: 114820794684758158, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
         type: 2}
       propertyPath: savePoints.Array.data[0]
@@ -11097,75 +11061,39 @@ Prefab:
       objectReference: {fileID: 420798517}
     - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
         type: 2}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 1089629563}
+    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
+        type: 2}
+      propertyPath: settingsMenu
+      value: 
+      objectReference: {fileID: 1089629561}
+    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
+        type: 2}
+      propertyPath: deathScreen
+      value: 
+      objectReference: {fileID: 1089629567}
+    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
+        type: 2}
+      propertyPath: confirmQuitMenu
+      value: 
+      objectReference: {fileID: 1089629564}
+    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
+        type: 2}
+      propertyPath: goBackButtons.Array.data[0]
+      value: 
+      objectReference: {fileID: 1089629562}
+    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
+        type: 2}
+      propertyPath: goBackButtons.Array.data[1]
+      value: 
+      objectReference: {fileID: 1089629565}
+    - target: {fileID: 114771681752574162, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
+        type: 2}
       propertyPath: goBackButtons.Array.data[2]
       value: 
       objectReference: {fileID: 1089629566}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: TerrainScene
-      value: Scene 0 - Desert Terrain
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: StartingArea
-      value: Scene 1 - Start Area & Canyon
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: FirstProps
-      value: Master Scene 2 - Triggers
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: Canyons
-      value: Scene 1 - Start Area & Canyon
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: masterSceneTriggers
-      value: Master Scene 2 - Triggers
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: terrainScene
-      value: Scene 0 - Canyon Terrain
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: startArea
-      value: Scene 1 - Start Area & Canyon
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: bridgeScene
-      value: Scene 1 and 2 Bridge
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: TempleMonument
-      value: Scene 6 - Temple Exterior 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: JaggeMountains
-      value: Terrain Scene 5 - Temple Jagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: JaggedMountain
-      value: Scene 5 - Temple Jagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922668391650850, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: DesertCliffs
-      value: Scene 4 - Desert Mountains 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114820794684758158, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-        type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1382263821917424, guid: 2ca68d53a812e8b448928230f6b0f646,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a02a09056ee9dbb4e9cc6bfdcec201bc, type: 2}
   m_IsPrefabParent: 0

@@ -6,6 +6,9 @@
       <Rotation X="0" Y="50.685" Z="0" W="0.1551"/>
     </Transform>
     <Inventory>
+      <Items>
+        <HealthPotions Number="0"/>
+      </Items>
       <Upgrades>
         <AppliedUpgrades>
         </AppliedUpgrades>

@@ -386,7 +386,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         {
             anim.SetTrigger("LeftDead");
         }
-        //iM.SetInputMode(InputMode.Paused);
+        movement.ChangeMovement("None");
         deathScreen.SetActive(true);
     }
 

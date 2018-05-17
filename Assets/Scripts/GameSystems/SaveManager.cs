@@ -36,7 +36,7 @@ public class SaveManager : MonoBehaviour
     int maxSaves;
 
     [SerializeField]
-    GameObject camBase, player;
+    GameObject camBase, player, healthPotPrefab;
 
     [SerializeField]
     GameObject[] allItems;
@@ -215,6 +215,8 @@ public class SaveManager : MonoBehaviour
     {
         XPathNodeIterator nodes = xNav.Select("/SavedState/PlayerInfo/Inventory//Item/@Name");
         XPathNavigator inventory = xNav.SelectSingleNode("//Inventory");
+        inventory.SelectSingleNode("//HealthPotions/@Number").SetValue(HealthPotion.MaxCharges.ToString());
+        HealthPotion.RefillPots();
         foreach (string itemName in inventoryManager.ReportItems())
         {
             if (nodes.Count == 0)
@@ -251,7 +253,6 @@ public class SaveManager : MonoBehaviour
         nodes = xNav.Select("/SavedState/PlayerInfo/Inventory//Item/@Name");
         string[] weaponNames = inventoryManager.ReportWeaponNames();
         XPathNavigator upgradesNode = xNav.SelectSingleNode("//AppliedUpgrades");
-        //XPathNodeIterator oldAppliedUpgrades = upgradesNode.SelectChildren(XPathNodeType.All);
         XmlNodeList oldAppliedUpgrades = currentGame.SelectNodes("//AppliedUpgrade");
         if (oldAppliedUpgrades.Count > 0)
         {
@@ -361,14 +362,11 @@ public class SaveManager : MonoBehaviour
 
     IEnumerator LoadingScenes(XPathNodeIterator savedScenes)
     {
-        print("?");
         foreach (XPathNavigator scene in savedScenes)
         {
-            print("#");
             lM.LoadScene(scene.Value);
             yield return new WaitUntil(() => SceneLoaded() == true);
         }
-        print("!");
         Vector3 newPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@Z").Value));
         Quaternion newRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@W").Value));
         Vector3 newCameraPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").Value));
@@ -401,6 +399,12 @@ public class SaveManager : MonoBehaviour
         XPathNodeIterator nodes = xNav.Select("/SavedState/PlayerInfo/Inventory//Item/@Name");
         XPathNodeIterator favorites = xNav.Select("/SavedState/PlayerInfo/Inventory/Favorites//Favorite/@Name");
         XPathNodeIterator availableUpgrades = xNav.Select("/SavedState/PlayerInfo/Inventory/Upgrades/AvailableUpgrades//AvailableUpgrade/@Name");
+        XPathNavigator pots = xNav.SelectSingleNode("//Health Potions/@Number");
+        if (pots.Value != "0")
+        {
+            inventoryManager.NewEquippable(healthPotPrefab);
+            HealthPotion.SetNumberOfPots(int.Parse(pots.Value));
+        }
         foreach (XPathNavigator node in nodes)
         {
             foreach (GameObject item in allItems)
