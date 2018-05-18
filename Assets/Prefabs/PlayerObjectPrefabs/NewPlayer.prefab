@@ -1775,7 +1775,7 @@ MonoBehaviour:
   staminaSprintDrain: 5
   jumpForce: 20
   superJumpForce: 75
-  jumpCooldown: 0
+  jumpCooldown: 0.3
   jumpTime: 0
   dodgeCost: 0
   dodgeCooldown: 0
