@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 /*By Björn Andersson*/
 
-public class PlayerAbilities : MonoBehaviour, IPausable {
+public class PlayerAbilities : MonoBehaviour, IPausable
+{
 
     #region Serialized Variables
 
@@ -26,6 +27,8 @@ public class PlayerAbilities : MonoBehaviour, IPausable {
     #region Non-Serialized Variables
 
     BaseAbilityScript currentAbility;
+
+    BaseItemScript currentItem;
 
     Slider lifeForceBar;
 
@@ -71,12 +74,17 @@ public class PlayerAbilities : MonoBehaviour, IPausable {
         this.anim = GetComponent<Animator>();
     }
 
-    void Update () {
-		if (Input.GetButtonDown("Ability") && currentAbility != null && !BaseAbilityScript.CoolingDown && paused)
+    void Update()
+    {
+        if (Input.GetButtonDown("Ability") && currentAbility != null && !BaseAbilityScript.CoolingDown && !paused)
         {
             currentAbility.UseAbility();
         }
-	}
+        else if (Input.GetButtonDown("UseItem") && currentItem != null && !BaseItemScript.CoolingDown && !paused)
+        {
+            currentItem.UseItem();
+        }
+    }
 
     #endregion
 
@@ -99,13 +107,20 @@ public class PlayerAbilities : MonoBehaviour, IPausable {
             Destroy(currentAbility.gameObject);
         currentAbility = Instantiate(newAbility, abilityPos).GetComponent<BaseEquippableObject>() as BaseAbilityScript;
         currentRune.sprite = newAbility.GetComponent<BaseAbilityScript>().MyRune;
-        inventory.EquippedAbilityImage.sprite = newAbility.GetComponent<BaseAbilityScript>().InventoryIcon;
+    }
+
+    public void EquipItem(GameObject newItem)
+    {
+        if (currentItem != null)
+            Destroy(currentAbility.gameObject);
+        currentItem = Instantiate(newItem, abilityPos).GetComponent<BaseItemScript>();
+        inventory.EquippedItemImage.sprite = newItem.GetComponent<BaseItemScript>().InventoryIcon;
     }
 
     #endregion
-    
+
     #region Coroutines
-    
+
     public IEnumerator AbilityCooldown()                //Hindrar spelaren från att använda abilities under en tid efter att en ability använts
     {
         BaseAbilityScript.CoolingDown = true;

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 372541e9c8e080e498d975519acf06b7
-timeCreated: 1522064643
+guid: 6270e98c49df4274c8117dd5fc6c268d
+timeCreated: 1526549914
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -79,7 +79,11 @@ ModelImporter:
     400068: spine_1_JNT
     400070: spine_2_JNT
     400072: spine_3_JNT
-    7400000: Climb Animation 2
+    7400000: NewLightAttacksExportWithLayers
+    7400002: LightAttackPart1
+    7400004: LightAttackPart2
+    7400006: LightAttackPart3
+    7400008: LightAttackEnd
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -103,11 +107,10 @@ ModelImporter:
       mm\n\t'R_ankle_JNT' : position error = 40.033375 mm\n\t'R_ball_JNT' : position
       error = 8.796859 mm\n\t'R_toe_JNT' : position error = 10.912523 mm\n"
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Climb Animation 2' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'chest_rotate_JNT' is inbetween humanoid
-      transforms and has rotation animation that will be discarded.\n\t'L_ball_JNT'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_ball_JNT'
+    animationImportWarnings: "\nClip 'NewLightAttacksExportWithLayers' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'L_ball_JNT' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'R_ball_JNT'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
@@ -121,10 +124,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Climb Animation 2
-      takeName: Climb Animation 2
+      name: NewLightAttacksExportWithLayers
+      takeName: NewLightAttacksExportWithLayers
       firstFrame: 1
-      lastFrame: 100
+      lastFrame: 260
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -136,9 +139,154 @@ ModelImporter:
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: LightAttackPart1
+      takeName: NewLightAttacksExportWithLayers
+      firstFrame: 1
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 0
       keepOriginalPositionXZ: 1
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: Momentum
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 2
+            time: 0
+            value: 0
+            inSlope: 0.13815789
+            outSlope: 0.13815789
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 1.0041809
+            value: 0.06187805
+            inSlope: 0.012259012
+            outSlope: 0.012259012
+            tangentMode: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 0
+      events:
+      - time: 0
+        functionName: CanAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.66380906
+        functionName: Combo1WindowStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: Combo1WindowEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: LightAttackPart2
+      takeName: NewLightAttacksExportWithLayers
+      firstFrame: 111
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0
+        functionName: CanAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.64484453
+        functionName: Combo2WindowStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: Combo2WindowEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: LightAttackPart3
+      takeName: NewLightAttacksExportWithLayers
+      firstFrame: 151
+      lastFrame: 260
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
       heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000

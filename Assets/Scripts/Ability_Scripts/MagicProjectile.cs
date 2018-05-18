@@ -8,7 +8,7 @@ public class MagicProjectile : BaseAbilityScript
 {
     [SerializeField]
     GameObject magicProjectilePrefab;
-    
+
     //A currently public float, 
     //so you can adjust the speed as necessary.
 
@@ -25,14 +25,14 @@ public class MagicProjectile : BaseAbilityScript
         //instantiate a magic projectile
         GameObject magicProjectile = Instantiate
             (
-                magicProjectilePrefab, transform.position, new Quaternion(camera.transform.rotation.x, movement.transform.rotation.y, camera.transform.rotation.z, movement.transform.rotation.w)
+                magicProjectilePrefab, transform.position, new Quaternion(cam.transform.rotation.x, movement.transform.rotation.y, cam.transform.rotation.z, movement.transform.rotation.w)
             );
 
         abilities.Anim.SetTrigger("MagicAttack");
 
         if (!camFollow.LockOn)
         {
-            dir = magicProjectile.transform.forward + Vector3.up/1.5f;
+            dir = magicProjectile.transform.forward + Vector3.up / 1.5f;
             speed = defaultSpeed;
         }
         else if (camFollow.LockOn)
