@@ -281,6 +281,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
             isSprinting = true;
         else
             isSprinting = false;
+
+        if (Input.GetKeyDown("t"))
+        {
+            StartCoroutine("Climbing");
+        }
     }
 
     #endregion
@@ -593,6 +598,14 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         yield return new WaitForSeconds(jumpCooldown);
         canJump = true;
+    }
+
+    IEnumerator Climbing()
+    {
+        anim.SetTrigger("Climb2");
+        rb.useGravity = false;
+        yield return new WaitForSeconds(1.7f);
+        rb.useGravity = true;
     }
 
     #endregion

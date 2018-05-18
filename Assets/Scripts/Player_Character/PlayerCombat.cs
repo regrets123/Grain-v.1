@@ -289,9 +289,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void OnAnimatorMove()
     {
-        //Vector3 newPosition = transform.position;
-        //newPosition.z += anim.GetFloat("Momentum") * Time.deltaTime;
-        //transform.position = newPosition;
         transform.position = anim.rootPosition;
     }
 
