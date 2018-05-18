@@ -11,7 +11,8 @@ public enum EquipableType       //Indikerar vilken typ av föremål något är s
 }
 
 public class InventoryManager : MonoBehaviour
-{
+{ 
+    
     #region Non-Serialized Variables
 
     GameObject inventoryMenu, upgradeOptions, equipButton, upgradeButton, favoriteButton, applyUpgradeButton, closeUpgradesButton;
@@ -21,6 +22,8 @@ public class InventoryManager : MonoBehaviour
     List<GameObject> equippableWeapons, equippableAbilities, consumables, favoriteItems, itemUpgrades;
 
     List<GameObject>[] playerInventory = new List<GameObject>[4];
+
+       Sprite dmgUpgradeSprite, fireUpgradeSprite, frostUpgradeSprite, leechUpgradeSprite;
 
     InputManager inputManager;
 
@@ -140,10 +143,15 @@ public class InventoryManager : MonoBehaviour
 
     private void Awake()        //Hittar alla objekt relevanta för inventoryt då det skapas. Eftersom spelaren instanssierar inventoryt och det inte ligger i scenen från början kan dessa värden inte serialiseras.
     {
+        string iconPath = "_Upgrade_Icon_AM";
+        dmgUpgradeSprite = Resources.Load<Sprite>("Physical" + iconPath);
+        fireUpgradeSprite = Resources.Load<Sprite>("Fire" + iconPath);
+        frostUpgradeSprite = Resources.Load<Sprite>("Frost" + iconPath);
+        leechUpgradeSprite = Resources.Load<Sprite>("Leech" + iconPath);
         abilities = GetComponent<PlayerAbilities>();
         combat = GetComponent<PlayerCombat>();
-        //closeInventoryButton = GameObject.Find("CloseInventoryButton").GetComponent<Button>();
-        //closeInventoryButton.onClick.AddListener(HideInventory);
+        closeInventoryButton = GameObject.Find("CloseInventoryButton").GetComponent<Button>();
+        closeInventoryButton.onClick.AddListener(HideInventory);
         menuManager = FindObjectOfType<MenuManager>();
         defaultIcon = Resources.Load<Sprite>("EmptySlot");
         pM = FindObjectOfType<PauseManager>();
@@ -628,11 +636,20 @@ public class InventoryManager : MonoBehaviour
         menuManager.NoGlow(currentChoice.GetComponent<Outline>());
         if (show)
         {
+            closeInventoryButton.gameObject.SetActive(false);
+            upgradeButton.SetActive(false);
+            equipButton.SetActive(false);
+            favoriteButton.SetActive(false);
             currentUpgrade = upgradeButtons[0];
             menuManager.Glow(currentUpgrade.GetComponent<Outline>());
         }
         else
         {
+            closeInventoryButton.gameObject.SetActive(true);
+            upgradeButton.SetActive(true);
+            equipButton.SetActive(true);
+            favoriteButton.SetActive(true);
+            applyUpgradeButton.SetActive(false);
             currentChoice = inventoryButtons[0];
             menuManager.Glow(currentChoice.GetComponent<Outline>());
         }
@@ -648,13 +665,43 @@ public class InventoryManager : MonoBehaviour
         ShowItemOptions(true);
         equippableName.text = playerInventory[displayCollection][index].GetComponent<BaseEquippableObject>().ObjectName;
         currentEquipableImage.sprite = playerInventory[displayCollection][index].GetComponent<BaseEquippableObject>().InventoryIcon;
+        ShowCurrentUpgrade();
     }
 
     public void ApplyUpgrade()              //Uppgraderar ett valt vapen
     {
         playerInventory[0][collectionIndex].GetComponent<BaseWeaponScript>().ApplyUpgrade(itemUpgrades[upgradeIndex].GetComponent<UpgradeScript>().MyUpgrade/*, false*/);
         itemUpgrades.Remove(itemUpgrades[upgradeIndex]);
+        ShowCurrentUpgrade();
         UpdateSprites();
+    }
+
+    void ShowCurrentUpgrade()
+    {
+        if (displayCollection != 0)
+            return;
+        switch (playerInventory[displayCollection][collectionIndex].GetComponent<BaseWeaponScript>().CurrentUpgrade)
+        {
+            case Upgrade.DamageUpgrade:
+                currentUpgradeImage.sprite = dmgUpgradeSprite;
+                break;
+
+            case Upgrade.FireUpgrade:
+                currentUpgradeImage.sprite = fireUpgradeSprite;
+                break;
+
+            case Upgrade.FrostUpgrade:
+                currentUpgradeImage.sprite = frostUpgradeSprite;
+                break;
+
+            case Upgrade.LeechUpgrade:
+                currentUpgradeImage.sprite = leechUpgradeSprite;
+                break;
+
+            case Upgrade.None:
+                currentUpgradeImage.sprite = defaultIcon;
+                break;
+        }
     }
 
     public void SelectUpgrade(int upgradeIndex)         //Väljer en uppgradering att lägga på ett vapen

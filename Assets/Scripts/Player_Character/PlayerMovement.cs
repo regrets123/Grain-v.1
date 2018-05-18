@@ -583,4 +583,3 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     #endregion
 }
-

@@ -5,7 +5,14 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - dmgUpgradeSprite: {fileID: 21300000, guid: 61c2e3952b56fef4281500d9a5c39300, type: 3}
+  - fireUpgradeSprite: {fileID: 21300000, guid: 17e525893525a044cbc0b68934306b16,
+      type: 3}
+  - frostUpgradeSprite: {fileID: 21300000, guid: 6156f218310b9524899efdfba4e4161e,
+      type: 3}
+  - leechUpgradeSprite: {fileID: 21300000, guid: b571cb1f914d58f4f85bbcd2c6e596bf,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

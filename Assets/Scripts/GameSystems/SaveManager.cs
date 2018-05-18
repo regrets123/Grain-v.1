@@ -67,6 +67,8 @@ public class SaveManager : MonoBehaviour
 
     LoadingManager lM;
 
+    GameObject myCam;
+
     private void Start()  //Startar spelet på olika sätt beroende på om det är ett nytt eller sparat spel
     {
         lM = FindObjectOfType<LoadingManager>();
@@ -345,13 +347,6 @@ public class SaveManager : MonoBehaviour
         this.xNav = currentGame.CreateNavigator();
         LoadInventory();
         ReskinSavePoints();
-        if (File.Exists(Application.dataPath + "/Settings.xml"))
-        {
-            XmlDocument settingsDoc = new XmlDocument();
-            settingsDoc.LoadXml(Application.dataPath + "/Settings.xml");
-            FindObjectOfType<SettingsMenuScript>().SetCamSensitivity(int.Parse(settingsDoc.SelectSingleNode("/Settings/Camera/@Sensitivity").Value));
-
-        }
     }
 
     void LoadSavedScenes()          //Laddar in sparade scener
@@ -372,12 +367,20 @@ public class SaveManager : MonoBehaviour
         Vector3 newCameraPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").Value));
         Quaternion newCameraRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@W").Value));
         Instantiate(player, newPos, newRot);
-        Instantiate(camBase, newCameraPos, newCameraRot);
+        myCam = Instantiate(camBase, newCameraPos, newCameraRot);
         abilities = player.GetComponent<PlayerAbilities>();
         movement = player.GetComponent<PlayerMovement>();
         combat = player.GetComponent<PlayerCombat>();
         inventoryManager = player.GetComponent<InventoryManager>();
         lM.LoadingScreen.SetActive(false);
+        if (File.Exists(Application.dataPath + "/Settings.xml"))
+        {
+            XmlDocument settingsDoc = new XmlDocument();
+            settingsDoc.LoadXml(Application.dataPath + "/Settings.xml");
+            SettingsMenuScript settings = FindObjectOfType<SettingsMenuScript>();
+            settings.SetCam(myCam);
+            settings.SetCamSensitivity(int.Parse(settingsDoc.SelectSingleNode("/Settings/Camera/@Sensitivity").Value));
+        }
     }
 
     bool SceneLoaded()

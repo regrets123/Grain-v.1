@@ -15,6 +15,8 @@ public class HealthBarRotation : MonoBehaviour {
 
     void Update()       //Roterar fienders hälsomätare mot kameran
     {
+        if (cameraToLookAt == null)
+            cameraToLookAt = FindObjectOfType<Camera>();
         Vector3 v = cameraToLookAt.transform.position - transform.position;
         v.x = v.z = 0.0f;
         transform.LookAt(cameraToLookAt.transform.position - v);

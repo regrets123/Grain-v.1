@@ -40,38 +40,37 @@ public class PauseManager : MonoBehaviour
     {
         iM = GetComponent<InputManager>();
         iM.SetInputMode(InputMode.Playing);
+        pauseMenu.SetActive(false);
         Time.timeScale = 1f;
+        print(FindObjectOfType<SettingsMenuScript>().gameObject);
     }
 
     private void Update()
     {
-        //if (Input.GetButtonDown("Cancel"))      //Gör olika saker då spelaren trycker ner escape eller "back" på en handkontroll beroende på vilken meny som är aktiv
-        //{
-        //    if (playerInventory == null)
-        //    {
-        //        playerInventory = FindObjectOfType<InventoryManager>();
-        //    }
-        //    if (playerInventory.InventoryMenu.activeSelf)
-        //    {
-        //        playerInventory.HideInventory();
-        //    }
-        //    else
-        //    {
-        //        foreach (Button goBackButton in goBackButtons)
-        //        {
-        //            if (goBackButton.gameObject.activeInHierarchy)
-        //            {
-        //                goBackButton.onClick.Invoke();
-        //                return;
-        //            }
-        //        }
-        //    }
-        //    PauseAndUnpause(false);
-        //}
+        if (Input.GetButtonDown("Cancel"))      //Gör olika saker då spelaren trycker ner escape eller "back" på en handkontroll beroende på vilken meny som är aktiv
+        {
+            if (playerInventory == null)
+            {
+                playerInventory = FindObjectOfType<InventoryManager>();
+            }
+            foreach (Button goBackButton in goBackButtons)
+            {
+                if (goBackButton.gameObject.activeInHierarchy)
+                {
+                    goBackButton.onClick.Invoke();
+                    return;
+                }
+            }
+            PauseAndUnpause(false);
+        }
     }
-    
+
     public void PauseAndUnpause(bool inventory)    //Pausar/unpausar spelet och tar fram/döljer pausmenyn
     {
+        if (playerInventory == null)
+            playerInventory = FindObjectOfType<InventoryManager>();
+        if (iM == null)
+            iM = GetComponent<InputManager>();
         paused = !paused;
         if (paused)
         {
@@ -87,7 +86,14 @@ public class PauseManager : MonoBehaviour
             Time.timeScale = 1f;
             iM.SetInputMode(previousInputMode);
         }
-        pauseMenu.SetActive(paused);
+        if (!inventory)
+        {
+            pauseMenu.SetActive(paused);
+        }
+        else if (!paused)
+        {
+            playerInventory.HideInventory();
+        }
         foreach (IPausable pauseMe in pausables)
         {
             if (pauseMe != null)

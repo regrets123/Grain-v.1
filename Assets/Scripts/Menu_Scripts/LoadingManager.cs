@@ -51,9 +51,6 @@ public class LoadingManager : MonoBehaviour
             Loaded = false;
             progressBar.value = progress;
             progressText.text = Mathf.RoundToInt(progress * 100) + "%";
-            print(progressBar.value);
-            print(progressText.text);
-            print(operation.progress);
             yield return null;
         }
         Loaded = true;
