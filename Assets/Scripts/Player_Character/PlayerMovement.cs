@@ -171,7 +171,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true;
 
     private Movement currentMovement;
 
@@ -249,7 +249,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Update()
     {
-        if (!paused && !interacting)
+        if (!paused)
         {
             GroundCheck(Time.deltaTime);
             GetInput();
@@ -260,7 +260,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         if (!paused && !interacting)
         {
-            GroundCheck(Time.deltaTime);
             currentMovement();
         }
     }
@@ -270,9 +269,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && canJump)
         {
             jump = true;
+            canJump = false;
         }
         else if (Input.GetButtonDown("Dodge"))
             StartCoroutine("Dodge");
@@ -374,7 +374,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         moveAmount = (Mathf.Clamp01(m));
 
-        anim.SetFloat("Speed", rb.velocity.magnitude);
+        float speed = new Vector3(rb.velocity.x, 0f, rb.velocity.z).magnitude;
+
+        anim.SetFloat("Speed", speed);
 
         MovePlayer(moveSpeed);
 
@@ -444,8 +446,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
             return;
 
         jumping = true;
+
         if (!superJump)
             anim.SetTrigger("Jump");
+
         Vector3 vel = rb.velocity;
         vel.y = superJump ? superJumpForce : jumpForce;
         rb.velocity = vel;
@@ -520,9 +524,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (!jumping && inAir && rb.velocity.y < -safeFallDistance)
         {
             anim.SetTrigger("Landing");
+
             if (rb.velocity.y < 0f && rb.velocity.y + safeFallDistance < 0f)
                 combat.TakeDamage((int)-(rb.velocity.y + safeFallDistance), DamageType.Falling);      //Fallskada
+
         }
+
 
         if (!Sliding() && !inAir && moveDir != Vector3.zero)
             playerCollider.material = frictionMaterial;
@@ -540,6 +547,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         if (Physics.SphereCast(origin, ((CapsuleCollider)playerCollider).radius - 0.1f, dir, out groundHit, dis, ignoreLayers))
         {
+            StartCoroutine("JumpCooldown");
             return true;
         }
         return false;
@@ -579,6 +587,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
         yield return new WaitForSeconds(dodgeLength);
         dodgeVelocity = null;
         ChangeMovement("Previous");
+    }
+
+    IEnumerator JumpCooldown()
+    {
+        yield return new WaitForSeconds(jumpCooldown);
+        canJump = true;
     }
 
     #endregion
