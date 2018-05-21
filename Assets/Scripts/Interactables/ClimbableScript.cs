@@ -6,6 +6,14 @@ public class ClimbableScript : MonoBehaviour, IInteractable {
 
     string interactText = "PRESS SPACE TO CLIMB";
 
+    [SerializeField]
+    bool superClimb;
+
+    public bool SuperClimb
+    {
+        get { return this.superClimb; }
+    }
+
     public void Interact(PlayerInteractions player)
     {
         return;

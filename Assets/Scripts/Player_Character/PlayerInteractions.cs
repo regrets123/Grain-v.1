@@ -45,6 +45,11 @@ public class PlayerInteractions : MonoBehaviour, IPausable
         get { return this.anim; }
     }
 
+    public IInteractable CurrentInteractable
+    {
+        get { return this.currentInteractable; }
+    }
+
     #endregion
 
     #region Main Methods

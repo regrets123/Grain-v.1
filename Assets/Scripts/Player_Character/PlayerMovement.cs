@@ -185,6 +185,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private PlayerCombat combat;
 
+    private PlayerInteractions interactions;
+
     private string currentMovementType = "Default";
 
     private Collider playerCollider;
@@ -466,11 +468,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
         transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
     }
 
-    void Climb(bool superClimb)
+    void Climb(bool interfaceRequirement)
     {
         if (climbing)
             return;
-        StartCoroutine(Climbing(superClimb));
+        ClimbableScript currentClimbable = interactions.CurrentInteractable as ClimbableScript;
+        StartCoroutine(Climbing(currentClimbable.SuperClimb));
     }
 
     public void Jump(bool superJump)
@@ -630,10 +633,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     IEnumerator Climbing(bool superClimb)
     {
+        climbing = true;
         string climbType = superClimb ? "Climb2" : "Climb1";
         anim.SetTrigger(climbType);
         rb.useGravity = false;
         yield return new WaitForSeconds(1.7f);
+        climbing = false;
         ChangeJump("Jump");
     }
 
