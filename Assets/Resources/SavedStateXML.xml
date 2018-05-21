@@ -20,7 +20,7 @@
   </PlayerInfo>
   <CameraTransform>
     <Position X="121.9941" Y="233.4536" Z="141.2205"/>
-    <Rotation X="0.79" Y="0.79" Z="0.79" W="0.1519"/>
+    <Rotation X="0" Y="36.992" Z="0" W="0.1519"/>
   </CameraTransform>
   <UsedSavePoints>
   </UsedSavePoints>
