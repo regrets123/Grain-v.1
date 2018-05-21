@@ -319,7 +319,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
                 combo2 = false;
                 anim.SetTrigger("LightAttack3");
             }
-
             SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
         }
     }
