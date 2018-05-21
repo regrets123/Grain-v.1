@@ -19,11 +19,6 @@ public class ClimbableScript : MonoBehaviour, IInteractable {
         get { return this.superClimb; }
     }
 
-    public void Interact(PlayerInteractions player)
-    {
-        return;
-    }
-
     public string GetText()
     {
         return this.interactText;
@@ -32,5 +27,10 @@ public class ClimbableScript : MonoBehaviour, IInteractable {
     public Transform FinalClimbingPosition
     {
         get { return this.finalClimbingPosition; }
+    }
+
+    public void Interact(PlayerInteractions player)
+    {
+        return;
     }    
 }
