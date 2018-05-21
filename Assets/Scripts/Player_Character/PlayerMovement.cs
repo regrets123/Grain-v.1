@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void JumpType(bool superJump);
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true, landed = false;
 
     private Movement currentMovement;
 
@@ -481,6 +481,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (!superJump)
             anim.SetTrigger("Jump");
 
+        landed = false;
         Vector3 vel = rb.velocity;
         vel.y = superJump ? superJumpForce : jumpForce;
         rb.velocity = vel;
@@ -558,9 +559,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
             if (rb.velocity.y < 0f && rb.velocity.y + safeFallDistance < 0f)
                 combat.TakeDamage((int)-(rb.velocity.y + safeFallDistance), DamageType.Falling);      //Fallskada
-
         }
 
+        if (inAir)
+        {
+            landed = false;
+        }
 
         if (!Sliding() && !inAir && moveDir != Vector3.zero)
             playerCollider.material = frictionMaterial;
@@ -568,6 +572,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
             playerCollider.material = maxFrictionMaterial;
         else
             playerCollider.material = slipperyMaterial;
+
+        if (!inAir && !landed)
+        {
+            StartCoroutine("JumpCooldown");
+        }
     }
 
     public bool OnGround()
@@ -578,7 +587,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         if (Physics.SphereCast(origin, ((CapsuleCollider)playerCollider).radius - 0.1f, dir, out groundHit, dis, ignoreLayers))
         {
-            StartCoroutine("JumpCooldown");
             return true;
         }
         return false;
@@ -622,6 +630,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     IEnumerator JumpCooldown()
     {
+        landed = true;
         yield return new WaitForSeconds(jumpCooldown);
         canJump = true;
     }
