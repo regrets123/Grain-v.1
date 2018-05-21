@@ -32,6 +32,8 @@ public class SavedGame  //Referensklass som håller koll på ett sparat spels oc
 
 public class SaveManager : MonoBehaviour
 {
+    public bool testing;
+
     [SerializeField]
     int maxSaves;
 
@@ -78,6 +80,8 @@ public class SaveManager : MonoBehaviour
 
     private void StartGame()
     {
+        if (testing)
+            return;
         if (File.Exists(Application.dataPath + "/SaveToLoad.xml"))
         {
             LoadGame();
