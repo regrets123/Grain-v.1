@@ -7,12 +7,16 @@ using UnityEngine;
 public interface IInteractable
 {
     void Interact(PlayerInteractions player);
+
+    string GetText();
 }
 
 public class PickUpable : MonoBehaviour, IInteractable
 {
     [SerializeField]
     GameObject item;
+
+    string interactText = "PRESS E TO INTERACT";
 
     public void Interact(PlayerInteractions player)     //Låter spelaren plocka upp ett föremål och lägga det i inventoryt
     {
@@ -21,6 +25,11 @@ public class PickUpable : MonoBehaviour, IInteractable
         StartCoroutine("DetachItem");
         player.Inventory.NewEquippable(item);
         Destroy(this.gameObject, 2);
+    }
+
+    public string GetText()
+    {
+        return this.interactText;
     }
 
     IEnumerator DetachItem()            //Tar bort föremålet från sin parent för att kunna ta bort föremålet från världen utan att hindra spelaren från att läggadet i sitt inventory

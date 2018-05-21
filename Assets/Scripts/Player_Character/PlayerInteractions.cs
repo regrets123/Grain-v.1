@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 /*By Björn Andersson*/
 
-public class PlayerInteractions : MonoBehaviour,IPausable {
+public class PlayerInteractions : MonoBehaviour, IPausable
+{
 
     #region Non-Serialized Variables
 
@@ -49,24 +50,27 @@ public class PlayerInteractions : MonoBehaviour,IPausable {
     #region Main Methods
 
     // Use this for initialization
-    void Start () {
-        //interactText = GameObject.Find();
+    void Start()
+    {
+        interactText = GameObject.Find("InteractText").GetComponent<Text>();
+        interactText.gameObject.SetActive(false);
         inventory = GetComponent<InventoryManager>();
         rb = GetComponent<Rigidbody>();
         movement = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetButtonDown("Interact") && currentInteractable != null && !paused)
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetButtonDown("Interact") && currentInteractable != null && !paused)
         {
             currentInteractable.Interact(this);
             this.currentInteractable = null;
             rb.velocity = Vector3.zero;
             StartCoroutine("NonMovingInteract");
         }
-	}
+    }
 
     #endregion
 
@@ -79,11 +83,17 @@ public class PlayerInteractions : MonoBehaviour,IPausable {
 
     #endregion
 
-        #region Colliders
+    #region Colliders
     void OnTriggerEnter(Collider other)         //Avgör vilken IIinteractable spelaren kan interagera med
     {
         if (other.gameObject.GetComponent<IInteractable>() != null)
             currentInteractable = other.gameObject.GetComponent<IInteractable>();
+        if (currentInteractable is ClimbableScript)
+        {
+
+        }
+        interactText.text = currentInteractable.GetText();
+        interactText.gameObject.SetActive(true);
     }
 
     void OnTriggerExit(Collider other)
@@ -91,6 +101,12 @@ public class PlayerInteractions : MonoBehaviour,IPausable {
         IInteractable otherInteractable = other.gameObject.GetComponent<IInteractable>();
         if (otherInteractable != null && currentInteractable == otherInteractable)
             currentInteractable = null;
+        if (currentInteractable is ClimbableScript)
+        {
+
+        }
+        interactText.gameObject.SetActive(false);
+        interactText.text = "";
     }
 
     #endregion
