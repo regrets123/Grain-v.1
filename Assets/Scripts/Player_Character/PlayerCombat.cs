@@ -90,7 +90,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     int health, nuOfClicks = 0;
 
-    bool invulnerable = false, dead = false, canSheathe = true, burning = false, attacked = false, paused = false, fallInvulnerability = false, combo1 = false, combo2 = false;
+    bool invulnerable = false, dead = false, canSheathe = true, burning = false, /*attacked = false, */paused = false, fallInvulnerability = false, combo1 = false, combo2 = false;
 
     float secondsUntilResetClick, attackCountdown = 0f, interactTime, dashedTime, poiseReset, poise, timeToBurn = 0f;
 
@@ -153,6 +153,8 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void Start()
     {
+        deathScreen = GameObject.Find("DeathScreen");
+        deathScreen.SetActive(false);
         movement = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
         health = maxHealth;
@@ -175,24 +177,27 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         if (!paused && currentWeapon != null && movement.IsGrounded && this.currentWeapon != null && this.currentWeapon.CanAttack)     //Låter spelaren slåss
                                                                                                                                                                   //&& (currentMovementType == MovementType.Idle || currentMovementType == MovementType.Running || currentMovementType == MovementType.Sprinting || currentMovementType == MovementType.Walking || currentMovementType != MovementType.Stagger))
         {
-            if (Input.GetAxisRaw("Fire2") < -0.5 || Input.GetButtonDown("Fire2"))
+            if (movement.Stamina >= currentWeapon.HeavyStaminaCost && (Input.GetAxisRaw("Fire2") < -0.5 || Input.GetButtonDown("Fire2")))
             {
-                if (!attacked)
+                //if (!attacked)
                 {
                     HeavyAttack();
-                    attacked = true;
+                    //attacked = true;
                 }
             }
-            if (Input.GetButtonDown("Fire1"))
+            if (movement.Stamina >= currentWeapon.LightStaminaCost && Input.GetButtonDown("Fire1"))
             {
                 LightAttack();
+                //attacked = true;
             }
         }
 
+        /*
         if (attacked && (Input.GetAxisRaw("Fire2") > -0.5 || Input.GetAxisRaw("Fire2") < 0.5))
         {
             attacked = false;
         }
+        */
 
         if (poiseReset > 0)
         {
@@ -289,9 +294,10 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void OnAnimatorMove()
     {
-        //Vector3 newPosition = transform.position;
-        //newPosition.z += anim.GetFloat("Momentum") * Time.deltaTime;
-        //transform.position = newPosition;
+        if (anim == null)
+        {
+            return;
+        }
         transform.position = anim.rootPosition;
     }
 
@@ -299,6 +305,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         if (movement.IsGrounded)
         {
+            movement.Stamina -= currentWeapon.LightStaminaCost;
             if (!combo1 && !combo2)
             {
                 anim.SetTrigger("LightAttack1");
@@ -314,7 +321,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
                 combo2 = false;
                 anim.SetTrigger("LightAttack3");
             }
-
             SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
         }
     }
@@ -323,6 +329,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         if (movement.IsGrounded)
         {
+            movement.Stamina -= currentWeapon.HeavyStaminaCost;
             if (!combo1)
             {
                 anim.SetTrigger("HeavyAttack1");
@@ -332,7 +339,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
                 combo1 = false;
                 anim.SetTrigger("HeavyAttack2");
             }
-
             SoundManager.instance.RandomizeSfx(heavyAttack1, heavyAttack2);
         }
     }
@@ -384,18 +390,23 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void Death()            //Kallas när spelaren dör, via skada eller Kill()
     {
-        dead = true;
+        FindObjectOfType<InputManager>().SetInputMode(InputMode.None);
         healthBar.value = 0f;
         if (hitNormal.y > 0)
         {
             anim.SetTrigger("RightDead");
         }
-        else if (hitNormal.y < 0)
+        else
         {
             anim.SetTrigger("LeftDead");
         }
         movement.ChangeMovement("None");
         deathScreen.SetActive(true);
+        dead = true;
+        foreach (BaseEnemyScript enemy in enemiesAggroing)
+        {
+            enemy.LoseAggro();
+        }
     }
 
     void Combo1WindowStart()

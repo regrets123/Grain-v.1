@@ -18,7 +18,7 @@ public class SettingsMenuScript : MonoBehaviour
     Slider brightnessSlider, environmentalSlider, musicSlider, fxSlider, sensitivitySlider;
 
     [SerializeField]
-    GameObject cam, settingsMenu;
+    GameObject settingsMenu;
 
     CameraFollow camFollow;
 
@@ -28,7 +28,7 @@ public class SettingsMenuScript : MonoBehaviour
 
     float musicVolume, SFXVolume, environmentalVolume, camSensitivity, startingEnvironmental, startingMusic, startingFX, startingBrightness, startingSense;
 
-    void SetCam()        //Ställer in alla settings från värden sparade i XML
+    public void SetCam(GameObject cam)        //Ställer in alla settings från värden sparade i XML
     {
         camFollow = cam.GetComponent<CameraFollow>();
         if (File.Exists(Application.dataPath + "/Settings.xml"))

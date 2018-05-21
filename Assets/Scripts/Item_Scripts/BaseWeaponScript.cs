@@ -9,11 +9,6 @@ public enum DamageType      //Olika typer av skada som kan hanteras p√• olika s√
     Physical, Frost, Fire, Falling, Leech, AutoStagger
 }
 
-public enum AttackMoves
-{
-    QuickAttack, StrongAttack, Sideswipe, PiercingAttack
-}
-
 public enum AttackMoveSets
 {
     LightWeapon, HeavyWeapon
@@ -32,11 +27,8 @@ public class BaseWeaponScript : BaseEquippableObject
     protected int heavyDamage;
 
     [SerializeField]
-    protected float attackSpeed;
-
-    [SerializeField]
-    protected AttackMoves[] attacks;
-
+    protected float attackSpeed, heavyStaminaCost, lightStaminaCost;
+    
     [SerializeField]
     protected DamageType dmgType;
 
@@ -60,6 +52,16 @@ public class BaseWeaponScript : BaseEquippableObject
         get { return this.upgradeLevel; }
     }
 
+    public float HeavyStaminaCost
+    {
+        get { return this.heavyStaminaCost; }
+    }
+
+    public float LightStaminaCost
+    {
+        get { return this.lightStaminaCost; }
+    }
+
     public Upgrade CurrentUpgrade
     {
         get { return this.currentUpgrade; }
@@ -81,12 +83,7 @@ public class BaseWeaponScript : BaseEquippableObject
     {
         get { return this.attackSpeed; }
     }
-
-    public AttackMoves[] Attacks
-    {
-        get { return this.attacks; }
-    }
-
+    
     protected IKillable equipper;
 
     public IKillable Equipper
