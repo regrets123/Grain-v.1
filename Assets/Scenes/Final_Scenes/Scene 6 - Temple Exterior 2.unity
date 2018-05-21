@@ -9,7 +9,7 @@ OcclusionCullingSettings:
     smallestHole: 0.25
     backfaceThreshold: 100
   m_SceneGUID: f7f4517f44f7f90429fedb24391723b6
-  m_OcclusionCullingData: {fileID: 36300000, guid: 565b31a730bccb44f9e5368e3d2e79c8,
+  m_OcclusionCullingData: {fileID: 36300000, guid: 6719a4aabd347be408ee0984fbfb86f4,
     type: 2}
 --- !u!104 &2
 RenderSettings:
@@ -2844,8 +2844,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38115baf7b9926c4791fcc9d5cf2276f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finalClimbingPosition: {fileID: 1406100342}
-  myAnim: {fileID: 7400000, guid: eca1b8510582e2a4082483ae869adf77, type: 3}
 --- !u!1001 &1414185952
 Prefab:
   m_ObjectHideFlags: 0
@@ -4444,8 +4442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38115baf7b9926c4791fcc9d5cf2276f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finalClimbingPosition: {fileID: 1769618607}
-  myAnim: {fileID: 7400000, guid: eca1b8510582e2a4082483ae869adf77, type: 3}
 --- !u!1001 &2058020844
 Prefab:
   m_ObjectHideFlags: 0

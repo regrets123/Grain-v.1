@@ -171,11 +171,15 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void Movement();       //Delegatmetod som kontrollerar hur spelaren rör sig beroende på om kameran låsts på en fiende eller ej
 
+    private delegate void JumpType(bool superJump);
+
     private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true;
 
     private Movement currentMovement;
 
     private Movement previousMovement;
+
+    private JumpType currentJump;
 
     private LayerMask ignoreLayers;
 
@@ -237,6 +241,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         combat = GetComponent<PlayerCombat>();
         currentMovement = DefaultMovement;
         previousMovement = DefaultMovement;
+        currentJump = Jump;
         this.stamina = maxStamina;
         rb = GetComponent<Rigidbody>();
         staminaBar = GameObject.Find("StaminaSlider").GetComponent<Slider>();
@@ -269,7 +274,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
 
-        if (Input.GetButtonDown("Jump") && canJump)
+        if (Input.GetButtonDown("Jump") && canJump && currentJump == Jump)
         {
             jump = true;
             canJump = false;
@@ -296,6 +301,22 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         this.cam = camTransform;
         this.camFollow = camFollow;
+    }
+
+    public void ChangeJump(string newJump)
+    {
+        switch (newJump)
+        {
+            case "Jump":
+                rb.useGravity = true;
+                currentJump = Jump;
+                break;
+
+            case "Climb":
+                rb.useGravity = false;
+                currentJump = Climb;
+                break;
+        }
     }
 
     public void ChangeMovement(string movementType)
@@ -397,7 +418,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         transform.rotation = targetRotation;
 
         if (jump)
-            Jump(superJump);
+            currentJump(superJump);
         jump = false;
     }
 
@@ -443,6 +464,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         transform.LookAt(camFollow.LookAtMe.transform);
         transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
+    }
+
+    void Climb(bool delegateRquirement)
+    {
+        return;
     }
 
     public void Jump(bool superJump)

@@ -101,5 +101,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Final_Scenes/Scene 13 - Bossroom.unity
     guid: d3860d0ad9df07640adeb7a04951bf9b
   - enabled: 1
+    path: Assets/Scenes/Final_Scenes/Scene 15 - TeleporterEnd.unity
+    guid: 3d3f816e5f4bd9248b1d8f22932970a8
+  - enabled: 1
     path: Assets/Scenes/Final_Scenes/Scene 3 - Desert Mountains 4.unity
-    guid: 792a47b8b2e5c5c44ae9a776957b6b6b
+    guid: 507d3db5c96a82e498a07f15286899da
+  - enabled: 1
+    path: Assets/Scenes/Final_Scenes/Scene 14 - TeleporterTunnel.unity
+    guid: 3d2a0fbec453f1041a7c6e4b4d2146ca
