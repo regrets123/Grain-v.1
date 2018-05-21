@@ -2,7 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClimbableScript : MonoBehaviour {
+public class ClimbableScript : MonoBehaviour, IInteractable {
+
+    string interactText = "PRESS SPACE TO CLIMB";
+
+    public void Interact(PlayerInteractions player)
+    {
+        return;
+    }
+
+    public string GetText()
+    {
+        return this.interactText;
+    }
 
     /*
     [SerializeField]

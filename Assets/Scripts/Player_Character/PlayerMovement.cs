@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void JumpType(bool superJump);
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true, landed = false;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true, climbing = false, landed = false;
 
     private Movement currentMovement;
 
@@ -466,9 +466,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
         transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
     }
 
-    void Climb(bool delegateRquirement)
+    void Climb(bool superClimb)
     {
-        return;
+        if (climbing)
+            return;
+        StartCoroutine(Climbing(superClimb));
     }
 
     public void Jump(bool superJump)
@@ -635,12 +637,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
         canJump = true;
     }
 
-    IEnumerator Climbing()
+    IEnumerator Climbing(bool superClimb)
     {
-        anim.SetTrigger("Climb2");
+        string climbType = superClimb ? "Climb2" : "Climb1";
+        anim.SetTrigger(climbType);
         rb.useGravity = false;
         yield return new WaitForSeconds(1.7f);
-        rb.useGravity = true;
+        ChangeJump("Jump");
     }
 
     #endregion
