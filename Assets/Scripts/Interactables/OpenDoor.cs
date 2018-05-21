@@ -19,6 +19,8 @@ public class OpenDoor : MonoBehaviour, IInteractable
 
     Animator anim, animDoor;
 
+    string interactText = "PRESS E TO INTERACT";
+
     PlayerInteractions playerToMove;
 
     MovementType previousMovement;
@@ -28,6 +30,11 @@ public class OpenDoor : MonoBehaviour, IInteractable
     {
         anim = this.GetComponent<Animator>();
         animDoor = doorToOpen.gameObject.GetComponent<Animator>();
+    }
+
+    public string GetText()
+    {
+        return this.interactText;
     }
 
     public void Interact(PlayerInteractions player)     //Spelar upp en animation medan spelaren drar i en spak för att öppna en dörr

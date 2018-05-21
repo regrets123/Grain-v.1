@@ -473,7 +473,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         StartCoroutine(Climbing(superClimb));
     }
 
-    void Jump(bool superJump)
+    public void Jump(bool superJump)
     {
         if (!isGrounded || !OnGround())
             return;
