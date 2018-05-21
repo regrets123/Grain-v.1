@@ -74,6 +74,7 @@ public class SaveManager : MonoBehaviour
     private void Start()  //Startar spelet på olika sätt beroende på om det är ett nytt eller sparat spel
     {
         lM = FindObjectOfType<LoadingManager>();
+        inputManager = GetComponent<InputManager>();
         currentGame = new XmlDocument();
         StartGame();
     }
