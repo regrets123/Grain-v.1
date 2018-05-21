@@ -471,7 +471,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         return;
     }
 
-    void Jump(bool superJump)
+    public void Jump(bool superJump)
     {
         if (!isGrounded || !OnGround())
             return;
