@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/*By Björn Andersson*/
+/*By Björn Andersson && Andreas Nilsson*/
 
 public interface IKillable          //Interface som används av spelaren och alla fiender samt eventuella förstörbara objekt
 {
@@ -90,7 +90,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     int health, nuOfClicks = 0;
 
-    bool invulnerable = false, dead = false, canSheathe = true, burning = false, /*attacked = false, */paused = false, fallInvulnerability = false, combo1 = false, combo2 = false;
+    bool invulnerable = false, dead = false, canSheathe = true, burning = false, attacking = false, paused = false, fallInvulnerability = false, combo1 = false, combo2 = false;
 
     float secondsUntilResetClick, attackCountdown = 0f, interactTime, dashedTime, poiseReset, poise, timeToBurn = 0f;
 
@@ -147,6 +147,11 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         get { return this.healthBar; }
     }
 
+    public bool Attacking
+    {
+        get { return attacking; }
+    }
+
     #endregion
 
     #region Main Methods
@@ -188,7 +193,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
             if (movement.Stamina >= currentWeapon.LightStaminaCost && Input.GetButtonDown("Fire1"))
             {
                 LightAttack();
-                //attacked = true;
+                attacking = true;
             }
         }
 
@@ -306,19 +311,17 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         if (movement.IsGrounded)
         {
             movement.Stamina -= currentWeapon.LightStaminaCost;
+
             if (!combo1 && !combo2)
             {
                 anim.SetTrigger("LightAttack1");
             }
             else if (combo1 && !combo2)
             {
-                combo1 = false;
                 anim.SetTrigger("LightAttack2");
-
             }
             else if (!combo1 && combo2)
             {
-                combo2 = false;
                 anim.SetTrigger("LightAttack3");
             }
             SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
@@ -343,12 +346,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
     }
 
-    IEnumerator HeavyAttackWait()
-    {
-        yield return new WaitForSeconds(0.5f);
-        this.currentWeapon.Attack(1.5f, true);
-        this.currentWeapon.StartCoroutine("AttackCooldown");
-    }
 
     public void Leech(int damageDealt)      //Om spelaren slåss med ett vapen med leech får denne tillbaka 10% av skadan som liv
     {
@@ -357,10 +354,10 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         RestoreHealth(Mathf.RoundToInt(floatDmg / 100f) * leechPercentage);
     }
 
-    IEnumerator ComboWindow()
-    {
-        yield return new WaitForSeconds(3);
-    }
+    //IEnumerator ComboWindow()
+    //{
+    //    yield return new WaitForSeconds(3);
+    //}
 
     int ModifyDamage(int damage, DamageType dmgType)    //Modifies damage depending on armor, resistance etc
     {
@@ -409,10 +406,13 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
     }
 
+    #region ComboEvents
+
     void Combo1WindowStart()
     {
         combo1 = true;
         currentWeapon.CanAttack = true;
+        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
         ////anim.SetBool("Combo", combo1);
         //StartCoroutine("ComboWindow");
         //combo1 = false;
@@ -421,6 +421,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     void Combo1WindowEnd()
     {
         combo1 = false;
+        attacking = false;
         //anim.SetBool("Combo", combo1);
     }
 
@@ -428,17 +429,25 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         currentWeapon.CanAttack = true;
         combo2 = true;
-
-        //StartCoroutine("ComboWindow");
-        //combo2 = false;
-        //anim.SetBool("Combo", combo2);
+        combo1 = false;
+        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
     }
 
     void Combo2WindowEnd()
     {
         combo2 = false;
+        attacking = false;
+    }
 
-        //anim.SetBool("Combo", combo2);
+    void Combo3()
+    {
+        combo2 = false;
+        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
+    }
+
+    void Combo3End()
+    {
+        attacking = false;
     }
 
     public bool CanAttack()
@@ -446,6 +455,9 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         currentWeapon.CanAttack = false;
         return currentWeapon.CanAttack;
     }
+
+    #endregion
+
     #endregion
 
     public void RestoreHealth(int amount)           //Låter spelaren få tillbaka liv
@@ -554,6 +566,13 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
         timeToBurn = 0f;
         burning = false;
+    }
+
+    IEnumerator HeavyAttackWait()
+    {
+        yield return new WaitForSeconds(0.5f);
+        this.currentWeapon.Attack(1.5f, true);
+        this.currentWeapon.StartCoroutine("AttackCooldown");
     }
 
     #endregion
