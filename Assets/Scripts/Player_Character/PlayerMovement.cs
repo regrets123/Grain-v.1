@@ -506,18 +506,21 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         rb.drag = (moveAmount > 0 || !isGrounded || jumping) ? 0 : 4;
 
-        if (camFollow.LockOn)
+        if (!combat.Attacking)
         {
-            Vector3 strafeVelocity = (transform.TransformDirection((new Vector3(h, 0, v)) * (velocity > 0 ? velocity : 1f)));
-            strafeVelocity.y = rb.velocity.y;
-            rb.velocity = Vector3.Lerp(rb.velocity, strafeVelocity, 20f * Time.deltaTime);
-        }
-        else
-        {
-            if ((isGrounded || airControl) && !Sliding())
+            if (camFollow.LockOn)
             {
-                rb.velocity = velY;
-                rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
+                Vector3 strafeVelocity = (transform.TransformDirection((new Vector3(h, 0, v)) * (velocity > 0 ? velocity : 1f)));
+                strafeVelocity.y = rb.velocity.y;
+                rb.velocity = Vector3.Lerp(rb.velocity, strafeVelocity, 20f * Time.deltaTime);
+            }
+            else
+            {
+                if ((isGrounded || airControl) && !Sliding())
+                {
+                    rb.velocity = velY;
+                    rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
+                }
             }
         }
     }

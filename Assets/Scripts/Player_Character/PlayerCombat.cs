@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/*By Björn Andersson*/
+/*By Björn Andersson && Andreas Nilsson*/
 
 public interface IKillable          //Interface som används av spelaren och alla fiender samt eventuella förstörbara objekt
 {
@@ -90,7 +90,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     int health, nuOfClicks = 0;
 
-    bool invulnerable = false, dead = false, canSheathe = true, burning = false, /*attacked = false, */paused = false, fallInvulnerability = false, combo1 = false, combo2 = false;
+    bool invulnerable = false, dead = false, canSheathe = true, burning = false, attacking = false, paused = false, fallInvulnerability = false, combo1 = false, combo2 = false;
 
     float secondsUntilResetClick, attackCountdown = 0f, interactTime, dashedTime, poiseReset, poise, timeToBurn = 0f;
 
@@ -147,6 +147,11 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         get { return this.healthBar; }
     }
 
+    public bool Attacking
+    {
+        get { return attacking; }
+    }
+
     #endregion
 
     #region Main Methods
@@ -188,7 +193,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
             if (movement.Stamina >= currentWeapon.LightStaminaCost && Input.GetButtonDown("Fire1"))
             {
                 LightAttack();
-                //attacked = true;
+                attacking = true;
             }
         }
 
@@ -341,12 +346,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
     }
 
-    IEnumerator HeavyAttackWait()
-    {
-        yield return new WaitForSeconds(0.5f);
-        this.currentWeapon.Attack(1.5f, true);
-        this.currentWeapon.StartCoroutine("AttackCooldown");
-    }
 
     public void Leech(int damageDealt)      //Om spelaren slåss med ett vapen med leech får denne tillbaka 10% av skadan som liv
     {
@@ -422,6 +421,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     void Combo1WindowEnd()
     {
         combo1 = false;
+        attacking = false;
         //anim.SetBool("Combo", combo1);
     }
 
@@ -436,6 +436,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     void Combo2WindowEnd()
     {
         combo2 = false;
+        attacking = false;
     }
 
     void Combo3()
@@ -444,13 +445,19 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
     }
 
-    #endregion
+    void Combo3End()
+    {
+        attacking = false;
+    }
 
     public bool CanAttack()
     {
         currentWeapon.CanAttack = false;
         return currentWeapon.CanAttack;
     }
+
+    #endregion
+
     #endregion
 
     public void RestoreHealth(int amount)           //Låter spelaren få tillbaka liv
@@ -559,6 +566,13 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
         timeToBurn = 0f;
         burning = false;
+    }
+
+    IEnumerator HeavyAttackWait()
+    {
+        yield return new WaitForSeconds(0.5f);
+        this.currentWeapon.Attack(1.5f, true);
+        this.currentWeapon.StartCoroutine("AttackCooldown");
     }
 
     #endregion

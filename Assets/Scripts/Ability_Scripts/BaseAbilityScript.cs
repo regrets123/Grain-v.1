@@ -12,8 +12,7 @@ public class BaseAbilityScript : BaseEquippableObject       //Ett script alla ma
     [SerializeField]
     protected Sprite myRune;
     
-    protected static bool coolingDown = false;
-    
+    protected static bool coolingDown = false;    
 
     public static bool CoolingDown
     {

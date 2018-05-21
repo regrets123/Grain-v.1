@@ -91,8 +91,9 @@ public class PlayerInteractions : MonoBehaviour, IPausable
     #region Colliders
     void OnTriggerEnter(Collider other)         //Avgör vilken IIinteractable spelaren kan interagera med
     {
-        if (other.gameObject.GetComponent<IInteractable>() != null)
-            currentInteractable = other.gameObject.GetComponent<IInteractable>();
+        if (other.gameObject.GetComponent<IInteractable>() == null)
+            return;
+        currentInteractable = other.gameObject.GetComponent<IInteractable>();
         if (currentInteractable is ClimbableScript)
         {
             movement.ChangeJump("Climb");
@@ -111,9 +112,9 @@ public class PlayerInteractions : MonoBehaviour, IPausable
                 movement.ChangeJump("Jump");
             }
             currentInteractable = null;
+            interactText.gameObject.SetActive(false);
+            interactText.text = "";
         }
-        interactText.gameObject.SetActive(false);
-        interactText.text = "";
     }
 
     #endregion

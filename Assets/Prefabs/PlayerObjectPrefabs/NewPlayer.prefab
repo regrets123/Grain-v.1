@@ -981,7 +981,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1382263821917424}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.4280247, z: -0, w: 0.90376705}
   m_LocalPosition: {x: 0.41, y: 3.35, z: 1.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1394,10 +1394,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   leechAmount: 0
-  invulnerabilityTime: 0
-  staggerTime: 0
-  maxPoise: 0
-  poiseCooldown: 0
+  invulnerabilityTime: 1
+  staggerTime: 1
+  maxPoise: 100
+  poiseCooldown: 1
   armor: 0
   leechPercentage: 0
   attackCooldown: 0
