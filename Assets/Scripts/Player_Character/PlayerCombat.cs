@@ -304,23 +304,20 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         if (movement.IsGrounded)
         {
             movement.Stamina -= currentWeapon.LightStaminaCost;
+
             if (!combo1 && !combo2)
             {
                 anim.SetTrigger("LightAttack1");
             }
             else if (combo1 && !combo2)
             {
-                combo1 = false;
                 anim.SetTrigger("LightAttack2");
-
             }
             else if (!combo1 && combo2)
             {
-                combo2 = false;
                 anim.SetTrigger("LightAttack3");
             }
 
-            SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
         }
     }
 
@@ -356,10 +353,10 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         RestoreHealth(Mathf.RoundToInt(floatDmg / 100f) * leechPercentage);
     }
 
-    IEnumerator ComboWindow()
-    {
-        yield return new WaitForSeconds(3);
-    }
+    //IEnumerator ComboWindow()
+    //{
+    //    yield return new WaitForSeconds(3);
+    //}
 
     int ModifyDamage(int damage, DamageType dmgType)    //Modifies damage depending on armor, resistance etc
     {
@@ -403,10 +400,13 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         dead = true;
     }
 
+    #region ComboEvents
+
     void Combo1WindowStart()
     {
         combo1 = true;
         currentWeapon.CanAttack = true;
+        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
         ////anim.SetBool("Combo", combo1);
         //StartCoroutine("ComboWindow");
         //combo1 = false;
@@ -422,18 +422,22 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         currentWeapon.CanAttack = true;
         combo2 = true;
-
-        //StartCoroutine("ComboWindow");
-        //combo2 = false;
-        //anim.SetBool("Combo", combo2);
+        combo1 = false;
+        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
     }
 
     void Combo2WindowEnd()
     {
         combo2 = false;
-
-        //anim.SetBool("Combo", combo2);
     }
+
+    void Combo3()
+    {
+        combo2 = false;
+        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
+    }
+
+    #endregion
 
     public bool CanAttack()
     {
