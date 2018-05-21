@@ -2665,7 +2665,6 @@ MonoBehaviour:
   musicSlider: {fileID: 477458812}
   fxSlider: {fileID: 4141351}
   sensitivitySlider: {fileID: 1517456831}
-  cam: {fileID: 2082868121}
   settingsMenu: {fileID: 2146683679}
 --- !u!223 &428741863
 Canvas:
@@ -4170,7 +4169,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0dc569d1e03d7d0458a3c07fb70194cb, type: 3}
+  m_Sprite: {fileID: 21300022, guid: fa54c79015c7de24b9715955c14aa545, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -10499,7 +10498,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -135.96051, y: -26}
+  m_AnchoredPosition: {x: -121.3, y: -4.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1747911445
@@ -10521,7 +10520,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0dc569d1e03d7d0458a3c07fb70194cb, type: 3}
+  m_Sprite: {fileID: 21300010, guid: fa54c79015c7de24b9715955c14aa545, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

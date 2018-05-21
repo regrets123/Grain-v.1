@@ -1,0 +1,183 @@
+fileFormatVersion: 2
+guid: fa54c79015c7de24b9715955c14aa545
+timeCreated: 1526902492
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: GrainLogo_0
+    21300002: GrainLogo_1
+    21300004: GrainLogo_2
+    21300006: GrainLogo_3
+    21300008: GrainLogo_4
+    21300010: GrainLogo_5
+    21300012: GrainLogo_6
+    21300014: GrainLogo_7
+    21300016: GrainLogo_8
+    21300018: GrainLogo_9
+    21300020: GrainLogo_10
+    21300022: GrainLogo_11
+    21300024: GrainLogo_12
+    21300026: GrainLogo_13
+    21300028: GrainLogo_14
+    21300030: GrainLogo_15
+    21300032: GrainLogo_16
+    21300034: GrainLogo_17
+    21300036: GrainLogo_18
+    21300038: GrainLogo_19
+    21300040: GrainLogo_20
+    21300042: GrainLogo_21
+    21300044: GrainLogo_22
+    21300046: GrainLogo_23
+    21300048: GrainLogo_24
+    21300050: GrainLogo_25
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GrainLogo_5
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 1227
+        width: 1412
+        height: 317
+      alignment: 9
+      pivot: {x: 0.52330774, y: 0.436565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GrainLogo_11
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 455
+        width: 1404
+        height: 317
+      alignment: 9
+      pivot: {x: 0.51790315, y: 0.45242378}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GrainLogo_23
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 1082
+        width: 50
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GrainLogo_24
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 99
+        width: 1410
+        height: 327
+      alignment: 9
+      pivot: {x: 0.50345516, y: 0.4538786}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GrainLogo_25
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 853
+        width: 1400
+        height: 317
+      alignment: 9
+      pivot: {x: 0.52154523, y: 0.46035314}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
