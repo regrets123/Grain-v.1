@@ -90,7 +90,7 @@ public class PlayerInteractions : MonoBehaviour, IPausable
             currentInteractable = other.gameObject.GetComponent<IInteractable>();
         if (currentInteractable is ClimbableScript)
         {
-
+            movement.ChangeJump("Climb");
         }
         interactText.text = currentInteractable.GetText();
         interactText.gameObject.SetActive(true);
@@ -100,10 +100,12 @@ public class PlayerInteractions : MonoBehaviour, IPausable
     {
         IInteractable otherInteractable = other.gameObject.GetComponent<IInteractable>();
         if (otherInteractable != null && currentInteractable == otherInteractable)
-            currentInteractable = null;
-        if (currentInteractable is ClimbableScript)
         {
-
+            if (currentInteractable is ClimbableScript)
+            {
+                movement.ChangeJump("Jump");
+            }
+            currentInteractable = null;
         }
         interactText.gameObject.SetActive(false);
         interactText.text = "";

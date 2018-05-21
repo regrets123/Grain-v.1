@@ -8,7 +8,7 @@ public class ClimbableScript : MonoBehaviour, IInteractable {
 
     public void Interact(PlayerInteractions player)
     {
-
+        return;
     }
 
     public string GetText()
