@@ -161,7 +161,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Animator anim;
 
-    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f, staminaRegenCountdown;
+    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f, staminaRegenCountdown, freezeTime;
 
     private Transform cam;
 
@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void JumpType(bool superJump);
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true, climbing = false, landed = false;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true, climbing = false, landed = false, frozen = false;
 
     private Movement currentMovement;
 
@@ -240,6 +240,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     void Awake()
     {
         playerCollider = GetComponent<Collider>();
+        interactions = GetComponent<PlayerInteractions>();
         combat = GetComponent<PlayerCombat>();
         currentMovement = DefaultMovement;
         previousMovement = DefaultMovement;
@@ -276,7 +277,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
 
-        if (Input.GetButtonDown("Jump") && canJump && currentJump == Jump)
+        if (Input.GetButtonDown("Jump") && canJump)
         {
             jump = true;
             canJump = false;
@@ -470,8 +471,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Climb(bool interfaceRequirement)
     {
-        if (climbing)
-            return;
         ClimbableScript currentClimbable = interactions.CurrentInteractable as ClimbableScript;
         transform.LookAt(currentClimbable.FinalClimbingPosition);
         transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
@@ -505,6 +504,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
         velX.x = rb.velocity.x;
 
         rb.drag = (moveAmount > 0 || !isGrounded || jumping) ? 0 : 4;
+
+        if (frozen)
+        {
+            moveDir /= 2;
+        }
 
         if (!combat.Attacking)
         {
@@ -630,6 +634,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     #region Coroutines
 
+    public IEnumerator Freeze()
+    {
+        frozen = true;
+        yield return new WaitForSeconds(freezeTime);
+        frozen = false;
+    }
+
     IEnumerator Dodge()
     {
         ChangeMovement("Dodge");
@@ -648,13 +659,15 @@ public class PlayerMovement : MonoBehaviour, IPausable
     IEnumerator Climbing(bool superClimb)
     {
         climbing = true;
+        ChangeMovement("None");
         string climbType = superClimb ? "Climb2" : "Climb1";
         anim.SetTrigger(climbType);
         rb.useGravity = false;
-        yield return new WaitForSeconds(1.7f);
+        yield return new WaitForSeconds(3.5f);
         climbing = false;
         rb.useGravity = true;
         ChangeJump("Jump");
+        ChangeMovement("Previous");
     }
 
     #endregion
