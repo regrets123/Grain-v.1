@@ -90,7 +90,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     int health, nuOfClicks = 0;
 
-    bool invulnerable = false, dead = false, canSheathe = true, burning = false, attacked = false, paused = false, fallInvulnerability = false, combo1 = false, combo2 = false;
+    bool invulnerable = false, dead = false, canSheathe = true, burning = false, /*attacked = false, */paused = false, fallInvulnerability = false, combo1 = false, combo2 = false;
 
     float secondsUntilResetClick, attackCountdown = 0f, interactTime, dashedTime, poiseReset, poise, timeToBurn = 0f;
 
@@ -175,24 +175,27 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         if (!paused && currentWeapon != null && movement.IsGrounded && this.currentWeapon != null && this.currentWeapon.CanAttack)     //Låter spelaren slåss
                                                                                                                                                                   //&& (currentMovementType == MovementType.Idle || currentMovementType == MovementType.Running || currentMovementType == MovementType.Sprinting || currentMovementType == MovementType.Walking || currentMovementType != MovementType.Stagger))
         {
-            if (Input.GetAxisRaw("Fire2") < -0.5 || Input.GetButtonDown("Fire2"))
+            if (movement.Stamina >= currentWeapon.HeavyStaminaCost && (Input.GetAxisRaw("Fire2") < -0.5 || Input.GetButtonDown("Fire2")))
             {
-                if (!attacked)
+                //if (!attacked)
                 {
                     HeavyAttack();
-                    attacked = true;
+                    //attacked = true;
                 }
             }
-            if (Input.GetButtonDown("Fire1"))
+            if (movement.Stamina >= currentWeapon.LightStaminaCost && Input.GetButtonDown("Fire1"))
             {
                 LightAttack();
+                //attacked = true;
             }
         }
 
+        /*
         if (attacked && (Input.GetAxisRaw("Fire2") > -0.5 || Input.GetAxisRaw("Fire2") < 0.5))
         {
             attacked = false;
         }
+        */
 
         if (poiseReset > 0)
         {
@@ -300,6 +303,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         if (movement.IsGrounded)
         {
+            movement.Stamina -= currentWeapon.LightStaminaCost;
             if (!combo1 && !combo2)
             {
                 anim.SetTrigger("LightAttack1");
@@ -324,6 +328,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         if (movement.IsGrounded)
         {
+            movement.Stamina -= currentWeapon.HeavyStaminaCost;
             if (!combo1)
             {
                 anim.SetTrigger("HeavyAttack1");
@@ -333,7 +338,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
                 combo1 = false;
                 anim.SetTrigger("HeavyAttack2");
             }
-
             SoundManager.instance.RandomizeSfx(heavyAttack1, heavyAttack2);
         }
     }
@@ -385,7 +389,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void Death()            //Kallas när spelaren dör, via skada eller Kill()
     {
-        dead = true;
         healthBar.value = 0f;
         if (hitNormal.y > 0)
         {
@@ -397,6 +400,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         }
         movement.ChangeMovement("None");
         deathScreen.SetActive(true);
+        dead = true;
     }
 
     void Combo1WindowStart()
