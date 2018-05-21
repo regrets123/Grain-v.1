@@ -6,9 +6,20 @@ public class ClimbableScript : MonoBehaviour, IInteractable {
 
     string interactText = "PRESS SPACE TO CLIMB";
 
+    [SerializeField]
+    bool superClimb;
+
+    [SerializeField]
+    Transform finalClimbingPosition;
+
+    public bool SuperClimb
+    {
+        get { return this.superClimb; }
+    }
+
     public void Interact(PlayerInteractions player)
     {
-
+        return;
     }
 
     public string GetText()
@@ -16,10 +27,12 @@ public class ClimbableScript : MonoBehaviour, IInteractable {
         return this.interactText;
     }
 
-    /*
-    [SerializeField]
-    Transform finalClimbingPosition;
+    public Transform FinalClimbingPosition
+    {
+        get { return this.finalClimbingPosition; }
+    }
 
+    /*
     [SerializeField]
     AnimationClip myAnim;
 

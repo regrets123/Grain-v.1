@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void JumpType(bool superJump);
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true, climbing = false, landed = false;
 
     private Movement currentMovement;
 
@@ -184,6 +184,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
     private LayerMask ignoreLayers;
 
     private PlayerCombat combat;
+
+    private PlayerInteractions interactions;
 
     private string currentMovementType = "Default";
 
@@ -466,9 +468,14 @@ public class PlayerMovement : MonoBehaviour, IPausable
         transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
     }
 
-    void Climb(bool delegateRquirement)
+    void Climb(bool interfaceRequirement)
     {
-        return;
+        if (climbing)
+            return;
+        ClimbableScript currentClimbable = interactions.CurrentInteractable as ClimbableScript;
+        transform.LookAt(currentClimbable.FinalClimbingPosition);
+        transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
+        StartCoroutine(Climbing(currentClimbable.SuperClimb));
     }
 
     public void Jump(bool superJump)
@@ -481,6 +488,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (!superJump)
             anim.SetTrigger("Jump");
 
+        landed = false;
         Vector3 vel = rb.velocity;
         vel.y = superJump ? superJumpForce : jumpForce;
         rb.velocity = vel;
@@ -558,9 +566,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
             if (rb.velocity.y < 0f && rb.velocity.y + safeFallDistance < 0f)
                 combat.TakeDamage((int)-(rb.velocity.y + safeFallDistance), DamageType.Falling);      //Fallskada
-
         }
 
+        if (inAir)
+        {
+            landed = false;
+        }
 
         if (!Sliding() && !inAir && moveDir != Vector3.zero)
             playerCollider.material = frictionMaterial;
@@ -568,6 +579,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
             playerCollider.material = maxFrictionMaterial;
         else
             playerCollider.material = slipperyMaterial;
+
+        if (!inAir && !landed)
+        {
+            StartCoroutine("JumpCooldown");
+        }
     }
 
     public bool OnGround()
@@ -578,7 +594,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         if (Physics.SphereCast(origin, ((CapsuleCollider)playerCollider).radius - 0.1f, dir, out groundHit, dis, ignoreLayers))
         {
-            StartCoroutine("JumpCooldown");
             return true;
         }
         return false;
@@ -622,16 +637,21 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     IEnumerator JumpCooldown()
     {
+        landed = true;
         yield return new WaitForSeconds(jumpCooldown);
         canJump = true;
     }
 
-    IEnumerator Climbing()
+    IEnumerator Climbing(bool superClimb)
     {
-        anim.SetTrigger("Climb2");
+        climbing = true;
+        string climbType = superClimb ? "Climb2" : "Climb1";
+        anim.SetTrigger(climbType);
         rb.useGravity = false;
         yield return new WaitForSeconds(1.7f);
+        climbing = false;
         rb.useGravity = true;
+        ChangeJump("Jump");
     }
 
     #endregion
