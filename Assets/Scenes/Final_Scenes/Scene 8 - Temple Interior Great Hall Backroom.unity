@@ -9,7 +9,7 @@ OcclusionCullingSettings:
     smallestHole: 0.25
     backfaceThreshold: 100
   m_SceneGUID: eec99f8f6e885154bb8e0a30aaca2eca
-  m_OcclusionCullingData: {fileID: 36300000, guid: 565b31a730bccb44f9e5368e3d2e79c8,
+  m_OcclusionCullingData: {fileID: 36300000, guid: 6719a4aabd347be408ee0984fbfb86f4,
     type: 2}
 --- !u!104 &2
 RenderSettings:
@@ -33659,36 +33659,43 @@ Transform:
   - {fileID: 1014546930}
   - {fileID: 89012820}
   - {fileID: 1572615435}
+  - {fileID: 1408263741}
   - {fileID: 1804900519}
   - {fileID: 2112396528}
   - {fileID: 2137603809}
+  - {fileID: 1412192588}
   - {fileID: 524250482}
   - {fileID: 1806340483}
   - {fileID: 938401305}
   - {fileID: 2091656798}
+  - {fileID: 1619508690}
   - {fileID: 1357862690}
   - {fileID: 300053350}
   - {fileID: 1350036165}
   - {fileID: 588551092}
   - {fileID: 1440459291}
   - {fileID: 565197036}
+  - {fileID: 740063976}
   - {fileID: 571498058}
   - {fileID: 1935381125}
   - {fileID: 1182557473}
   - {fileID: 1401486411}
   - {fileID: 747947705}
   - {fileID: 1351297730}
-  - {fileID: 1619508690}
+  - {fileID: 1493459936}
   - {fileID: 864554728}
   - {fileID: 527556353}
   - {fileID: 821926787}
   - {fileID: 1305025182}
+  - {fileID: 1843397780}
   - {fileID: 322793111}
   - {fileID: 598474439}
   - {fileID: 1224475778}
   - {fileID: 1357511430}
-  - {fileID: 1843397780}
-  - {fileID: 740063976}
+  - {fileID: 1754159501}
+  - {fileID: 711279456}
+  - {fileID: 1678266601}
+  - {fileID: 731771393}
   - {fileID: 460588278}
   - {fileID: 536109158}
   - {fileID: 664934808}
@@ -33696,9 +33703,6 @@ Transform:
   - {fileID: 772105725}
   - {fileID: 608461106}
   - {fileID: 634959628}
-  - {fileID: 1408263741}
-  - {fileID: 1412192588}
-  - {fileID: 1493459936}
   - {fileID: 215273680}
   - {fileID: 1108568213}
   - {fileID: 1954741753}
@@ -33707,10 +33711,6 @@ Transform:
   - {fileID: 1002548433}
   - {fileID: 1631573305}
   - {fileID: 1166623119}
-  - {fileID: 1754159501}
-  - {fileID: 711279456}
-  - {fileID: 1678266601}
-  - {fileID: 731771393}
   m_Father: {fileID: 1105092328}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 8, z: 0}
