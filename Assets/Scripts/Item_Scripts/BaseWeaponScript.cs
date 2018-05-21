@@ -21,6 +21,8 @@ public enum Upgrade         //Olika uppgraderingstyper
 
 public class BaseWeaponScript : BaseEquippableObject
 {
+    #region Serialized Variables
+
     [SerializeField]
     protected int origninalLightDamage, originalHeavyDamage, lightDamage;
 
@@ -35,6 +37,10 @@ public class BaseWeaponScript : BaseEquippableObject
     [SerializeField]
     protected AudioClip enemyHit1, enemyHit2, enemyHit3, swing1, swing2, thrust;
 
+#endregion
+
+    #region Non-Serialized Variables
+
     protected bool canAttack = true, heavy = false;
 
     protected MovementType previousMovement;
@@ -46,6 +52,12 @@ public class BaseWeaponScript : BaseEquippableObject
     protected int upgradeLevel = 0;
 
     protected Collider myColl;
+
+    protected IKillable equipper;
+
+#endregion
+
+    #region Properties
 
     public int UpgradeLevel
     {
@@ -84,13 +96,15 @@ public class BaseWeaponScript : BaseEquippableObject
         get { return this.attackSpeed; }
     }
     
-    protected IKillable equipper;
-
     public IKillable Equipper
     {
         set { if (this.equipper == null) this.equipper = value; }
         get { return this.equipper; }
     }
+
+    #endregion
+
+    #region Main Methods
 
     protected override void Start()
     {
@@ -106,10 +120,12 @@ public class BaseWeaponScript : BaseEquippableObject
         this.myColl.enabled = false;
     }
 
+    #endregion
+
     public void Attack(float attackTime, bool heavy)        //Håller koll på om vapnet ska göra light eller heavy skada
     {
-        if (!canAttack)
-            return;
+        //if (!canAttack)
+        //    return;
         this.heavy = heavy;
         StartCoroutine(AttackMove(attackTime));
     }

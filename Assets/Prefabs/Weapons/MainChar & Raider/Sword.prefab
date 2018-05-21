@@ -193,8 +193,10 @@ MonoBehaviour:
   myType: 0
   origninalLightDamage: 10
   originalHeavyDamage: 20
+  lightDamage: 0
   attackSpeed: 0.3
-  attacks: 
+  heavyStaminaCost: 40
+  lightStaminaCost: 20
   dmgType: 0
   enemyHit1: {fileID: 8300000, guid: 92c9b589850e8e0458a953409dca501d, type: 3}
   enemyHit2: {fileID: 8300000, guid: c942ce7e72b4f3c498517e0cbeb53d71, type: 3}
