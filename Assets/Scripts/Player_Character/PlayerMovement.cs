@@ -473,6 +473,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (climbing)
             return;
         ClimbableScript currentClimbable = interactions.CurrentInteractable as ClimbableScript;
+        transform.LookAt(currentClimbable.FinalClimbingPosition);
+        transform.rotation = new Quaternion(0f, transform.rotation.y, 0f, transform.rotation.w);
         StartCoroutine(Climbing(currentClimbable.SuperClimb));
     }
 
@@ -648,6 +650,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         rb.useGravity = false;
         yield return new WaitForSeconds(1.7f);
         climbing = false;
+        rb.useGravity = true;
         ChangeJump("Jump");
     }
 

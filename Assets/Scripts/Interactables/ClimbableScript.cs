@@ -9,6 +9,9 @@ public class ClimbableScript : MonoBehaviour, IInteractable {
     [SerializeField]
     bool superClimb;
 
+    [SerializeField]
+    Transform finalClimbingPosition;
+
     public bool SuperClimb
     {
         get { return this.superClimb; }
@@ -24,10 +27,12 @@ public class ClimbableScript : MonoBehaviour, IInteractable {
         return this.interactText;
     }
 
-    /*
-    [SerializeField]
-    Transform finalClimbingPosition;
+    public Transform FinalClimbingPosition
+    {
+        get { return this.finalClimbingPosition; }
+    }
 
+    /*
     [SerializeField]
     AnimationClip myAnim;
 
