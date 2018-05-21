@@ -153,6 +153,8 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void Start()
     {
+        deathScreen = GameObject.Find("DeathScreen");
+        deathScreen.SetActive(false);
         movement = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
         health = maxHealth;
@@ -317,7 +319,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
             {
                 anim.SetTrigger("LightAttack3");
             }
-
+            SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
         }
     }
 
@@ -386,18 +388,23 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void Death()            //Kallas när spelaren dör, via skada eller Kill()
     {
+        FindObjectOfType<InputManager>().SetInputMode(InputMode.None);
         healthBar.value = 0f;
         if (hitNormal.y > 0)
         {
             anim.SetTrigger("RightDead");
         }
-        else if (hitNormal.y < 0)
+        else
         {
             anim.SetTrigger("LeftDead");
         }
         movement.ChangeMovement("None");
         deathScreen.SetActive(true);
         dead = true;
+        foreach (BaseEnemyScript enemy in enemiesAggroing)
+        {
+            enemy.LoseAggro();
+        }
     }
 
     #region ComboEvents

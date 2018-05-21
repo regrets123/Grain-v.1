@@ -341,7 +341,7 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
         return;
     }
 
-    protected void LoseAggro()                  //Låter fienden sluta vara aggressiv mot spelaren
+    public void LoseAggro()                  //Låter fienden sluta vara aggressiv mot spelaren
     {
         target.EnemyAggro(this, false);
         target = null;
