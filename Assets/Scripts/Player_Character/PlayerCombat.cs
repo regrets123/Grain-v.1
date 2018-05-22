@@ -150,6 +150,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     public bool Attacking
     {
         get { return attacking; }
+        set { attacking = value; }
     }
 
     #endregion
@@ -326,15 +327,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         if (movement.IsGrounded)
         {
-            if (!combo1 && !combo2)
-            {
                 anim.SetTrigger("HeavyAttack1");
-                attacking = false;
-            }
-            else if (combo1 && !combo2)
-            {
-                anim.SetTrigger("HeavyAttack2");
-            }
         }
     }
 
@@ -438,18 +431,13 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         attacking = false;
     }
-
-    void HeavyCombo2()
-    {
-        combo1 = false;
-    }
-
+    
     public bool CanAttack()
     {
         currentWeapon.CanAttack = false;
         return currentWeapon.CanAttack;
     }
-
+    
     void LightAttackCollider()
     {
         currentWeapon.Attack(1f, false);
@@ -459,7 +447,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void HeavyAttackCollider()
     {
-        currentWeapon.Attack(1f, true);
+        currentWeapon.Attack(1.8f, true);
         SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
         movement.Stamina -= currentWeapon.HeavyStaminaCost;
     }

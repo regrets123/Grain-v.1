@@ -135,6 +135,7 @@ public class BaseWeaponScript : BaseEquippableObject
         myColl.enabled = true;
         yield return new WaitForSeconds(attackTime);
         myColl.enabled = false;
+        combat.Attacking = false;
     }
 
     public IEnumerator AttackCooldown()         //Hindrar vapnet från att attackera under en viss tid efter det attackerat
