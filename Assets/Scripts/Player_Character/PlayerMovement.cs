@@ -508,6 +508,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
             moveDir /= 2;
         }
 
+
         if (!combat.Attacking)
         {
             if (camFollow.LockOn)

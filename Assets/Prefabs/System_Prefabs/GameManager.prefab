@@ -74,6 +74,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114820794684758158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,9 +86,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c40032896244449bc56950ea399fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testing: 0
   maxSaves: 3
   camBase: {fileID: 1269810134394004, guid: 40c96716f362dd948a43916c702e22e0, type: 2}
-  player: {fileID: 1382263821917424, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
+  playerPrefab: {fileID: 1382263821917424, guid: 2ca68d53a812e8b448928230f6b0f646,
+    type: 2}
   healthPotPrefab: {fileID: 1468566042774118, guid: 45b64b341d8e01f41b763afc48ae208f,
     type: 2}
   allItems:
