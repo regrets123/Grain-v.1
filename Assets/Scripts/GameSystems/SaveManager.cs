@@ -130,7 +130,6 @@ public class SaveManager : MonoBehaviour
                     settings.CloseOutput = true;
                     // Save the document to a file and auto-indent the output.
                     savePath = Application.dataPath + "/SavedGame_" + saveNumber.ToString() + ".xml";
-                    print(savePath);
                     using (XmlWriter writer = XmlWriter.Create(savePath, settings))
                     {
                         currentGame.Save(writer);

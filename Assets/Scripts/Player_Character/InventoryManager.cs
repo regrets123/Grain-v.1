@@ -531,7 +531,6 @@ public class InventoryManager : MonoBehaviour
     public string[] ReportItems()           //Meddelar SaveManagern alla föremål som finns i spelarens inventory
     {
         string[] items = new string[playerInventory[0].Count + playerInventory[1].Count + playerInventory[2].Count];
-        print(items.Length + " Items");
         int index = 0;
         for (int i = 0; i < playerInventory[0].Count; i++)
         {
