@@ -78,6 +78,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1982664619499960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4173497930751790}
+  m_Layer: 0
+  m_Name: FinalPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4092625833586944
 Transform:
   m_ObjectHideFlags: 1
@@ -85,11 +100,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1402179782598276}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.63, y: -2.216828, z: -0.01}
+  m_LocalPosition: {x: 4.9, y: -2.05, z: -0.01}
   m_LocalScale: {x: 2.078094, y: 2.0780935, z: 2.078094}
   m_Children: []
   m_Father: {fileID: 4323814565992800}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4173497930751790
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1982664619499960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4323814565992800}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4323814565992800
 Transform:
@@ -98,12 +126,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740041088561072}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 341.9577, y: 174.1292, z: 264.0579}
+  m_LocalPosition: {x: -5.0358152, y: 1.0194601, z: -41.03768}
   m_LocalScale: {x: 0.4812103, y: 0.4812103, z: 0.4812103}
   m_Children:
   - {fileID: 4908471526162336}
   - {fileID: 4793312061565336}
   - {fileID: 4092625833586944}
+  - {fileID: 4173497930751790}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -225,8 +254,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 4, z: 1}
-  m_Center: {x: 2, y: 0, z: 0}
+  m_Size: {x: 7, y: 4, z: 5}
+  m_Center: {x: 3, y: 0, z: 0}
 --- !u!95 &95487068433222082
 Animator:
   serializedVersion: 3
@@ -257,5 +286,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorToOpen: {fileID: 0}
   leverPullPos: {fileID: 1402179782598276}
+  finalPos: {fileID: 1982664619499960}
   movePlayerSmoother: 10
   openGate: {fileID: 8300000, guid: 76dde1f379a86d84796447583ddd4cea, type: 3}

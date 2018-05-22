@@ -280,18 +280,14 @@ public class PlayerMovement : MonoBehaviour, IPausable
             jump = true;
             canJump = false;
         }
-        else if (Input.GetButtonDown("Dodge"))
+
+        if (Input.GetButtonDown("Dodge") && isGrounded && !Sliding())
             StartCoroutine("Dodge");
 
         if (Input.GetButton("Sprint") && stamina >= staminaSprintDrain)
             isSprinting = true;
         else
             isSprinting = false;
-
-        if (Input.GetKeyDown("t"))
-        {
-            StartCoroutine("Climbing");
-        }
     }
 
     #endregion
@@ -431,6 +427,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
             if (dodgeVelocity == Vector3.zero)
                 dodgeVelocity = rb.transform.forward * 4;
         }
+        print("Velocity" + dodgeVelocity);
         rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
     }
 
