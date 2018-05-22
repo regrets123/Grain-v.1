@@ -192,8 +192,9 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
             }
             if (movement.Stamina >= currentWeapon.LightStaminaCost && Input.GetButtonDown("Fire1"))
             {
-                LightAttack();
                 attacking = true;
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                LightAttack();
             }
         }
 
@@ -307,21 +308,22 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         if (movement.IsGrounded)
         {
-            movement.Stamina -= currentWeapon.LightStaminaCost;
 
             if (!combo1 && !combo2)
             {
                 anim.SetTrigger("LightAttack1");
+                movement.Stamina -= currentWeapon.LightStaminaCost;
             }
             else if (combo1 && !combo2)
             {
                 anim.SetTrigger("LightAttack2");
+                movement.Stamina -= currentWeapon.LightStaminaCost;
             }
             else if (!combo1 && combo2)
             {
                 anim.SetTrigger("LightAttack3");
+                movement.Stamina -= currentWeapon.LightStaminaCost;
             }
-            SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
         }
     }
 
@@ -451,6 +453,12 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         currentWeapon.CanAttack = false;
         return currentWeapon.CanAttack;
+    }
+
+    void LightAttackCollider()
+    {
+        currentWeapon.Attack(1f, false);
+        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
     }
 
     #endregion
