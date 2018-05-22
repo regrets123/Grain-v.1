@@ -92,16 +92,9 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: <Root Transform>
+    motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
-      copied configuration does not match position in animation file:\n\t'L_hip_JNT'
-      : position error = 14.153877 mm\n\t'L_knee_JNT' : position error = 37.710621
-      mm\n\t'L_ankle_JNT' : position error = 40.033405 mm\n\t'L_ball_JNT' : position
-      error = 8.796859 mm\n\t'L_toe_JNT' : position error = 10.912486 mm\n\t'R_hip_JNT'
-      : position error = 14.153893 mm\n\t'R_knee_JNT' : position error = 37.710541
-      mm\n\t'R_ankle_JNT' : position error = 40.033375 mm\n\t'R_ball_JNT' : position
-      error = 8.796859 mm\n\t'R_toe_JNT' : position error = 10.912523 mm\n"
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: "\nClip 'LeverPullTry2' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -138,10 +131,10 @@ ModelImporter:
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
