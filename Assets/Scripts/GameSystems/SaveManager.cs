@@ -104,7 +104,7 @@ public class SaveManager : MonoBehaviour
             ReloadGame();
         }
     }
-    
+
     //Metoder som används för att spara ett spel
     #region SaveMethods
     public void SaveGame(GameObject savePoint)      //Sparar spelet och byter material på den savepoint som använts för att indikera att den används
@@ -344,7 +344,6 @@ public class SaveManager : MonoBehaviour
         }
         this.currentGame.Load(currentSave.SavePath);
         this.xNav = currentGame.CreateNavigator();
-        ReskinSavePoints();
     }
 
     void LoadSavedScenes()          //Laddar in sparade scener
@@ -355,14 +354,20 @@ public class SaveManager : MonoBehaviour
 
     IEnumerator LoadingScenes(XPathNodeIterator savedScenes)
     {
+        bool loadGame = false;
+        if (File.Exists(Application.dataPath + "/SaveToLoad.xml"))
+        {
+            loadGame = true;
+            LoadGame();
+        }
         foreach (XPathNavigator scene in savedScenes)
         {
             lM.LoadScene(scene.Value);
             yield return new WaitUntil(() => SceneLoaded() == true);
         }
-        if (File.Exists(Application.dataPath + "/SaveToLoad.xml"))
+        if (loadGame)
         {
-            LoadGame();
+            ReskinSavePoints();
         }
         Vector3 newPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@Z").Value));
         Quaternion newRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@W").Value));
