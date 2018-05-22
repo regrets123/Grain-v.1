@@ -150,6 +150,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     public bool Attacking
     {
         get { return attacking; }
+        set { attacking = value; }
     }
 
     #endregion
@@ -184,11 +185,9 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         {
             if (movement.Stamina >= currentWeapon.HeavyStaminaCost && (Input.GetAxisRaw("Fire2") < -0.5 || Input.GetButtonDown("Fire2")))
             {
-                //if (!attacked)
-                {
-                    HeavyAttack();
-                    //attacked = true;
-                }
+                attacking = true;
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                HeavyAttack();
             }
             if (movement.Stamina >= currentWeapon.LightStaminaCost && Input.GetButtonDown("Fire1"))
             {
@@ -247,7 +246,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
                 case DamageType.Frost:
                     StopCoroutine(movement.Freeze());
                     StartCoroutine(movement.Freeze());
-                    //Lägg Freeze och frozen i PlayerMovement
                     break;
 
                 case DamageType.AutoStagger:
@@ -313,17 +311,14 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
             if (!combo1 && !combo2)
             {
                 anim.SetTrigger("LightAttack1");
-                movement.Stamina -= currentWeapon.LightStaminaCost;
             }
             else if (combo1 && !combo2)
             {
                 anim.SetTrigger("LightAttack2");
-                movement.Stamina -= currentWeapon.LightStaminaCost;
             }
             else if (!combo1 && combo2)
             {
                 anim.SetTrigger("LightAttack3");
-                movement.Stamina -= currentWeapon.LightStaminaCost;
             }
         }
     }
@@ -332,17 +327,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         if (movement.IsGrounded)
         {
-            movement.Stamina -= currentWeapon.HeavyStaminaCost;
-            if (!combo1)
-            {
                 anim.SetTrigger("HeavyAttack1");
-            }
-            else if (combo1)
-            {
-                combo1 = false;
-                anim.SetTrigger("HeavyAttack2");
-            }
-            SoundManager.instance.RandomizeSfx(heavyAttack1, heavyAttack2);
         }
     }
 
@@ -412,7 +397,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         combo1 = true;
         currentWeapon.CanAttack = true;
-        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
         ////anim.SetBool("Combo", combo1);
         //StartCoroutine("ComboWindow");
         //combo1 = false;
@@ -430,7 +414,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         currentWeapon.CanAttack = true;
         combo2 = true;
         combo1 = false;
-        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
     }
 
     void Combo2WindowEnd()
@@ -442,24 +425,31 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     void Combo3()
     {
         combo2 = false;
-        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
     }
 
     void Combo3End()
     {
         attacking = false;
     }
-
+    
     public bool CanAttack()
     {
         currentWeapon.CanAttack = false;
         return currentWeapon.CanAttack;
     }
-
+    
     void LightAttackCollider()
     {
         currentWeapon.Attack(1f, false);
         SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
+        movement.Stamina -= currentWeapon.LightStaminaCost;
+    }
+
+    void HeavyAttackCollider()
+    {
+        currentWeapon.Attack(1.8f, true);
+        SoundManager.instance.RandomizeSfx(lightAttack1, lightAttack2);
+        movement.Stamina -= currentWeapon.HeavyStaminaCost;
     }
 
     #endregion
