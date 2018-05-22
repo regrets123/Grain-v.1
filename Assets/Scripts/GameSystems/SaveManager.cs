@@ -365,10 +365,6 @@ public class SaveManager : MonoBehaviour
             lM.LoadScene(scene.Value);
             yield return new WaitUntil(() => SceneLoaded() == true);
         }
-        if (loadGame)
-        {
-            ReskinSavePoints();
-        }
         Vector3 newPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Position/@Z").Value));
         Quaternion newRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@W").Value));
         Vector3 newCameraPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").Value));
@@ -380,6 +376,11 @@ public class SaveManager : MonoBehaviour
         combat = player.GetComponent<PlayerCombat>();
         inventoryManager = player.GetComponent<InventoryManager>();
         inputManager.PlayerInventory = inventoryManager;
+        if (loadGame)
+        {
+            ReskinSavePoints();
+            LoadInventory();
+        }
         lM.LoadingScreen.SetActive(false);
         if (File.Exists(Application.dataPath + "/Settings.xml"))
         {
