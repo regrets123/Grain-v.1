@@ -38,7 +38,7 @@ public class SaveManager : MonoBehaviour
     int maxSaves;
 
     [SerializeField]
-    GameObject camBase, player, healthPotPrefab;
+    GameObject camBase, playerPrefab, healthPotPrefab;
 
     [SerializeField]
     GameObject[] allItems;
@@ -69,7 +69,7 @@ public class SaveManager : MonoBehaviour
 
     LoadingManager lM;
 
-    GameObject myCam;
+    GameObject myCam, player;
 
     private void Start()  //Startar spelet på olika sätt beroende på om det är ett nytt eller sparat spel
     {
@@ -370,12 +370,13 @@ public class SaveManager : MonoBehaviour
         Quaternion newRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@W").Value));
         Vector3 newCameraPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").Value));
         Quaternion newCameraRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@W").Value));
-        player = Instantiate(player, newPos, newRot);
+        player = Instantiate(playerPrefab, newPos, newRot);
         myCam = Instantiate(camBase, newCameraPos, newCameraRot);
         abilities = player.GetComponent<PlayerAbilities>();
         movement = player.GetComponent<PlayerMovement>();
         combat = player.GetComponent<PlayerCombat>();
         inventoryManager = player.GetComponent<InventoryManager>();
+        inputManager.PlayerInventory = inventoryManager;
         lM.LoadingScreen.SetActive(false);
         if (File.Exists(Application.dataPath + "/Settings.xml"))
         {
