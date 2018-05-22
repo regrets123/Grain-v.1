@@ -38,7 +38,7 @@ public class SaveManager : MonoBehaviour
     int maxSaves;
 
     [SerializeField]
-    GameObject camBase, player, healthPotPrefab;
+    GameObject camBase, playerPrefab, healthPotPrefab;
 
     [SerializeField]
     GameObject[] allItems;
@@ -69,7 +69,7 @@ public class SaveManager : MonoBehaviour
 
     LoadingManager lM;
 
-    GameObject myCam;
+    GameObject myCam, player;
 
     private void Start()  //Startar spelet på olika sätt beroende på om det är ett nytt eller sparat spel
     {
@@ -108,7 +108,7 @@ public class SaveManager : MonoBehaviour
             ReloadGame();
         }
     }
-
+    
     //Metoder som används för att spara ett spel
     #region SaveMethods
     public void SaveGame(GameObject savePoint)      //Sparar spelet och byter material på den savepoint som använts för att indikera att den används
@@ -162,9 +162,9 @@ public class SaveManager : MonoBehaviour
         SavePlayerTransform();
         SavePlayerResources();
         SaveCamTransform();
-        SaveInventory();
         SaveUsedSavePoints();
         SaveLoadedScenes();
+        SaveInventory();
     }
 
     void SaveLoadedScenes()         //Sparar alla öppna scener i XML så dessa kan laddas in när ett spel laddas
@@ -180,7 +180,6 @@ public class SaveManager : MonoBehaviour
         }
         for (int i = 2; i < SceneManager.sceneCount; i++)       //De båda masterscenerna är alltid laddade, så dessa behöver inte sparas och där för börjar i på 2
         {
-            print(SceneManager.GetSceneAt(i).name);
             scenesNode.AppendChild("<Scene Name=\"" + SceneManager.GetSceneAt(i).name + "\"/>");
         }
     }
@@ -371,12 +370,13 @@ public class SaveManager : MonoBehaviour
         Quaternion newRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/PlayerInfo/Transform/Rotation/@W").Value));
         Vector3 newCameraPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").Value));
         Quaternion newCameraRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@W").Value));
-        Instantiate(player, newPos, newRot);
+        player = Instantiate(playerPrefab, newPos, newRot);
         myCam = Instantiate(camBase, newCameraPos, newCameraRot);
         abilities = player.GetComponent<PlayerAbilities>();
         movement = player.GetComponent<PlayerMovement>();
         combat = player.GetComponent<PlayerCombat>();
         inventoryManager = player.GetComponent<InventoryManager>();
+        inputManager.PlayerInventory = inventoryManager;
         lM.LoadingScreen.SetActive(false);
         if (File.Exists(Application.dataPath + "/Settings.xml"))
         {
@@ -407,7 +407,7 @@ public class SaveManager : MonoBehaviour
         XPathNodeIterator nodes = xNav.Select("/SavedState/PlayerInfo/Inventory//Item/@Name");
         XPathNodeIterator favorites = xNav.Select("/SavedState/PlayerInfo/Inventory/Favorites//Favorite/@Name");
         XPathNodeIterator availableUpgrades = xNav.Select("/SavedState/PlayerInfo/Inventory/Upgrades/AvailableUpgrades//AvailableUpgrade/@Name");
-        XPathNavigator pots = xNav.SelectSingleNode("//Health Potions/@Number");
+        XPathNavigator pots = xNav.SelectSingleNode("//HealthPotions/@Number");
         if (pots.Value != "0")
         {
             inventoryManager.NewEquippable(healthPotPrefab);

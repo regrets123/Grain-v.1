@@ -11,8 +11,8 @@ public enum EquipableType       //Indikerar vilken typ av föremål något är s
 }
 
 public class InventoryManager : MonoBehaviour
-{ 
-    
+{
+
     #region Non-Serialized Variables
 
     GameObject inventoryMenu, upgradeOptions, equipButton, upgradeButton, favoriteButton, applyUpgradeButton, closeUpgradesButton;
@@ -23,7 +23,7 @@ public class InventoryManager : MonoBehaviour
 
     List<GameObject>[] playerInventory = new List<GameObject>[4];
 
-       Sprite dmgUpgradeSprite, fireUpgradeSprite, frostUpgradeSprite, leechUpgradeSprite;
+    Sprite dmgUpgradeSprite, fireUpgradeSprite, frostUpgradeSprite, leechUpgradeSprite;
 
     InputManager inputManager;
 
@@ -431,7 +431,7 @@ public class InventoryManager : MonoBehaviour
                 break;
 
             case EquipableType.Item:
-
+                abilities.EquipItem(playerInventory[3][favoriteIndex]);
                 break;
         }
         StartCoroutine(DisplayEquippedFavorite(favoriteIndex));
@@ -670,7 +670,7 @@ public class InventoryManager : MonoBehaviour
 
     public void ApplyUpgrade()              //Uppgraderar ett valt vapen
     {
-        playerInventory[0][collectionIndex].GetComponent<BaseWeaponScript>().ApplyUpgrade(itemUpgrades[upgradeIndex].GetComponent<UpgradeScript>().MyUpgrade/*, false*/);
+        playerInventory[0][collectionIndex].GetComponent<BaseWeaponScript>().ApplyUpgrade(itemUpgrades[upgradeIndex].GetComponent<UpgradeScript>().MyUpgrade);
         itemUpgrades.Remove(itemUpgrades[upgradeIndex]);
         ShowCurrentUpgrade();
         UpdateSprites();

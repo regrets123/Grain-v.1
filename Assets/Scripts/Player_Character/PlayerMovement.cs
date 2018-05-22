@@ -193,8 +193,6 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private RaycastHit groundHit;
 
-    //private Vector3? dashDir, dodgeDir;
-
     private Vector3? dashVelocity, dodgeVelocity;
 
     #endregion

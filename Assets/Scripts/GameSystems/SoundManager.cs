@@ -10,23 +10,23 @@ public class SoundManager : MonoBehaviour, IPausable
     AudioSource efxSource, musicSource, environmentSource;
 
     public static SoundManager instance = null;
-
+    
     [SerializeField]
     float lowPitchedRange = 0.95f, highPitchedRange = 1.05f;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         FindObjectOfType<PauseManager>().Pausables.Add(this);
-		if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
-        else if(instance != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
-	}
+    }
 
     public void PauseMe(bool pausing)
     {
@@ -50,7 +50,7 @@ public class SoundManager : MonoBehaviour, IPausable
         efxSource.Play();
     }
 
-    public void RandomizeSfx(params AudioClip [] clips)
+    public void RandomizeSfx(params AudioClip[] clips)
     {
         int randomIndex = Random.Range(0, clips.Length);
         float randomPitch = Random.Range(lowPitchedRange, highPitchedRange);

@@ -245,7 +245,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
                 case DamageType.Frost:
                     StopCoroutine(movement.Freeze());
                     StartCoroutine(movement.Freeze());
-                    //Lägg Freeze och frozen i PlayerMovement
                     break;
 
                 case DamageType.AutoStagger:
