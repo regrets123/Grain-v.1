@@ -83,11 +83,7 @@ public class SaveManager : MonoBehaviour
     {
         if (testing)
             return;
-        if (File.Exists(Application.dataPath + "/SaveToLoad.xml"))
-        {
-            LoadGame();
-        }
-        else
+        if (!File.Exists(Application.dataPath + "/SaveToLoad.xml"))
         {
             TextAsset newGameText = Resources.Load("SavedStateXML") as TextAsset;
             currentGame.LoadXml(newGameText.text);
@@ -348,7 +344,6 @@ public class SaveManager : MonoBehaviour
         }
         this.currentGame.Load(currentSave.SavePath);
         this.xNav = currentGame.CreateNavigator();
-        LoadInventory();
         ReskinSavePoints();
     }
 
@@ -384,6 +379,10 @@ public class SaveManager : MonoBehaviour
             SettingsMenuScript settings = FindObjectOfType<SettingsMenuScript>();
             settings.SetCam(myCam);
             settings.SetCamSensitivity(int.Parse(settingsDoc.SelectSingleNode("/Settings/Camera/@Sensitivity").Value));
+        }
+        if (File.Exists(Application.dataPath + "/SaveToLoad.xml"))
+        {
+            LoadGame();
         }
     }
 
