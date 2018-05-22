@@ -41,9 +41,9 @@ public class OpenDoor : MonoBehaviour, IInteractable
     {
         playerToMove = player;
         StartCoroutine("MovePlayerToInteract");
-        player.InteractTime = 5.13f;
-        anim.SetTrigger("LeverPull");
-        playerToMove.Anim.SetTrigger("PullLever");
+        //player.InteractTime = 3f;
+        anim.Play("LeverSwitch", 0);
+        playerToMove.Anim.Play("Open Gate", 0);
         StartCoroutine("OpenSesame");
     }
 
@@ -51,13 +51,13 @@ public class OpenDoor : MonoBehaviour, IInteractable
     {
         yield return new WaitForSeconds(5.0f);
         SoundManager.instance.PlaySingle(openGate);
+        playerToMove.GetComponent<PlayerMovement>().ChangeMovement("Previous");
         animDoor.SetTrigger("OpenDoor");
-        playerToMove.GetComponent<Rigidbody>().useGravity = true;
     }
 
     IEnumerator MovePlayerToInteract()      //Flyttar spelaren till rätt position medan animationen spelas
     {
-        playerToMove.GetComponent<Rigidbody>().useGravity = false;
+        playerToMove.GetComponent<PlayerMovement>().ChangeMovement("None");
         float t = 0;
 
         while (t < 1)
