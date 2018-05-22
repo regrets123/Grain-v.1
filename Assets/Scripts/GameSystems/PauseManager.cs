@@ -42,7 +42,6 @@ public class PauseManager : MonoBehaviour
         iM.SetInputMode(InputMode.Playing);
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
-        print(FindObjectOfType<SettingsMenuScript>().gameObject);
     }
 
     private void Update()
