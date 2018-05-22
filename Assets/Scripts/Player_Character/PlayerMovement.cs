@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private RaycastHit groundHit;
 
-    private Vector3? dashVelocity, dodgeVelocity;
+    private Vector3 dashVelocity, dodgeVelocity;
 
     #endregion
 
@@ -280,18 +280,14 @@ public class PlayerMovement : MonoBehaviour, IPausable
             jump = true;
             canJump = false;
         }
-        else if (Input.GetButtonDown("Dodge"))
+
+        if (Input.GetButtonDown("Dodge") && isGrounded && !Sliding())
             StartCoroutine("Dodge");
 
         if (Input.GetButton("Sprint") && stamina >= staminaSprintDrain)
             isSprinting = true;
         else
             isSprinting = false;
-
-        if (Input.GetKeyDown("t"))
-        {
-            StartCoroutine("Climbing");
-        }
     }
 
     #endregion
@@ -322,8 +318,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     public void ChangeMovement(string movementType)
     {
-        dashVelocity = null;
-        dodgeVelocity = null;
+        dashVelocity = Vector3.zero;
+        dodgeVelocity = Vector3.zero;
+
         if (combat.Dead)
         {
             currentMovement = NoMovement;
@@ -425,13 +422,16 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void DodgeMovement()        //Metod som används för att få spelaren att göra en rull-dodge
     {
-        if (dodgeVelocity == null)
-        {
-            dodgeVelocity = moveDir;
-            if (dodgeVelocity == Vector3.zero)
-                dodgeVelocity = rb.transform.forward * 4;
-        }
-        rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
+        //    if (dodgeVelocity == null)
+        //    {
+        dodgeVelocity = moveDir;
+
+        if (dodgeVelocity == Vector3.zero)
+            dodgeVelocity = rb.transform.forward * 4;
+        //}
+        //rb.AddForce(dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
+        rb.velocity += dodgeVelocity * dodgeSpeed;
+
     }
 
     void DashMovement()         //Metod som används för att få spelaren att göra en dash
@@ -644,7 +644,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         ChangeMovement("Dodge");
         yield return new WaitForSeconds(dodgeLength);
-        dodgeVelocity = null;
+        dodgeVelocity = Vector3.zero;
         ChangeMovement("Previous");
     }
 
