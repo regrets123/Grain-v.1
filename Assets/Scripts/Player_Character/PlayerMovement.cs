@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private RaycastHit groundHit;
 
-    private Vector3 dashVelocity, dodgeVelocity;
+    private Vector3? dashVelocity, dodgeVelocity;
 
     #endregion
 
@@ -318,9 +318,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     public void ChangeMovement(string movementType)
     {
-        dashVelocity = Vector3.zero;
-        dodgeVelocity = Vector3.zero;
-
+        dashVelocity = null;
+        dodgeVelocity = null;
         if (combat.Dead)
         {
             currentMovement = NoMovement;
@@ -422,16 +421,14 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void DodgeMovement()        //Metod som används för att få spelaren att göra en rull-dodge
     {
-        //    if (dodgeVelocity == null)
-        //    {
-        dodgeVelocity = moveDir;
-
-        if (dodgeVelocity == Vector3.zero)
-            dodgeVelocity = rb.transform.forward * 4;
-        //}
-        //rb.AddForce(dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
-        rb.velocity += dodgeVelocity * dodgeSpeed;
-
+        if (dodgeVelocity == null)
+        {
+            dodgeVelocity = moveDir;
+            if (dodgeVelocity == Vector3.zero)
+                dodgeVelocity = rb.transform.forward * 4;
+        }
+        print("Velocity" + dodgeVelocity);
+        rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
     }
 
     void DashMovement()         //Metod som används för att få spelaren att göra en dash
@@ -644,7 +641,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         ChangeMovement("Dodge");
         yield return new WaitForSeconds(dodgeLength);
-        dodgeVelocity = Vector3.zero;
+        dodgeVelocity = null;
         ChangeMovement("Previous");
     }
 
