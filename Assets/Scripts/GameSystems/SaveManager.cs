@@ -83,11 +83,7 @@ public class SaveManager : MonoBehaviour
     {
         if (testing)
             return;
-        if (File.Exists(Application.dataPath + "/SaveToLoad.xml"))
-        {
-            LoadGame();
-        }
-        else
+        if (!File.Exists(Application.dataPath + "/SaveToLoad.xml"))
         {
             TextAsset newGameText = Resources.Load("SavedStateXML") as TextAsset;
             currentGame.LoadXml(newGameText.text);
@@ -108,7 +104,7 @@ public class SaveManager : MonoBehaviour
             ReloadGame();
         }
     }
-    
+
     //Metoder som används för att spara ett spel
     #region SaveMethods
     public void SaveGame(GameObject savePoint)      //Sparar spelet och byter material på den savepoint som använts för att indikera att den används
@@ -348,8 +344,6 @@ public class SaveManager : MonoBehaviour
         }
         this.currentGame.Load(currentSave.SavePath);
         this.xNav = currentGame.CreateNavigator();
-        LoadInventory();
-        ReskinSavePoints();
     }
 
     void LoadSavedScenes()          //Laddar in sparade scener
@@ -360,6 +354,12 @@ public class SaveManager : MonoBehaviour
 
     IEnumerator LoadingScenes(XPathNodeIterator savedScenes)
     {
+        bool loadGame = false;
+        if (File.Exists(Application.dataPath + "/SaveToLoad.xml"))
+        {
+            loadGame = true;
+            LoadGame();
+        }
         foreach (XPathNavigator scene in savedScenes)
         {
             lM.LoadScene(scene.Value);
@@ -376,6 +376,11 @@ public class SaveManager : MonoBehaviour
         combat = player.GetComponent<PlayerCombat>();
         inventoryManager = player.GetComponent<InventoryManager>();
         inputManager.PlayerInventory = inventoryManager;
+        if (loadGame)
+        {
+            ReskinSavePoints();
+            LoadInventory();
+        }
         lM.LoadingScreen.SetActive(false);
         if (File.Exists(Application.dataPath + "/Settings.xml"))
         {
