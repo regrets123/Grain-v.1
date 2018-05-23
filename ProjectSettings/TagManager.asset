@@ -9,6 +9,8 @@ TagManager:
   - Stone
   - Sand
   - Wood
+  - Head
+  - DejaVu
   layers:
   - Default
   - TransparentFX

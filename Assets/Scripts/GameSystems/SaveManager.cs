@@ -95,6 +95,8 @@ public class SaveManager : MonoBehaviour
 
     private void Update()           //Temporary AF Fuckers
     {
+        if (inputManager.CurrentInputMode != InputMode.Playing)
+            return;
         if (Input.GetKeyDown(KeyCode.H))
         {
             SaveGame(savePoints[0]);

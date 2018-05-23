@@ -100,6 +100,32 @@ public class PauseManager : MonoBehaviour
         }
     }
 
+    public void ActivateConsole(bool active)
+    {
+        if (playerInventory == null)
+            playerInventory = FindObjectOfType<InventoryManager>();
+        if (iM == null)
+            iM = GetComponent<InputManager>();
+        paused = !paused;
+        if (paused)
+        {
+            Time.timeScale = 0f;
+            previousInputMode = iM.CurrentInputMode;
+                iM.SetInputMode(InputMode.Console);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            iM.SetInputMode(previousInputMode);
+        }
+        foreach (IPausable pauseMe in pausables)
+        {
+            if (pauseMe != null)
+                pauseMe.PauseMe(paused);
+        }
+
+    }
+
     public void ToggleMenu(GameObject menu)
     {
         menu.SetActive(!menu.activeSelf);

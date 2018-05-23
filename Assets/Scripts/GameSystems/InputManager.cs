@@ -6,7 +6,7 @@ using UnityEngine;
 
 public enum InputMode           //Håller koll på om spelet körs som vanligt, är pausat eller om spelaren navigerar i inventoryt för att kunna göra olika saker med samma inputs
 {
-    None, Playing, Paused, Inventory
+    None, Playing, Paused, Inventory, Console
 }
 
 public class InputManager : MonoBehaviour
@@ -43,7 +43,7 @@ public class InputManager : MonoBehaviour
         {
             //If a menu of sorts is brought up like pause screen or inventory the cursor is visable and unlocked again. It's locked and becomes invisable if its the other way around
             currentInputMode = newMode;
-            if (currentInputMode == InputMode.None || currentInputMode == InputMode.Paused || currentInputMode == InputMode.Inventory)
+            if (currentInputMode == InputMode.None || currentInputMode == InputMode.Paused || currentInputMode == InputMode.Inventory || currentInputMode == InputMode.Console)
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
