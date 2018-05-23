@@ -371,6 +371,16 @@ public class PlayerMovement : MonoBehaviour, IPausable
                     currentMovement = DodgeMovement;
                 }
                 break;
+
+            case "StrafeDodge":
+                if(currentMovement == LockOnMovement)
+                {
+                    anim.SetTrigger("Dodge");
+                    currentMovementType = "StrafeDodge";
+                    previousMovement = currentMovement;
+                    currentMovement = StrafeDodgeMovement;
+                }
+                break;
         }
     }
 
@@ -427,7 +437,18 @@ public class PlayerMovement : MonoBehaviour, IPausable
             if (dodgeVelocity == Vector3.zero)
                 dodgeVelocity = rb.transform.forward * 4;
         }
-        print("Velocity" + dodgeVelocity);
+        rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
+    }
+
+    void StrafeDodgeMovement()
+    {
+        if (dodgeVelocity == null)
+        {
+            dodgeVelocity = new Vector3(-direction, 0, -moveAmount);
+
+            if (dodgeVelocity == Vector3.zero && currentMovementType == "LockOn")
+                dodgeVelocity = -rb.transform.forward * 4;
+        }
         rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
     }
 
@@ -639,7 +660,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     IEnumerator Dodge()
     {
-        ChangeMovement("Dodge");
+        if (currentMovementType == "Default")
+            ChangeMovement("Dodge");
+        else
+            ChangeMovement("StrafeDodge");
+
         yield return new WaitForSeconds(dodgeLength);
         dodgeVelocity = null;
         ChangeMovement("Previous");
