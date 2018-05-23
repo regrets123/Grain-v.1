@@ -780,12 +780,12 @@ Prefab:
     - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
         type: 2}
       propertyPath: dodgeLength
-      value: 0.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
         type: 2}
       propertyPath: dodgeSpeed
-      value: 0.8
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
