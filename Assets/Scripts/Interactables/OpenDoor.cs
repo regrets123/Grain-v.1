@@ -7,7 +7,7 @@ using UnityEngine;
 public class OpenDoor : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    GameObject doorToOpen, leverPullPos;
+    GameObject doorToOpen, leverPullPos, finalPos;
 
     [SerializeField]
     float movePlayerSmoother;
@@ -62,14 +62,25 @@ public class OpenDoor : MonoBehaviour, IInteractable
 
         while (t < 1)
         {
+            if (Vector3.Distance(playerToMove.gameObject.transform.position, leverPullPos.gameObject.transform.position) < 0.1f && CheckPlayerRotation())
+                break;
             t += Time.deltaTime / movePlayerSmoother;
-        playerToMove.Anim.SetFloat("Speed", 0.5f);
+            playerToMove.Anim.SetFloat("Speed", 0.5f);
 
             playerToMove.gameObject.transform.position = Vector3.Lerp(playerToMove.gameObject.transform.position, leverPullPos.gameObject.transform.position, t);
             playerToMove.gameObject.transform.rotation = Quaternion.Lerp(playerToMove.gameObject.transform.rotation, leverPullPos.gameObject.transform.rotation, t);
 
             yield return null;
         }
+    }
 
+    bool CheckPlayerRotation()
+    {
+        float xDiff = Mathf.Abs(playerToMove.transform.rotation.x - leverPullPos.transform.rotation.x);
+        float yDiff = Mathf.Abs(playerToMove.transform.rotation.y - leverPullPos.transform.rotation.y);
+        float zDiff = Mathf.Abs(playerToMove.transform.rotation.z - leverPullPos.transform.rotation.z);
+        if (xDiff < 0.2f && yDiff < 0.2f && zDiff < 0.2f)
+            return true;
+        return false;
     }
 }
