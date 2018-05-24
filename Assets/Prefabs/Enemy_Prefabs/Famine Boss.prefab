@@ -537,6 +537,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1601072137824730
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4137221392187362}
+  m_Layer: 0
+  m_Name: BossWeaponPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1616769065032466
 GameObject:
   m_ObjectHideFlags: 1
@@ -1031,6 +1046,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4534247176793546}
+  - {fileID: 4137221392187362}
   m_Father: {fileID: 4856448178800242}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1047,6 +1063,19 @@ Transform:
   m_Father: {fileID: 4141521093536300}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4137221392187362
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1601072137824730}
+  m_LocalRotation: {x: -0.58919847, y: 0.01581197, z: 0.02719563, w: 0.8073757}
+  m_LocalPosition: {x: 0.02, y: 0.26, z: -0.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4093027493095056}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -72.226006, y: -1.223, z: 4.7510004}
 --- !u!4 &4138898147878988
 Transform:
   m_ObjectHideFlags: 1
@@ -1328,7 +1357,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1138314695487026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -23.40189, y: -1.2803412e-15, z: 57.661446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4607303597944502}
@@ -2186,7 +2215,7 @@ MonoBehaviour:
   aggroCenter: {fileID: 1525327704503570}
   soul: {fileID: 1157158949442700, guid: f18b8f53bd1f81e47935db9cfcefd708, type: 2}
   weapon: {fileID: 1705096337478230, guid: 6cfec5c857d50974fbfc4f36748a3e15, type: 2}
-  weaponPos: {fileID: 0}
+  weaponPos: {fileID: 4137221392187362}
   resistances: 
   lightAttack1: {fileID: 0}
   lightAttack2: {fileID: 0}
