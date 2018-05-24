@@ -312,12 +312,10 @@ public class PlayerMovement : MonoBehaviour, IPausable
         switch (newJump)
         {
             case "Jump":
-                rb.useGravity = true;
                 currentJump = Jump;
                 break;
 
             case "Climb":
-                rb.useGravity = false;
                 currentJump = Climb;
                 break;
         }
@@ -689,9 +687,11 @@ public class PlayerMovement : MonoBehaviour, IPausable
         climbing = true;
         ChangeMovement("None");
         string climbType = superClimb ? "Climb2" : "Climb1";
-        anim.SetTrigger(climbType);
+        float climbTime = superClimb ? 2.4f : 2f;
+        float defaultMass = rb.mass;
         rb.useGravity = false;
-        yield return new WaitForSeconds(3.5f);
+        anim.SetTrigger(climbType);
+        yield return new WaitForSeconds(climbTime);
         climbing = false;
         rb.useGravity = true;
         ChangeJump("Jump");
