@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: cc207f8537b08ed46856c094a0e75c03
-timeCreated: 1526904005
+guid: cb0187aa8425393448c0e86353818b60
+timeCreated: 1527161407
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: chest_JNT
-    100004: chest_rotate_JNT
+    100000: chest_JNT
+    100002: chest_rotate_JNT
+    100004: //RootNode
     100006: head_JNT
     100008: head_tipJNT
     100010: L_ankle_JNT
@@ -42,9 +42,9 @@ ModelImporter:
     100068: spine_1_JNT
     100070: spine_2_JNT
     100072: spine_3_JNT
-    400000: //RootNode
-    400002: chest_JNT
-    400004: chest_rotate_JNT
+    400000: chest_JNT
+    400002: chest_rotate_JNT
+    400004: //RootNode
     400006: head_JNT
     400008: head_tipJNT
     400010: L_ankle_JNT
@@ -79,7 +79,9 @@ ModelImporter:
     400068: spine_1_JNT
     400070: spine_2_JNT
     400072: spine_3_JNT
-    7400000: Animation_NewHeavyAttack_Backup2
+    7400000: DodgesExport2
+    7400002: LeftDodge
+    7400004: DodgeForward
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -94,22 +96,17 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Inbetween bone
-      rotation in copied configuration does not match rotation in animation file:\n\t'L_ball_JNT'
-      : rotation error = 1.999665 deg\n\t'R_ball_JNT' : rotation error = 10.572759
-      deg\n"
+    rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Animation_NewHeavyAttack_Backup2' has import
-      animation warnings that might lower retargeting quality:\nNote: Activate translation
-      DOF on avatar to improve retargeting quality.\n\t'chest_rotate_JNT' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'pelvis_JNT'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_ball_JNT'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_ball_JNT'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationImportWarnings: "\nClip 'DodgesExport2' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'L_ball_JNT' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'R_ball_JNT' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -118,10 +115,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Animation_NewHeavyAttack_Backup2
-      takeName: Animation_NewHeavyAttack_Backup2
-      firstFrame: 1
-      lastFrame: 54
+      name: LeftDodge
+      takeName: DodgesExport2
+      firstFrame: 150
+      lastFrame: 185
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -130,24 +127,45 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 1
+      loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 0
-      keepOriginalPositionXZ: 1
+      keepOriginalPositionXZ: 0
       heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.8825228
-        functionName: HeavyComboCheck
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DodgeForward
+      takeName: DodgesExport2
+      firstFrame: 200
+      lastFrame: 230
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

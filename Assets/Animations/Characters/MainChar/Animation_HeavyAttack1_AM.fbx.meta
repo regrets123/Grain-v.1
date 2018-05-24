@@ -112,9 +112,7 @@ ModelImporter:
       humanoid transforms and has rotation animation that will be discarded.\n\t'pelvis_JNT'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_ball_JNT'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_ball_JNT'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\nEvent
-      Combo3End has a time (1.000000) outside the clip's valid range (0.000000..1.000000).
-      It will never be fired"
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -150,36 +148,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: CanAttack
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.013927576
-        functionName: HeavyCombo2
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.81894153
-        functionName: HeavyAttackCollider
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: Combo3End
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: Reset
+      - time: 0.675841
+        functionName: HeavyComboCheck
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 4453898473533874}
   m_Layer: 0
   m_Name: head_JNT
-  m_TagString: Untagged
+  m_TagString: Head
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1640,10 +1640,10 @@ MonoBehaviour:
   superJumpForce: 75
   jumpCooldown: 0.3
   jumpTime: 0
-  dodgeCost: 0
-  dodgeCooldown: 0
-  dodgeLength: 0
-  dodgeSpeed: 0
+  dodgeCost: 20
+  dodgeCooldown: 1.5
+  dodgeLength: 0.6
+  dodgeSpeed: 25
   safeFallDistance: 50
   sandSteps: {fileID: 0}
   stoneSteps: {fileID: 0}
