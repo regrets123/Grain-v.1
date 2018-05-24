@@ -54,7 +54,6 @@ public class ConsoleScript : MonoBehaviour
     {
         pauseManager = GetComponent<PauseManager>();
         inputManager = GetComponent<InputManager>();
-        //dejaVuScreen = GameObject.Find("Speedlines");
         
     }
 
@@ -77,7 +76,7 @@ public class ConsoleScript : MonoBehaviour
                 CheckCode();
             }
         }
-        if (Input.GetButtonUp("Sprint"))
+        if (Input.GetButtonUp("Sprint") && dejaVuActive)
         {
             StopDejaVu();
         }
