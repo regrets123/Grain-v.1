@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c3f08afc015e02141a94046e51142d6b
-timeCreated: 1526980611
+guid: cb0187aa8425393448c0e86353818b60
+timeCreated: 1527161407
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -79,8 +79,9 @@ ModelImporter:
     400068: spine_1_JNT
     400070: spine_2_JNT
     400072: spine_3_JNT
-    7400000: DodgeBackwards
-    7400002: DodgeSide
+    7400000: DodgesExport2
+    7400002: LeftDodge
+    7400004: DodgeForward
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -97,7 +98,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'DodgesExport' has import animation warnings
+    animationImportWarnings: "\nClip 'DodgesExport2' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'L_ball_JNT' is inbetween humanoid transforms
       and has rotation animation that will be discarded.\n\t'R_ball_JNT' is inbetween
@@ -114,10 +115,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: DodgeBackwards
-      takeName: DodgesExport
-      firstFrame: 1
-      lastFrame: 85
+      name: LeftDodge
+      takeName: DodgesExport2
+      firstFrame: 150
+      lastFrame: 185
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -142,10 +143,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: DodgeSide
-      takeName: DodgesExport
-      firstFrame: 100
-      lastFrame: 135
+      name: DodgeForward
+      takeName: DodgesExport2
+      firstFrame: 200
+      lastFrame: 230
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

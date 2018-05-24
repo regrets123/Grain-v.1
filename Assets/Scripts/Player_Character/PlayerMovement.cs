@@ -447,12 +447,20 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void StrafeDodgeMovement()
     {
+        //    if (dodgeVelocity == null)
+        //    {
+        //        dodgeVelocity = new Vector3(direction, 0, moveAmount);
+
+        //        if (dodgeVelocity == Vector3.zero && currentMovementType == "LockOn")
+        //            dodgeVelocity = -rb.transform.forward * 10;
+        //    }
+        //    rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
+
         if (dodgeVelocity == null)
         {
-            dodgeVelocity = new Vector3(-direction, 0, -moveAmount);
-
-            if (dodgeVelocity == Vector3.zero && currentMovementType == "LockOn")
-                dodgeVelocity = -rb.transform.forward * 4;
+            dodgeVelocity = moveDir;
+            if (dodgeVelocity == Vector3.zero)
+                dodgeVelocity = -(rb.transform.forward * 4);
         }
         rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
     }
