@@ -187,29 +187,8 @@ ModelImporter:
           postInfinity: 3
           rotationOrder: 0
       events:
-      - time: 0
-        functionName: CanAttack
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.6022909
-        functionName: LightAttackCollider
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.66380906
-        functionName: Combo1WindowStart
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: Combo1WindowEnd
+      - time: 0.7706422
+        functionName: LightComboCheck
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -243,29 +222,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: CanAttack
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.13741313
-        functionName: LightAttackCollider
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.64484453
-        functionName: Combo2WindowStart
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: Combo2WindowEnd
+      - time: 0.6629528
+        functionName: LightComboCheck
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -299,22 +257,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.20569624
-        functionName: Combo3
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.23734178
-        functionName: LightAttackCollider
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.8239437
-        functionName: Combo3End
+      - time: 0.68653166
+        functionName: LightComboCheck
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
