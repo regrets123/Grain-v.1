@@ -137,7 +137,7 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
 
             if (canAttack && weapon.GetComponent<BaseWeaponScript>().CanAttack && !target.Dead && currentMovementType != MovementType.Stagger)
             {
-                if (this is HoundAI && (this as HoundAI) && Vector3.Distance(transform.position, target.transform.position) >= attackRange && Vector3.Distance(transform.position, target.transform.position) <= (this as HoundAI).MinJumpAttackDistance)
+                if (this is HoundAI && (this as HoundAI) && Vector3.Distance(transform.position, target.transform.position) >= attackRange && Vector3.Distance(transform.position, target.transform.position) <= (this as HoundAI).MaxJumpAttackDistance)
                 {
                     HeavyAttack();
                 }
@@ -153,7 +153,6 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
                     {
                         HeavyAttack();
                     }
-
                 }
             }
             else if (target.Dead)

@@ -7,7 +7,7 @@ using UnityEngine;
 public class HoundAI : BaseEnemyScript
 {
     [SerializeField]
-    protected float howlTime, minJumpAttackDistance;
+    protected float howlTime, maxJumpAttackDistance;
 
     [SerializeField]
     GameObject weapon2;
@@ -15,9 +15,9 @@ public class HoundAI : BaseEnemyScript
     [SerializeField]
     Transform weapon2Pos;
 
-    public float MinJumpAttackDistance
+    public float MaxJumpAttackDistance
     {
-        get { return this.minJumpAttackDistance; }
+        get { return this.maxJumpAttackDistance; }
     }
 
     protected override void Start()
@@ -45,7 +45,7 @@ public class HoundAI : BaseEnemyScript
 
     public override void HeavyAttack()
     {
-        if (Vector3.Distance(transform.position, target.transform.position) < minJumpAttackDistance)
+        if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
         {
             LightAttack();
             return;
