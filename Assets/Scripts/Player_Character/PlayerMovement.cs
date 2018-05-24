@@ -195,6 +195,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Vector3? dashVelocity, dodgeVelocity;
 
+    private ConsoleScript console;
+
     #endregion
 
     #region Properties
@@ -237,6 +239,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void Awake()
     {
+        console = FindObjectOfType<ConsoleScript>();
         playerCollider = GetComponent<Collider>();
         interactions = GetComponent<PlayerInteractions>();
         combat = GetComponent<PlayerCombat>();
@@ -284,8 +287,12 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (Input.GetButtonDown("Dodge") && isGrounded && !Sliding())
             StartCoroutine("Dodge");
 
-        if (Input.GetButton("Sprint") && stamina >= staminaSprintDrain)
+        if (Input.GetButton("Sprint") && stamina >= staminaSprintDrain && isGrounded && !Sliding())
+        {
             isSprinting = true;
+            if (console != null && console.Sprint != null)
+                console.Sprint.Invoke();
+        }
         else
             isSprinting = false;
     }
