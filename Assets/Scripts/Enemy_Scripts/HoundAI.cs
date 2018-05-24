@@ -15,6 +15,8 @@ public class HoundAI : BaseEnemyScript
     [SerializeField]
     Transform weapon2Pos;
 
+    bool jumpAttacking = false;
+
     public float MaxJumpAttackDistance
     {
         get { return this.maxJumpAttackDistance; }
@@ -45,7 +47,7 @@ public class HoundAI : BaseEnemyScript
 
     public override void HeavyAttack()
     {
-        if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
+        if (jumpAttacking || Vector3.Distance(transform.position, target.transform.position) < attackRange)
         {
             LightAttack();
             return;
@@ -58,6 +60,7 @@ public class HoundAI : BaseEnemyScript
     {
         if (alive && target != null)
         {
+            jumpAttacking = true;
             previousMovementType = MovementType.Idle;
             this.currentMovementType = MovementType.Attacking;
             attackColliderActivationSpeed = 0.5f;
@@ -78,6 +81,7 @@ public class HoundAI : BaseEnemyScript
             StartCoroutine("AttackCooldown");
             yield return new WaitForSeconds(1.5f);
             nav.speed = originalSpeed;
+            jumpAttacking = false;
             nav.destination = target.gameObject.transform.position;
         }
     }
