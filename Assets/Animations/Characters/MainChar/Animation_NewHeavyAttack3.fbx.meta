@@ -141,15 +141,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.4930362
-        functionName: HeavyAttackCollider
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.81058496
-        functionName: HeavyAttackCollider
+      - time: 0.8825228
+        functionName: HeavyComboCheck
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
