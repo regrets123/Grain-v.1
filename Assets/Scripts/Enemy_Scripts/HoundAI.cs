@@ -7,13 +7,18 @@ using UnityEngine;
 public class HoundAI : BaseEnemyScript
 {
     [SerializeField]
-    float howlTime, minJumpAttackDistance;
+    protected float howlTime, minJumpAttackDistance;
 
     [SerializeField]
     GameObject weapon2;
 
     [SerializeField]
     Transform weapon2Pos;
+
+    public float MinJumpAttackDistance
+    {
+        get { return this.minJumpAttackDistance; }
+    }
 
     protected override void Start()
     {

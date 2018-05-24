@@ -114,7 +114,7 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
         aggroBubble.radius = aggroRange;
 
         healthBar.maxValue = maxHealth;
-        
+
         enemyCanvas.enabled = false;
 
         if (this.weapon != null)
@@ -134,9 +134,14 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
                 gameObject.transform.rotation = new Quaternion(0f, gameObject.transform.rotation.y, 0f, gameObject.transform.rotation.w);
             }
 
-            if (canAttack && weapon.GetComponent<BaseWeaponScript>().CanAttack && !target.Dead && Vector3.Distance(transform.position, target.transform.position) <= attackRange)
+
+            if (canAttack && weapon.GetComponent<BaseWeaponScript>().CanAttack && !target.Dead && currentMovementType != MovementType.Stagger)
             {
-                if (currentMovementType != MovementType.Stagger)
+                if (this is HoundAI && (this as HoundAI) && Vector3.Distance(transform.position, target.transform.position) >= attackRange && Vector3.Distance(transform.position, target.transform.position) <= (this as HoundAI).MinJumpAttackDistance)
+                {
+                    HeavyAttack();
+                }
+                else if (Vector3.Distance(transform.position, target.transform.position) <= attackRange)
                 {
                     attack = Random.Range(1, 3);
 
@@ -148,6 +153,7 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
                     {
                         HeavyAttack();
                     }
+
                 }
             }
             else if (target.Dead)
@@ -164,7 +170,7 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
                         nav.isStopped = false;
                         nav.SetDestination(target.transform.position);
                     }
-                    
+
                 }
             }
             if (!losingAggro && Vector3.Distance(transform.position, target.transform.position) > loseAggroDistance)
@@ -348,7 +354,7 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
         losingAggro = false;
         nav.SetDestination(initialPos);
     }
-    
+
     protected virtual int ModifyDamage(int damage, DamageType dmgType)    //Modifierar skadan fienden tar efter armor, resistance och liknande
     {
         foreach (DamageType resistance in this.resistances)
@@ -393,7 +399,7 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
         currentMovementType = previousMovementType;
         canAttack = true;
     }
-        
+
     protected virtual IEnumerator ActivateAttackCollider(int attackNo)          //Aktiverar fiendens vapens collider under en viss tid så att vapnet kan göra skada
     {
         yield return new WaitForSeconds(attackColliderActivationSpeed);
