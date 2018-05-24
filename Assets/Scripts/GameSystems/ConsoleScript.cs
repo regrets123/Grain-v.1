@@ -54,9 +54,6 @@ public class ConsoleScript : MonoBehaviour
     {
         pauseManager = GetComponent<PauseManager>();
         inputManager = GetComponent<InputManager>();
-        head = GameObject.FindGameObjectWithTag("Head");
-        //dejaVuScreen = GameObject.Find("Speedlines");
-        speedLines = GameObject.Find("Speedlines").GetComponent<VideoPlayer>();
         
     }
 
@@ -79,7 +76,7 @@ public class ConsoleScript : MonoBehaviour
                 CheckCode();
             }
         }
-        if (Input.GetButtonUp("Sprint"))
+        if (Input.GetButtonUp("Sprint") && dejaVuActive)
         {
             StopDejaVu();
         }
@@ -99,8 +96,10 @@ public class ConsoleScript : MonoBehaviour
         speedLines.Play();
     }
 
-    void StopDejaVu()
+    public void StopDejaVu()
     {
+        if (!dejaVuActive)
+            return;
         dejaVuMusic.Stop();
         speedLines.Stop();
     }
@@ -112,6 +111,7 @@ public class ConsoleScript : MonoBehaviour
         switch (consoleField.text.ToUpper())
         {
             case "DEJAVU":
+                speedLines = GameObject.Find("Speedlines").GetComponent<VideoPlayer>();
                 dejaVuActive = !dejaVuActive;
                 if (dejaVuActive)
                     sprint.AddListener(PlayDejaVu);
@@ -120,6 +120,7 @@ public class ConsoleScript : MonoBehaviour
                 break;
 
             case "KANYE":
+                head = GameObject.FindGameObjectWithTag("Head");
                 bigHead = !bigHead;
                 if(bigHead)
                     head.transform.localScale = new Vector3(3, 3, 3);

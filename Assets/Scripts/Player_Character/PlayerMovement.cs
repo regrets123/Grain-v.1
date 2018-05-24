@@ -176,7 +176,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private delegate void JumpType(bool superJump);
 
-    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true, climbing = false, landed = false, frozen = false;
+    private bool paused = false, isGrounded, jumping = false, superJump = false, jump = false, interacting = false, isSprinting = false, canJump = true, climbing = false, landed = false, frozen = false, dodging = false;
 
     private Movement currentMovement;
 
@@ -287,17 +287,19 @@ public class PlayerMovement : MonoBehaviour, IPausable
             canJump = false;
         }
 
-        if (Input.GetButtonDown("Dodge") && isGrounded && !Sliding())
+        if (Input.GetButtonDown("Dodge") && isGrounded && !Sliding() && !jump && OnGround())
             StartCoroutine("Dodge");
 
         if (Input.GetButton("Sprint") && stamina >= staminaSprintDrain && isGrounded && !Sliding())
         {
             isSprinting = true;
-            if (console != null && console.Sprint != null)
-                console.Sprint.Invoke();
         }
         else
+        {
             isSprinting = false;
+            if (console != null && console.Sprint != null)
+                console.StopDejaVu();
+        }
     }
 
     #endregion
@@ -381,7 +383,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
                 break;
 
             case "StrafeDodge":
-                if(currentMovement == LockOnMovement)
+                if (currentMovement == LockOnMovement)
                 {
                     anim.SetTrigger("Dodge");
                     currentMovementType = "StrafeDodge";
@@ -432,7 +434,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotspeed);
         transform.rotation = targetRotation;
 
-        if (jump)
+        if (jump && currentMovement != DashMovement && currentMovement != DodgeMovement && !dodging)
             currentJump(superJump);
         jump = false;
     }
@@ -506,7 +508,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     public void Jump(bool superJump)
     {
-        if (!isGrounded || !OnGround())
+        if (!isGrounded || !OnGround() || currentMovement == DashMovement || currentMovement == DodgeMovement || dodging)
             return;
 
         jumping = true;
@@ -567,6 +569,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
             staminaRegenCountdown = staminaRegenWait;
             stamina -= staminaSprintDrain * Time.deltaTime;
             staminaBar.value = stamina;
+            if (console != null && console.Sprint != null)
+                console.Sprint.Invoke();
         }
         else
         {
@@ -673,6 +677,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     IEnumerator Dodge()
     {
+        canJump = false;
+        dodging = true;
         if (currentMovementType == "Default")
             ChangeMovement("Dodge");
         else
@@ -681,6 +687,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         yield return new WaitForSeconds(dodgeLength);
         dodgeVelocity = null;
+        canJump = true;
+        dodging = false;
         ChangeMovement("Previous");
     }
 
