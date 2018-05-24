@@ -290,11 +290,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (Input.GetButton("Sprint") && stamina >= staminaSprintDrain && isGrounded && !Sliding())
         {
             isSprinting = true;
-            if (console != null && console.Sprint != null)
-                console.Sprint.Invoke();
         }
         else
+        {
             isSprinting = false;
+            if (console != null && console.Sprint != null)
+                console.StopDejaVu();
+        }
     }
 
     #endregion
@@ -567,6 +569,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
             staminaRegenCountdown = staminaRegenWait;
             stamina -= staminaSprintDrain * Time.deltaTime;
             staminaBar.value = stamina;
+            if (console != null && console.Sprint != null)
+                console.Sprint.Invoke();
         }
         else
         {

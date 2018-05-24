@@ -96,8 +96,10 @@ public class ConsoleScript : MonoBehaviour
         speedLines.Play();
     }
 
-    void StopDejaVu()
+    public void StopDejaVu()
     {
+        if (!dejaVuActive)
+            return;
         dejaVuMusic.Stop();
         speedLines.Stop();
     }
