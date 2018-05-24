@@ -404,7 +404,7 @@ BlendTree:
     m_Motion: {fileID: 7400004, guid: cb0187aa8425393448c0e86353818b60, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 1}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -412,7 +412,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: c3f08afc015e02141a94046e51142d6b, type: 3}
     m_Threshold: 0.33333334
     m_Position: {x: 0, y: -1}
-    m_TimeScale: 1
+    m_TimeScale: 2.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -420,7 +420,7 @@ BlendTree:
     m_Motion: {fileID: 7400002, guid: c3f08afc015e02141a94046e51142d6b, type: 3}
     m_Threshold: 0.6666667
     m_Position: {x: 1, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -428,7 +428,7 @@ BlendTree:
     m_Motion: {fileID: 7400002, guid: cb0187aa8425393448c0e86353818b60, type: 3}
     m_Threshold: 1
     m_Position: {x: -1, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -450,7 +450,7 @@ BlendTree:
     m_Motion: {fileID: 7400002, guid: c3f08afc015e02141a94046e51142d6b, type: 3}
     m_Threshold: 0.33333334
     m_Position: {x: 1, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -458,7 +458,7 @@ BlendTree:
     m_Motion: {fileID: 7400002, guid: cb0187aa8425393448c0e86353818b60, type: 3}
     m_Threshold: 0.5555556
     m_Position: {x: -1, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -466,7 +466,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: c3f08afc015e02141a94046e51142d6b, type: 3}
     m_Threshold: 0.7777778
     m_Position: {x: 0, y: -1}
-    m_TimeScale: 1
+    m_TimeScale: 2.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -474,7 +474,7 @@ BlendTree:
     m_Motion: {fileID: 7400004, guid: cb0187aa8425393448c0e86353818b60, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 1}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -1054,9 +1054,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.14444447
   m_TransitionOffset: 0
-  m_ExitTime: 0.75206614
+  m_ExitTime: 0.84670216
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1270,9 +1270,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.18999994
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.8717392
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

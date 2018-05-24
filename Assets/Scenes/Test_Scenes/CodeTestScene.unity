@@ -990,42 +990,6 @@ Prefab:
       propertyPath: staminaBar
       value: 
       objectReference: {fileID: 2009254266}
-    - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
-        type: 2}
-      propertyPath: dodgeCost
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
-        type: 2}
-      propertyPath: dodgeCooldown
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
-        type: 2}
-      propertyPath: dodgeLength
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114724888867740010, guid: 2ca68d53a812e8b448928230f6b0f646,
-        type: 2}
-      propertyPath: dodgeSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4453898473533874, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4453898473533874, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4453898473533874, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1299310660400140, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
-      propertyPath: m_TagString
-      value: Head
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
   m_IsPrefabParent: 0
