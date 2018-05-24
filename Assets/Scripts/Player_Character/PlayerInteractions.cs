@@ -26,6 +26,8 @@ public class PlayerInteractions : MonoBehaviour, IPausable
 
     Animator anim;
 
+    InputManager inputManager;
+
     #endregion
 
     #region Properties
@@ -63,12 +65,13 @@ public class PlayerInteractions : MonoBehaviour, IPausable
         rb = GetComponent<Rigidbody>();
         movement = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
+        inputManager = FindObjectOfType<InputManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Interact") && currentInteractable != null && !paused)
+        if (Input.GetButtonDown("Interact") && currentInteractable != null && !paused && inputManager.CurrentInputMode == InputMode.Playing)
         {
             currentInteractable.Interact(this);
             this.currentInteractable = null;

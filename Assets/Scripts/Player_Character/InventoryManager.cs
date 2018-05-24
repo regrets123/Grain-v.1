@@ -206,7 +206,7 @@ public class InventoryManager : MonoBehaviour
 
     void Update() //se till att rätt saker händer när rätt knappar trycks på               
     {
-        if (Input.GetButtonDown("Inventory") && inputManager.CurrentInputMode != InputMode.Paused)
+        if (Input.GetButtonDown("Inventory") && inputManager.CurrentInputMode != InputMode.Paused && inputManager.CurrentInputMode != InputMode.Console)
         {
             if (inventoryMenu.activeSelf)           //Visar och döljer inventoryt
             {
