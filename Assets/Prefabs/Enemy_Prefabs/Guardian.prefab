@@ -1801,7 +1801,7 @@ MonoBehaviour:
   poiseCooldown: 1
   attackColliderActivationSpeed: 1
   attackColliderDeactivationSpeed: 1
-  maxHealth: 100
+  maxHealth: 80
   lifeForce: 10
   unitName: Guardian
   aggroCenter: {fileID: 1575101720770298}

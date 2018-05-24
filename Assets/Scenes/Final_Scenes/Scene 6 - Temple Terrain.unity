@@ -9,7 +9,7 @@ OcclusionCullingSettings:
     smallestHole: 0.25
     backfaceThreshold: 100
   m_SceneGUID: 4200bb43b1e11de44aa795a4d86ba622
-  m_OcclusionCullingData: {fileID: 36300000, guid: 6719a4aabd347be408ee0984fbfb86f4,
+  m_OcclusionCullingData: {fileID: 36300000, guid: ed4cc44366fbaf046ba1f79d33f1ad01,
     type: 2}
 --- !u!104 &2
 RenderSettings:
@@ -114,7 +114,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 41ffefff6c217a24bb9166e620f58777, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 6eaf48ea2179e3d4998f2bcc183615f2, type: 2}
 --- !u!1 &11737442
 GameObject:
   m_ObjectHideFlags: 0

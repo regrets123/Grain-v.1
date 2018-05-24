@@ -2180,7 +2180,7 @@ MonoBehaviour:
   poiseCooldown: 1
   attackColliderActivationSpeed: 0.2
   attackColliderDeactivationSpeed: 3
-  maxHealth: 300
+  maxHealth: 150
   lifeForce: 100
   unitName: Famine
   aggroCenter: {fileID: 1525327704503570}
