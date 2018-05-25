@@ -185,7 +185,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     void Update()
     {
         if (!paused && currentWeapon != null && movement.IsGrounded && this.currentWeapon != null)     //Låter spelaren slåss
-                                                                                                                                                                  //&& (currentMovementType == MovementType.Idle || currentMovementType == MovementType.Running || currentMovementType == MovementType.Sprinting || currentMovementType == MovementType.Walking || currentMovementType != MovementType.Stagger))
         {
             if (movement.Stamina >= currentWeapon.LightStaminaCost && Input.GetButtonDown("Fire1"))
             {
@@ -352,14 +351,22 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     public void LightAttack()
     {
-        attacking = true;
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("LightAttack3") || !anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack3") ||
+            !anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack3"))
+        {
+            attacking = true;
+        }
+
         rb.velocity -= rb.velocity;
 
         if (canClick)
             noOfClicks++;
 
-        if (noOfClicks == 1)
+        if (noOfClicks == 1 && !anim.GetCurrentAnimatorStateInfo(0).IsName("LightAttack3") || !anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack3") ||
+            !anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack3"))
+        {
             anim.SetInteger("LightAnimation", 1);
+        }
     }
 
     public void HeavyAttack()
@@ -378,8 +385,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     public void LightComboCheck()
     {
-        canClick = false;
-
         if ((anim.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack1") ||
             anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack1")) && noOfClicks == 1)
         {//If the first animation is still playing and only 1 click has happened, return to idle
@@ -421,8 +426,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     public void HeavyComboCheck()
     {
-        canClick = false;
-
         if ((anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyAttack1") || anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack1") ||
             anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack1")) && noOfClicks == 1)
         {  //If the first animation is still playing and only 1 clicks have happened, return to idle  
