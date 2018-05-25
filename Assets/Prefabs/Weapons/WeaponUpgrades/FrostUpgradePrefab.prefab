@@ -53,6 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryIcon: {fileID: 21300000, guid: 6156f218310b9524899efdfba4e4161e, type: 3}
   objectName: Frost Upgrade
+  inventoryInfo: 'Frost Upgrade, when applied to a weapon, slows the hit target for
+    slowTime. '
   myType: 3
   upgrade: 3
   upgradeInfo: Upgrades your weapon with Frost, causing it to slow enemies down.

@@ -10,7 +10,7 @@ public class BaseEquippableObject : MonoBehaviour {     //Script som alla förem
     protected Sprite inventoryIcon;
 
     [SerializeField]
-    protected string objectName;
+    protected string objectName, inventoryInfo;
 
     [SerializeField]
     protected EquipableType myType;
@@ -40,6 +40,11 @@ public class BaseEquippableObject : MonoBehaviour {     //Script som alla förem
     public Sprite InventoryIcon
     {
         get { return this.inventoryIcon; }
+    }
+
+    public virtual string InventoryInfo
+    {
+        get { return this.inventoryInfo; }
     }
 
     protected virtual void Start()

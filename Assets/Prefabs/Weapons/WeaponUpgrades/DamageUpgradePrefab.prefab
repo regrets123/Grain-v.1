@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryIcon: {fileID: 21300000, guid: 61c2e3952b56fef4281500d9a5c39300, type: 3}
   objectName: Damage Upgrade
+  inventoryInfo: Damage Upgrade gives the weapon +upgradeDamage attack
   myType: 3
   upgrade: 1
   upgradeInfo: Upgrades your weapon to increase the amount of damage it deals.

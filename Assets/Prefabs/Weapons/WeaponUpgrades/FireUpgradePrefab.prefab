@@ -53,6 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryIcon: {fileID: 21300000, guid: 17e525893525a044cbc0b68934306b16, type: 3}
   objectName: Fire Upgrade
+  inventoryInfo: 'Fire Upgrade, when applied to a weapon, damages the hit target over
+    time. '
   myType: 3
   upgrade: 2
   upgradeInfo: Upgrades your weapon with Fire, causing it to make enemies burn for

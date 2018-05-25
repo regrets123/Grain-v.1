@@ -27,11 +27,7 @@ public class InventoryManager : MonoBehaviour
 
     InputManager inputManager;
 
-    Button[] inventoryButtons = new Button[12];
-
-    Button[] categoryButtons = new Button[4];
-
-    Button[] upgradeButtons = new Button[8];
+    Button[] inventoryButtons = new Button[12], categoryButtons = new Button[4], upgradeButtons = new Button[8];
 
     PauseManager pM;
 
@@ -43,7 +39,7 @@ public class InventoryManager : MonoBehaviour
 
     MenuManager menuManager;
 
-    Text equippableName, upgradeName, upgradeInfo;
+    Text equippableName, upgradeName, upgradeInfo, itemInfoText;
 
     bool coolingDown = false, itemSelected = false, upgrading = false, equippingFavorite = false, upgradeSelected = false;
 
@@ -176,6 +172,7 @@ public class InventoryManager : MonoBehaviour
         equippedWeaponImage = GameObject.Find("EquippedWeaponImage").GetComponent<Image>();
         currentEquipableImage = GameObject.Find("Equipable Image").GetComponent<Image>();
         currentUpgradeImage = GameObject.Find("CurrentUpgradeImage").GetComponent<Image>();
+        itemInfoText = GameObject.Find("ItemInfoText").GetComponent<Text>();
         equippableName = GameObject.Find("Equipable Name").GetComponent<Text>();
         upgradeName = GameObject.Find("UpgradeName").GetComponent<Text>();
         upgradeInfo = GameObject.Find("UpgradeInfo").GetComponent<Text>();
@@ -624,6 +621,8 @@ public class InventoryManager : MonoBehaviour
             }
             menuManager.Glow(currentUpgrade.GetComponent<Outline>());
         }
+        if (collectionIndex < playerInventory[displayCollection].Count)
+        itemInfoText.text = playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().InventoryInfo;
     }
 
     public void ShowUpgradeOptions(bool show)       //Väljer om spelaren ska navigera mellan föremål i inventoryt eller tillgängliga uppgraderingar
@@ -631,25 +630,24 @@ public class InventoryManager : MonoBehaviour
         itemSelected = show;
         upgradeOptions.SetActive(show);
         closeUpgradesButton.SetActive(show);
+        upgradeInfo.gameObject.SetActive(show);
+        upgradeButton.SetActive(!show);
+        closeInventoryButton.gameObject.SetActive(!show);
+        equipButton.SetActive(!show);
+        favoriteButton.SetActive(!show);
         this.upgrading = show;
         menuManager.NoGlow(currentChoice.GetComponent<Outline>());
         if (show)
         {
-            closeInventoryButton.gameObject.SetActive(false);
-            upgradeButton.SetActive(false);
-            equipButton.SetActive(false);
-            favoriteButton.SetActive(false);
             currentUpgrade = upgradeButtons[0];
             menuManager.Glow(currentUpgrade.GetComponent<Outline>());
+            upgradeInfo.text = playerInventory[displayCollection][collectionIndex].GetComponent<UpgradeScript>().UpgradeInfo;
         }
         else
         {
-            closeInventoryButton.gameObject.SetActive(true);
-            upgradeButton.SetActive(true);
-            equipButton.SetActive(true);
-            favoriteButton.SetActive(true);
             applyUpgradeButton.SetActive(false);
             currentChoice = inventoryButtons[0];
+            upgradeInfo.text = "";
             menuManager.Glow(currentChoice.GetComponent<Outline>());
         }
         UpdateSprites();
