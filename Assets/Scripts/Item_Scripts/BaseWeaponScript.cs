@@ -59,6 +59,11 @@ public class BaseWeaponScript : BaseEquippableObject
 
     #region Properties
 
+    public override string InventoryInfo
+    {
+        get { return this.objectName + " is a light weapon that deals " + lightDamage + " light damage while and " + heavyDamage + " heavy damage."; }
+    }
+
     public int UpgradeLevel
     {
         get { return this.upgradeLevel; }

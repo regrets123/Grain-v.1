@@ -53,6 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryIcon: {fileID: 21300000, guid: b571cb1f914d58f4f85bbcd2c6e596bf, type: 3}
   objectName: Leech Upgrade
+  inventoryInfo: "Leech Upgrade, when applied to a weapon, drains the hit target\u2019s
+    health."
   myType: 3
   upgrade: 4
   upgradeInfo: Upgrades your weapon with Leech, causing it to restore health when
