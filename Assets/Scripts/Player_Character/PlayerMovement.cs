@@ -284,7 +284,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (Input.GetButtonDown("Jump") && canJump)
         {
             jump = true;
-            canJump = false;
+            //canJump = false;
         }
 
         if (Input.GetButtonDown("Dodge") && isGrounded && !Sliding() && !jump && OnGround())
@@ -518,6 +518,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         landed = false;
         Vector3 vel = rb.velocity;
+        canJump = false;
         vel.y = superJump ? superJumpForce : jumpForce;
         rb.velocity = vel;
         superJump = false;

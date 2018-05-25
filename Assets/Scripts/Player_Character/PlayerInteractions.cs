@@ -77,6 +77,8 @@ public class PlayerInteractions : MonoBehaviour, IPausable
             this.currentInteractable = null;
             rb.velocity = Vector3.zero;
             StartCoroutine("NonMovingInteract");
+            interactText.gameObject.SetActive(false);
+            interactText.text = "";
         }
     }
 
