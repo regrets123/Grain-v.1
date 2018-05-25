@@ -377,19 +377,11 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     public void HeavyAttack()
     {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("LightAttack3") || !anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack3") ||
-            !anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack3"))
-        {
-            attacking = true;
-        }
-
-        rb.velocity -= rb.velocity;
-
         if (canClick)
             noOfClicks++;
 
-        if (noOfClicks == 1 && (!anim.GetCurrentAnimatorStateInfo(0).IsName("LightAttack3") || !anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack3") ||
-            !anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack3")))
+        if (noOfClicks == 1 && (!anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyAttack2") || !anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack2") ||
+            !anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack2")))
             {
                 anim.SetInteger("HeavyAnimation", 1);
             }
