@@ -378,8 +378,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     public void LightComboCheck()
     {
-        canClick = false;
-
         if ((anim.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack1") ||
             anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack1")) && noOfClicks == 1)
         {//If the first animation is still playing and only 1 click has happened, return to idle
@@ -421,8 +419,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     public void HeavyComboCheck()
     {
-        canClick = false;
-
         if ((anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyAttack1") || anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack1") ||
             anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack1")) && noOfClicks == 1)
         {  //If the first animation is still playing and only 1 clicks have happened, return to idle  
