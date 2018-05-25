@@ -257,7 +257,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.68653166
+      - time: 0.6480263
         functionName: LightComboCheck
         data: 
         objectReferenceParameter: {instanceID: 0}
