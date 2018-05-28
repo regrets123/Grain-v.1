@@ -184,8 +184,21 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void Update()
     {
+        if (anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack1") || anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack2") ||
+            anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack3") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack1") || 
+            anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack2") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack3") ||
+            anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack1") || anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack2") ||
+            anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack1") || anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack2"))
+        {
+            attacking = true;
+            rb.velocity -= rb.velocity;
+        }
+        else
+        {
+            attacking = false;
+        }
+
         if (!paused && currentWeapon != null && movement.IsGrounded && this.currentWeapon != null)     //Låter spelaren slåss
-                                                                                                                                                                  //&& (currentMovementType == MovementType.Idle || currentMovementType == MovementType.Running || currentMovementType == MovementType.Sprinting || currentMovementType == MovementType.Walking || currentMovementType != MovementType.Stagger))
         {
             if (movement.Stamina >= currentWeapon.LightStaminaCost && Input.GetButtonDown("Fire1"))
             {
@@ -352,40 +365,37 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     public void LightAttack()
     {
-        attacking = true;
-        rb.velocity -= rb.velocity;
-
         if (canClick)
             noOfClicks++;
 
-        if (noOfClicks == 1)
+        if (noOfClicks == 1 && (!anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack3") || !anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack3")))
+        {
             anim.SetInteger("LightAnimation", 1);
+        }
     }
 
     public void HeavyAttack()
     {
-        attacking = true;
-        rb.velocity -= rb.velocity;
-
         if (canClick)
             noOfClicks++;
 
-        if (noOfClicks == 1)
-            anim.SetInteger("HeavyAnimation", 1);
+        if (noOfClicks == 1 && (!anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack2") || !anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack2")))
+            {
+                anim.SetInteger("HeavyAnimation", 1);
+            }
     }
 
     #region ComboEvents
 
     public void LightComboCheck()
     {
-        canClick = false;
+        currentWeapon.Attack(1f, false);
 
         if ((anim.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack1") ||
             anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack1")) && noOfClicks == 1)
         {//If the first animation is still playing and only 1 click has happened, return to idle
             anim.SetInteger("LightAnimation", 4);
             canClick = true;
-            attacking = false;
             noOfClicks = 0;
         }
         else if ((anim.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack1") ||
@@ -400,7 +410,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         {  //If the second animation is still playing and only 2 clicks have happened, return to idle  
             anim.SetInteger("LightAnimation", 4);
             canClick = true;
-            attacking = false;
             noOfClicks = 0;
         }
         else if ((anim.GetCurrentAnimatorStateInfo(0).IsName("LightAttack2") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack2") ||
@@ -414,37 +423,47 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         { //Since this is the third and last animation, return to idle          
             anim.SetInteger("LightAnimation", 4);
             canClick = true;
-            attacking = false;
             noOfClicks = 0;
         }
     }
 
+    void LightAttackActivate()
+    {
+        currentWeapon.Attack(1f, false);
+    }
+
     public void HeavyComboCheck()
     {
-        canClick = false;
 
-        if ((anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyAttack1") || anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack1") ||
-            anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack1")) && noOfClicks == 1)
+        if ((anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack1") || anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack1")) && noOfClicks == 1)
         {  //If the first animation is still playing and only 1 clicks have happened, return to idle  
             anim.SetInteger("HeavyAnimation", 3);
             canClick = true;
             attacking = false;
             noOfClicks = 0;
         }
-        else if ((anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyAttack1") || anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack1") ||
-            anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack1")) && noOfClicks >= 2)
+        else if ((anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack1") || anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack1")) && noOfClicks >= 2)
         {  //If the first animation is still playing and at least 2 clicks have happened, continue the combo    
             anim.SetInteger("HeavyAnimation", 2);
             canClick = true;
         }
-        else if ((anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyAttack2") || anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack2") ||
-            anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack2")))
+        else if ((anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack2") || anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack2")))
         { //Since this is the second and last animation, return to idle          
             anim.SetInteger("HeavyAnimation", 3);
             canClick = true;
             attacking = false;
             noOfClicks = 0;
         }
+    }
+
+    void HeavyAttackActivate()
+    {
+        currentWeapon.Attack(1f, true);
+    }
+
+    void ResetNoOfClicks()
+    {
+        noOfClicks = 0;
     }
 
     #endregion

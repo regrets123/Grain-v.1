@@ -12,6 +12,11 @@ public class UpgradeScript : BaseEquippableObject
     [SerializeField]
     string upgradeInfo;
 
+    public string UpgradeInfo
+    {
+        get { return this.upgradeInfo; }
+    }
+
     public Upgrade MyUpgrade
     {
         get { return this.upgrade; }

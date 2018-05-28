@@ -87,6 +87,9 @@ public class PlayerMovement : MonoBehaviour, IPausable
     [SerializeField]
     float dodgeSpeed;
 
+    [SerializeField]
+    float strafeDodgeSpeed;
+
     [Space(10)]
 
     [Header("Falling")]
@@ -161,7 +164,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     private Animator anim;
 
-    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f, staminaRegenCountdown, freezeTime;
+    private float stamina, delta, h, v, moveAmount, direction, groundDistance = 0.2f, staminaRegenCountdown, freezeTime, dodgePower;
 
     private Transform cam;
 
@@ -281,7 +284,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (Input.GetButtonDown("Jump") && canJump)
         {
             jump = true;
-            canJump = false;
+            //canJump = false;
         }
 
         if (Input.GetButtonDown("Dodge") && isGrounded && !Sliding() && !jump && OnGround())
@@ -438,33 +441,28 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void DodgeMovement()        //Metod som används för att få spelaren att göra en rull-dodge
     {
+        dodgePower = dodgeSpeed;
         if (dodgeVelocity == null)
         {
             dodgeVelocity = moveDir;
             if (dodgeVelocity == Vector3.zero)
                 dodgeVelocity = rb.transform.forward * 4;
         }
-        rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
+        rb.AddForce((Vector3)dodgeVelocity * dodgePower, ForceMode.Impulse);
     }
 
     void StrafeDodgeMovement()
     {
-        //    if (dodgeVelocity == null)
-        //    {
-        //        dodgeVelocity = new Vector3(direction, 0, moveAmount);
-
-        //        if (dodgeVelocity == Vector3.zero && currentMovementType == "LockOn")
-        //            dodgeVelocity = -rb.transform.forward * 10;
-        //    }
-        //    rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
-
-        if (dodgeVelocity == null)
+        if (anim.GetFloat("SpeedZ") <= 0)
         {
-            dodgeVelocity = moveDir;
-            if (dodgeVelocity == Vector3.zero)
-                dodgeVelocity = -(rb.transform.forward * 4);
+            dodgePower = strafeDodgeSpeed;
+            rb.velocity += moveDir * dodgePower;
         }
-        rb.AddForce((Vector3)dodgeVelocity * dodgeSpeed, ForceMode.Impulse);
+        else
+        {
+            dodgePower = strafeDodgeSpeed;
+            rb.velocity += (moveDir/2) * dodgePower;
+        }
     }
 
     void DashMovement()         //Metod som används för att få spelaren att göra en dash
@@ -520,6 +518,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         landed = false;
         Vector3 vel = rb.velocity;
+        canJump = false;
         vel.y = superJump ? superJumpForce : jumpForce;
         rb.velocity = vel;
         superJump = false;
@@ -544,7 +543,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
         if (!combat.Attacking)
         {
-            if (camFollow.LockOn)
+            if (camFollow.LockOn && !(anim.GetCurrentAnimatorStateInfo(0).IsName("StrafeDodge") || anim.GetCurrentAnimatorStateInfo(0).IsName("DodgeBackwards") 
+                || anim.GetCurrentAnimatorStateInfo(0).IsName("DodgeForward")))
             {
                 Vector3 strafeVelocity = (transform.TransformDirection((new Vector3(h, 0, v)) * (velocity > 0 ? velocity : 1f)));
                 strafeVelocity.y = rb.velocity.y;
@@ -552,7 +552,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
             }
             else
             {
-                if ((isGrounded || airControl) && !Sliding())
+                if ((isGrounded || airControl) && !Sliding() && !(anim.GetCurrentAnimatorStateInfo(0).IsName("StrafeDodge") || anim.GetCurrentAnimatorStateInfo(0).IsName("DodgeBackwards")
+                || anim.GetCurrentAnimatorStateInfo(0).IsName("DodgeForward")))
                 {
                     rb.velocity = velY;
                     rb.AddForce(moveDir * (velocity * moveAmount) * Time.deltaTime, ForceMode.VelocityChange);
@@ -682,7 +683,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
         if (currentMovementType == "Default")
             ChangeMovement("Dodge");
         else
-            ChangeMovement("StrafeDodge");
+            anim.SetTrigger("Dodge");
+            //ChangeMovement("StrafeDodge");
 
         yield return new WaitForSeconds(dodgeLength);
         dodgeVelocity = null;

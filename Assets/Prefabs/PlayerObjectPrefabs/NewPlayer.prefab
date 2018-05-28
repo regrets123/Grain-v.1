@@ -1626,9 +1626,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b1ccfe875a21b4e98da20a77e142a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 8
   rotspeed: 20
-  sprintSpeed: 20
+  sprintSpeed: 15
   slopeLimit: 45
   cameraFollowObj: {fileID: 1152969414188244}
   airControl: 0
@@ -1642,8 +1642,9 @@ MonoBehaviour:
   jumpTime: 0
   dodgeCost: 20
   dodgeCooldown: 1.5
-  dodgeLength: 0.6
-  dodgeSpeed: 25
+  dodgeLength: 0.5
+  dodgeSpeed: 20
+  strafeDodgeSpeed: 15
   safeFallDistance: 50
   sandSteps: {fileID: 0}
   stoneSteps: {fileID: 0}
