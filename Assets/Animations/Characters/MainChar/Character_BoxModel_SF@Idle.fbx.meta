@@ -94,14 +94,7 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: <Root Transform>
     rigImportErrors: 
-    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
-      copied configuration does not match position in animation file:\n\t'L_hip_JNT'
-      : position error = 14.153877 mm\n\t'L_knee_JNT' : position error = 37.710621
-      mm\n\t'L_ankle_JNT' : position error = 40.033405 mm\n\t'L_ball_JNT' : position
-      error = 8.796859 mm\n\t'L_toe_JNT' : position error = 10.912486 mm\n\t'R_hip_JNT'
-      : position error = 14.153893 mm\n\t'R_knee_JNT' : position error = 37.710541
-      mm\n\t'R_ankle_JNT' : position error = 40.033375 mm\n\t'R_ball_JNT' : position
-      error = 8.796859 mm\n\t'R_toe_JNT' : position error = 10.912523 mm\n"
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -138,7 +131,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: ResetNoOfClicks
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.08970097
+        functionName: ResetNoOfClicks
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class SplashScreenScript : MonoBehaviour
 {
-
     [SerializeField]
     float time;
 
