@@ -102,7 +102,7 @@ public class FamineBossAI : BaseEnemyScript
     {
         base.Death();
         Destroy(healthBar);
-        GameObject drop = Instantiate(myDrop, transform);        //Får minibossen att droppa en dash ability då den dör
+        GameObject drop = Instantiate(myDrop, transform.position, transform.rotation);        //Får bossen att droppa en dash ability då den dör
         drop.transform.parent.DetachChildren();
     }
 

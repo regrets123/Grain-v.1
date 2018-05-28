@@ -12,7 +12,7 @@ public class GuardianMiniBoss : GuardianAI {
     protected override void Death()
     {
         base.Death();
-        GameObject drop = Instantiate(myDrop, transform);        //Får minibossen att droppa en dash ability då den dör
+        GameObject drop = Instantiate(myDrop, transform.position, transform.rotation);        //Får minibossen att droppa en dash ability då den dör
         //drop.transform.parent.DetachChildren();
         Destroy(healthBar);
     }
