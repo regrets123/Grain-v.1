@@ -36,6 +36,7 @@ public class MainMenuScript : MonoBehaviour
 
     AudioSource buttonSound;
 
+
     void Start()
     {
         currentButtons = mainMenuButtons;

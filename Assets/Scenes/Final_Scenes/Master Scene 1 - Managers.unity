@@ -8686,6 +8686,16 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9ee47d4811f77c40b47ef900ec40a09, type: 2}
   m_IsPrefabParent: 0
@@ -9837,6 +9847,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114213057551467808, guid: 4e074da46d9b26c4a88e3d682fff1090,
+        type: 2}
+      propertyPath: inventoryButtons.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 224314406893624040, guid: 4e074da46d9b26c4a88e3d682fff1090,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -10204,6 +10219,36 @@ Prefab:
       propertyPath: m_Name
       value: ItemInfoText
       objectReference: {fileID: 0}
+    - target: {fileID: 114213057551467808, guid: 4e074da46d9b26c4a88e3d682fff1090,
+        type: 2}
+      propertyPath: inventoryButtons.Array.data[0]
+      value: 
+      objectReference: {fileID: 1089629574}
+    - target: {fileID: 114213057551467808, guid: 4e074da46d9b26c4a88e3d682fff1090,
+        type: 2}
+      propertyPath: inventoryButtons.Array.data[1]
+      value: 
+      objectReference: {fileID: 1089629573}
+    - target: {fileID: 114213057551467808, guid: 4e074da46d9b26c4a88e3d682fff1090,
+        type: 2}
+      propertyPath: inventoryButtons.Array.data[2]
+      value: 
+      objectReference: {fileID: 1089629572}
+    - target: {fileID: 114213057551467808, guid: 4e074da46d9b26c4a88e3d682fff1090,
+        type: 2}
+      propertyPath: inventoryButtons.Array.data[3]
+      value: 
+      objectReference: {fileID: 1089629571}
+    - target: {fileID: 114213057551467808, guid: 4e074da46d9b26c4a88e3d682fff1090,
+        type: 2}
+      propertyPath: inventoryButtons.Array.data[4]
+      value: 
+      objectReference: {fileID: 1089629570}
+    - target: {fileID: 114213057551467808, guid: 4e074da46d9b26c4a88e3d682fff1090,
+        type: 2}
+      propertyPath: inventoryButtons.Array.data[5]
+      value: 
+      objectReference: {fileID: 1089629569}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4e074da46d9b26c4a88e3d682fff1090, type: 2}
   m_IsPrefabParent: 0
@@ -10255,6 +10300,42 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224300745676435798, guid: 4e074da46d9b26c4a88e3d682fff1090,
     type: 2}
   m_PrefabInternal: {fileID: 1089629559}
+--- !u!114 &1089629569 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114164593094467240, guid: 4e074da46d9b26c4a88e3d682fff1090,
+    type: 2}
+  m_PrefabInternal: {fileID: 1089629559}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1089629570 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114133595866644420, guid: 4e074da46d9b26c4a88e3d682fff1090,
+    type: 2}
+  m_PrefabInternal: {fileID: 1089629559}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1089629571 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114724006036210962, guid: 4e074da46d9b26c4a88e3d682fff1090,
+    type: 2}
+  m_PrefabInternal: {fileID: 1089629559}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1089629572 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114038746037025116, guid: 4e074da46d9b26c4a88e3d682fff1090,
+    type: 2}
+  m_PrefabInternal: {fileID: 1089629559}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1089629573 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114734764764497684, guid: 4e074da46d9b26c4a88e3d682fff1090,
+    type: 2}
+  m_PrefabInternal: {fileID: 1089629559}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1089629574 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114176445785925138, guid: 4e074da46d9b26c4a88e3d682fff1090,
+    type: 2}
+  m_PrefabInternal: {fileID: 1089629559}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1317007251
 GameObject:
   m_ObjectHideFlags: 0

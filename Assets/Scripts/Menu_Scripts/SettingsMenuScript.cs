@@ -60,7 +60,7 @@ public class SettingsMenuScript : MonoBehaviour
         }
         RenderSettings.ambientLight = new Color(brightnessSlider.value, brightnessSlider.value, brightnessSlider.value, 1);
     }
-    
+
     /* När vi ändrar ljudvolymen använder vi oss av mainmixern. */
     public void SetMusicVolume(float musicVolume)       //Ställer in musikvolymen
     {
@@ -73,13 +73,13 @@ public class SettingsMenuScript : MonoBehaviour
         mainMixer.SetFloat("Environmental", environmentalVolume);
         this.environmentalVolume = environmentalVolume;
     }
-    
+
     public void SetSFXVolume(float SFXVolume)
     {
         mainMixer.SetFloat("SFX", SFXVolume);
         this.SFXVolume = SFXVolume;
     }
-    
+
     public void SetCamSensitivity(float sense)          //Ställer in hur snabbt kameran kan röra sig
     {
         camSensitivity = sense;
@@ -97,6 +97,19 @@ public class SettingsMenuScript : MonoBehaviour
         startingFX = SFXVolume;
         startingEnvironmental = environmentalVolume;
         startingBrightness = brightnessSlider.value;
+        if (xNav == null)
+        {
+            settingsXML = new XmlDocument();
+            if (File.Exists(Application.dataPath + "/Settings.xml"))
+                settingsXML.Load(Application.dataPath + "/Settings.xml");
+            else
+            {
+                TextAsset settingsText = Resources.Load("SettingsXML") as TextAsset;
+                settingsXML.LoadXml(settingsText.text);
+            }
+
+            xNav = settingsXML.CreateNavigator();
+        }
         xNav.SelectSingleNode("/Settings/Volumes/@Music").SetValue(musicVolume.ToString());
         xNav.SelectSingleNode("/Settings/Volumes/@Environmental").SetValue(environmentalVolume.ToString());
         xNav.SelectSingleNode("/Settings/Volumes/@FX").SetValue(SFXVolume.ToString());
@@ -104,6 +117,7 @@ public class SettingsMenuScript : MonoBehaviour
         xNav.SelectSingleNode("/Settings/Camera/@Sensitivity").SetValue(sensitivitySlider.value.ToString());
         XmlWriterSettings writerSettings = new XmlWriterSettings();
         writerSettings.Indent = true;
+        SetCamSensitivity(sensitivitySlider.value);
         using (XmlWriter writer = XmlWriter.Create(Application.dataPath + "/Settings.xml", writerSettings))
             settingsXML.Save(writer);
     }
@@ -117,8 +131,8 @@ public class SettingsMenuScript : MonoBehaviour
         SetEnvironmentalVolume(startingEnvironmental);
         sensitivitySlider.value = startingSense;
         settingsMenu.SetActive(false);
-    }    
-    
+    }
+
     public void SetBrightness()                         //Ställer in ljusets intensitet
     {
         RenderSettings.ambientLight = new Color(brightnessSlider.value, brightnessSlider.value, brightnessSlider.value, 1);
