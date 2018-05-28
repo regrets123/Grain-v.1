@@ -101,8 +101,10 @@ public class FamineBossAI : BaseEnemyScript
     protected override void Death()
     {
         base.Death();
-        GameObject drop = Instantiate(myDrop, transform);        //Får minibossen att droppa en dash ability då den dör
-        drop.transform.parent.DetachChildren();
+        Destroy(healthBar);
+        GameObject drop = Instantiate(myDrop, transform.position, transform.rotation);        //Får bossen att droppa en dash ability då den dör
+        //drop.transform.parent.DetachChildren();
+        drop.transform.parent = null;
     }
 
     IEnumerator JumpSlash()     //En hoppattack som används för att få bossen att närma sig spelaren
