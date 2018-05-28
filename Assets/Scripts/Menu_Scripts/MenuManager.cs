@@ -17,6 +17,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     Image inputImage;
 
+    [SerializeField]
+    Image[] inventoryButtons;
+
 
     public void ToggleMenu(GameObject menuToToggle)     //Visar och döljer menyer
     {
@@ -74,7 +77,7 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private bool CheckInput()
+    public bool CheckInput()
     {
         foreach (string joystick in Input.GetJoystickNames())
         {
