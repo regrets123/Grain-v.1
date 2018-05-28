@@ -13,6 +13,7 @@ public class GuardianMiniBoss : GuardianAI {
     {
         base.Death();
         GameObject drop = Instantiate(myDrop, transform);        //Får minibossen att droppa en dash ability då den dör
-        drop.transform.parent.DetachChildren();
+        //drop.transform.parent.DetachChildren();
+        Destroy(healthBar);
     }
 }
