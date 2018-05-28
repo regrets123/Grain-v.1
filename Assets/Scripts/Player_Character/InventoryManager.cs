@@ -368,7 +368,7 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
-        if (!coolingDown && (Input.GetButtonDown("QuickDraw")))      //Låter spelaren dra och stoppa undan det senast equippade vapnet
+        if (!coolingDown && (Input.GetButtonDown("QuickDraw")) && inputManager.CurrentInputMode == InputMode.Playing)      //Låter spelaren dra och stoppa undan det senast equippade vapnet
         {
             StartCoroutine(MenuCooldown());
             if (combat.CurrentWeapon != null)
