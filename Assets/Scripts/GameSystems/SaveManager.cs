@@ -387,10 +387,10 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(Application.dataPath + "/Settings.xml"))
         {
             XmlDocument settingsDoc = new XmlDocument();
-            settingsDoc.LoadXml(Application.dataPath + "/Settings.xml");
+            settingsDoc.Load(Application.dataPath + "/Settings.xml");
             SettingsMenuScript settings = FindObjectOfType<SettingsMenuScript>();
             settings.SetCam(myCam);
-            settings.SetCamSensitivity(int.Parse(settingsDoc.SelectSingleNode("/Settings/Camera/@Sensitivity").Value));
+            settings.SetCamSensitivity(float.Parse(settingsDoc.SelectSingleNode("/Settings/Camera/@Sensitivity").Value));
         }
     }
 
