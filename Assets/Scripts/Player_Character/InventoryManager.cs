@@ -513,15 +513,24 @@ public class InventoryManager : MonoBehaviour
         {
             currentChoice = inventoryButtons[0];
         }
+        collectionIndex = 0;
+        displayCollection = 0;
+        UpdateSprites();
         upgradeSelected = false;
         inventoryMenu.SetActive(true);
+        equipButton.SetActive(false);
+        favoriteButton.SetActive(false);
+        upgradeButton.SetActive(false);
         equippableName.text = "";
+        itemInfoText.text = "";
         upgradeInfo.text = "";
         upgradeName.text = "";
         currentEquipableImage.sprite = defaultIcon;
         currentUpgradeImage.sprite = defaultIcon;
+        //currentEquipableImage.gameObject.SetActive(false);
+        //currentUpgradeImage.gameObject.SetActive(false);
+        //DisplayNewCollection(displayCollection);
         pM.PauseAndUnpause(true);
-        UpdateSprites();
         menuManager.Glow(currentChoice.GetComponent<Outline>());
     }
 
@@ -575,22 +584,32 @@ public class InventoryManager : MonoBehaviour
         currentCategory.GetComponent<Outline>().enabled = false;
         currentCategory = categoryButtons[displayCollection];
         currentCategory.GetComponent<Outline>().enabled = true;
+        inventoryMenu.SetActive(true);
+        ShowItemOptions(false);
+        equippableName.text = "";
+        itemInfoText.text = "";
+        upgradeInfo.text = "";
+        upgradeName.text = "";
+        UpdateSprites();
         if (itemSelected)
         {
             itemSelected = false;
             ShowItemOptions(false);
         }
-        UpdateSprites();
     }
 
     void ShowItemOptions(bool show)         //Ger spelaren möjlighet att att equippa föremål, lägga till de bland favoriter och uppgradera dem om de är vapen
     {
+        upgradeButton.SetActive(false);
         if (!show || playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>() is BaseWeaponScript)
         {
             upgradeButton.SetActive(show);
         }
         equipButton.SetActive(show);
         favoriteButton.SetActive(show);
+        currentEquipableImage.gameObject.SetActive(show);
+        itemInfoText.gameObject.SetActive(show);
+        equippableName.gameObject.SetActive(show);
     }
 
     void UpdateSprites()   //Uppdaterar visuellt menyn av föremål och förmågor som spelaren kan välja mellan
@@ -622,7 +641,11 @@ public class InventoryManager : MonoBehaviour
             menuManager.Glow(currentUpgrade.GetComponent<Outline>());
         }
         if (collectionIndex < playerInventory[displayCollection].Count)
-        itemInfoText.text = playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().InventoryInfo;
+        {
+            itemInfoText.text = playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().InventoryInfo.ToUpper();
+            equippableName.text = playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().ObjectName.ToUpper();
+            currentEquipableImage.sprite = playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().InventoryIcon;
+        }
     }
 
     public void ShowUpgradeOptions(bool show)       //Väljer om spelaren ska navigera mellan föremål i inventoryt eller tillgängliga uppgraderingar
@@ -641,7 +664,7 @@ public class InventoryManager : MonoBehaviour
         {
             currentUpgrade = upgradeButtons[0];
             menuManager.Glow(currentUpgrade.GetComponent<Outline>());
-            upgradeInfo.text = playerInventory[displayCollection][collectionIndex].GetComponent<UpgradeScript>().UpgradeInfo;
+            upgradeInfo.text = playerInventory[displayCollection][collectionIndex].GetComponent<UpgradeScript>().UpgradeInfo.ToUpper();
         }
         else
         {
@@ -657,12 +680,13 @@ public class InventoryManager : MonoBehaviour
     {
         if (playerInventory[displayCollection] == null || index >= playerInventory[displayCollection].Count || playerInventory[displayCollection] == null)
             return;
+        if (upgrading)
+            ShowUpgradeOptions(false);
         collectionIndex = index;
         itemSelected = true;
         ShowItemOptions(true);
-        equippableName.text = playerInventory[displayCollection][index].GetComponent<BaseEquippableObject>().ObjectName;
-        currentEquipableImage.sprite = playerInventory[displayCollection][index].GetComponent<BaseEquippableObject>().InventoryIcon;
         ShowCurrentUpgrade();
+        UpdateSprites();
     }
 
     public void ApplyUpgrade()              //Uppgraderar ett valt vapen
@@ -707,6 +731,7 @@ public class InventoryManager : MonoBehaviour
         equipButton.SetActive(false);
         favoriteButton.SetActive(false);
         applyUpgradeButton.SetActive(true);
+        upgradeInfo.text = itemUpgrades[upgradeIndex].GetComponent<UpgradeScript>().InventoryInfo.ToUpper(); ;
     }
 
 

@@ -472,6 +472,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
 
     void NoMovement()
     {
+        rb.velocity = Vector3.zero;
         return;
     }
 

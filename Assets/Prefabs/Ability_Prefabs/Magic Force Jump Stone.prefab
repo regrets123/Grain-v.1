@@ -91,8 +91,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryIcon: {fileID: 21300000, guid: f76895185c4e7954bb4d33b2198d1648, type: 3}
   objectName: SuperJumpAbility
+  inventoryInfo: Super Jump launches the player into the air.
   myType: 1
-  abilityCost: 0
+  abilityCost: 30
   myRune: {fileID: 21300000, guid: f76895185c4e7954bb4d33b2198d1648, type: 3}
   effectsPrefab: {fileID: 1595970825089016, guid: ec92052cbd4ec284ca00e5bfa4159a63,
     type: 2}
