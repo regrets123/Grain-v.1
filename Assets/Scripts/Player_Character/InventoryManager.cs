@@ -513,6 +513,7 @@ public class InventoryManager : MonoBehaviour
         {
             currentChoice = inventoryButtons[0];
         }
+        menuManager.ActivateButtons(menuManager.CheckInput());
         collectionIndex = 0;
         displayCollection = 0;
         UpdateSprites();

@@ -102,4 +102,12 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    public void ActivateButtons(bool show)
+    {
+        foreach(Image button in inventoryButtons)
+        {
+            button.gameObject.SetActive(show);
+        }
+    }
+
 }
