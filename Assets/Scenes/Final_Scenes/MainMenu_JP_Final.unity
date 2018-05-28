@@ -447,7 +447,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -52, y: -62.981}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 160, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &25832640
 MonoBehaviour:
@@ -2441,7 +2441,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -252, y: -62.981}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 160, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &402430812
 GameObject:
@@ -8623,7 +8623,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -152, y: 84.0813}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 160, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1465358144
 MonoBehaviour:
@@ -9547,6 +9547,7 @@ MonoBehaviour:
   inactiveColor: {r: 0.17254902, g: 0.03137255, b: 0.1764706, a: 1}
   activeColor: {r: 0.83137256, g: 0.11764706, b: 0.8901961, a: 1}
   inputImage: {fileID: 122697685}
+  inventoryButtons: []
 --- !u!1 &1595973348
 GameObject:
   m_ObjectHideFlags: 0
