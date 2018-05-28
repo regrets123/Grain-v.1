@@ -62,7 +62,7 @@ public class CreditsText : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
         else if (!isEndScreen)
         {
