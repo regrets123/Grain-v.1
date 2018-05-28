@@ -30,33 +30,18 @@ public class MainMenuScript : MonoBehaviour
 
     bool coolingDown = false;
 
-    bool keyboardInput;
-
     int currentIndex = 0;
 
     ActiveMenu activeMenu;
 
     AudioSource buttonSound;
 
-    public bool KeybordInput
-    {
-        get { return this.keyboardInput; }
-        set { this.keyboardInput = value; }
-    }
 
     void Start()
     {
         currentButtons = mainMenuButtons;
         SelectNewButton(0);
         buttonSound = GetComponent<AudioSource>();
-        /*if(Input.GetJoystickNames().Length > 0)
-        {
-            keyboardInput = false;
-        }
-        else
-        {
-            keyboardInput = true;
-        }*/
     }
 
     // Update is called once per frame
