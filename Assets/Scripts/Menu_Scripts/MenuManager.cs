@@ -10,9 +10,18 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     InventoryManager iM;
+    MainMenuScript mMS;
 
     [SerializeField]
-    Color inactiveColor, activeColor;    
+    Color inactiveColor, activeColor;
+
+    [SerializeField]
+    Image inputImage;
+
+    public void Start()
+    {
+        mMS = this.gameObject.GetComponent<MainMenuScript>();
+    }
     
     public void ToggleMenu(GameObject menuToToggle)     //Visar och döljer menyer
     {
@@ -67,6 +76,20 @@ public class MenuManager : MonoBehaviour
         else
         {
             textToChange.color = activeColor;
+        }
+    }
+
+    public void CheckInput()
+    {
+        if (Input.GetJoystickNames().Length > 0)
+        {
+            print(Input.GetJoystickNames()[0]);
+            inputImage.sprite = Resources.Load<Sprite>("Controller-Description-UI");
+        }
+        else
+        {
+            print("Hello Keyboard!");
+            inputImage.sprite = Resources.Load<Sprite>("Keyboard-Controller-Descriptions");
         }
     }
     
