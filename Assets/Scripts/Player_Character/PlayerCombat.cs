@@ -184,6 +184,8 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void Update()
     {
+        print(noOfClicks);
+
         if (anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack1") || anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack2") ||
             anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack3") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack1") || 
             anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack2") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack3") ||
