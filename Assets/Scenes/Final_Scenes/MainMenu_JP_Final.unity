@@ -2948,8 +2948,8 @@ MonoBehaviour:
   - {fileID: 1722387472}
   - {fileID: 2074449311}
   - {fileID: 1699534841}
-  - {fileID: 1699534841}
-  applySettingsButton: {fileID: 1971526615}
+  - {fileID: 1971526615}
+  applySettingsButton: {fileID: 337656886}
   mainMenuCooldown: 0.2
   settingsSliders:
   - {fileID: 4141351}
