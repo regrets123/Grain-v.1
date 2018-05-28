@@ -10,7 +10,6 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     InventoryManager iM;
-    MainMenuScript mMS;
 
     [SerializeField]
     Color inactiveColor, activeColor;
@@ -18,21 +17,17 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     Image inputImage;
 
-    public void Start()
-    {
-        mMS = this.gameObject.GetComponent<MainMenuScript>();
-    }
-    
+
     public void ToggleMenu(GameObject menuToToggle)     //Visar och döljer menyer
     {
         menuToToggle.SetActive(!menuToToggle.activeSelf);
     }
-    
+
     public void LoadScene(string sceneName)             //Laddar en vald scen
     {
         SceneManager.LoadScene(sceneName);
     }
-    
+
     public void ExitApplication()                       //Avslutar spelet
     {
         Application.Quit();
@@ -79,18 +74,29 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void CheckInput()
+    private bool CheckInput()
     {
-        if (Input.GetJoystickNames().Length > 0)
+        foreach (string joystick in Input.GetJoystickNames())
         {
-            print(Input.GetJoystickNames()[0]);
+            if (joystick != null && joystick != "")
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void CheckControl()
+    {
+        if (CheckInput())
+        {
             inputImage.sprite = Resources.Load<Sprite>("Controller-Description-UI");
         }
-        else
+        else if (!CheckInput())
         {
-            print("Hello Keyboard!");
             inputImage.sprite = Resources.Load<Sprite>("Keyboard-Controller-Descriptions");
         }
     }
-    
+
 }
