@@ -114,6 +114,8 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     Rigidbody rb;
 
+    InputManager inputManager;
+
     #endregion
 
     #region Properties
@@ -172,6 +174,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         pM = FindObjectOfType<PauseManager>();
         pM.Pausables.Add(this);
         aggroIndicator.SetActive(false);
+        inputManager = FindObjectOfType<InputManager>();
 
         if (healthBar != null)
         {
@@ -184,6 +187,8 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
     void Update()
     {
+        if (inputManager.CurrentInputMode != InputMode.Playing)
+            return;
         if (anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack1") || anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack2") ||
             anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack3") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack1") || 
             anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack2") || anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack3") ||

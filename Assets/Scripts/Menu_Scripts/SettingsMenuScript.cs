@@ -87,6 +87,7 @@ public class SettingsMenuScript : MonoBehaviour
             camFollow = FindObjectOfType<CameraFollow>();
         if (camFollow != null)
             camFollow.InputSensitivity = camSensitivity;
+        print(sense);
     }
 
     public void ApplySettings()                         //Bekräftar och sparar alla nya värden
