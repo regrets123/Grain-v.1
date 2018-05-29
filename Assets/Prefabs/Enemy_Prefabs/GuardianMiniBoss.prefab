@@ -1711,7 +1711,7 @@ MonoBehaviour:
   attackColliderActivationSpeed: 1
   attackColliderDeactivationSpeed: 1
   maxHealth: 80
-  lifeForce: 10
+  lifeForce: 20
   unitName: Guardian
   aggroCenter: {fileID: 1492825367527878}
   soul: {fileID: 1157158949442700, guid: f18b8f53bd1f81e47935db9cfcefd708, type: 2}
