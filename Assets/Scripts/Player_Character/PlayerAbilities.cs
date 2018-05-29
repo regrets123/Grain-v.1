@@ -81,6 +81,15 @@ public class PlayerAbilities : MonoBehaviour, IPausable
     {
         if (inputManager.CurrentInputMode != InputMode.Playing)
             return;
+        if (Input.GetButtonDown("Ability") || Input.GetAxis("Ability") < 0f)
+        {
+            if (currentAbility == null)
+                print("nullAbility");
+            if (BaseAbilityScript.CoolingDown)
+                print("cooldown fucked");
+            if (paused)
+                print("paused....dafuqq?");
+        }
         if ((Input.GetButtonDown("Ability") || Input.GetAxis("Ability") < 0f) && currentAbility != null && !BaseAbilityScript.CoolingDown && !paused)
         {
             print("ability pressed");
