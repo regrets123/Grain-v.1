@@ -365,6 +365,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
             case "Dash":
                 if (currentMovement == LockOnMovement || currentMovement == DefaultMovement)
                 {
+                    print("dash movement");
                     anim.SetTrigger("Dash");
                     currentMovementType = "Dash";
                     previousMovement = currentMovement;
