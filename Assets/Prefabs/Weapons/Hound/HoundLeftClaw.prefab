@@ -54,11 +54,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryIcon: {fileID: 0}
   objectName: 
+  inventoryInfo: 
   myType: 0
-  origninalLightDamage: 20
-  originalHeavyDamage: 50
+  origninalLightDamage: 5
+  originalHeavyDamage: 15
+  lightDamage: 0
   attackSpeed: 2
-  attacks: 
+  heavyStaminaCost: 0
+  lightStaminaCost: 0
   dmgType: 0
   enemyHit1: {fileID: 0}
   enemyHit2: {fileID: 0}
