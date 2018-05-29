@@ -2013,7 +2013,7 @@ MonoBehaviour:
   poiseCooldown: 0
   attackColliderActivationSpeed: 0.1
   attackColliderDeactivationSpeed: 1
-  maxHealth: 100
+  maxHealth: 50
   lifeForce: 5
   unitName: Hound
   aggroCenter: {fileID: 1202944601482436}
@@ -2041,7 +2041,7 @@ MonoBehaviour:
   lowPitchedRange: 0.95
   highPitchedRange: 1.05
   howlTime: 2
-  minJumpAttackDistance: 3
+  maxJumpAttackDistance: 0
   weapon2: {fileID: 1497449546904528, guid: a056388ebe4e4f9419d5fba09eadb949, type: 2}
   weapon2Pos: {fileID: 4715565826840290}
 --- !u!114 &114104431157741076
