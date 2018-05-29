@@ -34,6 +34,10 @@ public class SettingsMenuScript : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MainMenu_JP_Final")
         {
             Initialize();
+            musicSlider.value = musicVolume;
+            fxSlider.value = SFXVolume;
+            environmentalSlider.value = environmentalVolume;
+            sensitivitySlider.value = camSensitivity;
         }
     }
 
@@ -44,8 +48,7 @@ public class SettingsMenuScript : MonoBehaviour
     }
 
     private void Initialize()
-    {
-        
+    {        
         if (File.Exists(Application.dataPath + "/Settings.xml"))
         {
             settingsXML = new XmlDocument();

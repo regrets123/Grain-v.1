@@ -2739,7 +2739,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMixer: {fileID: 24100000, guid: c95e06c410817fa43aac5146289c8119, type: 2}
-  brightnessSlider: {fileID: 0}
   environmentalSlider: {fileID: 872677078}
   musicSlider: {fileID: 477458812}
   fxSlider: {fileID: 4141351}
@@ -8619,8 +8618,8 @@ MonoBehaviour:
   m_FillRect: {fileID: 802053006}
   m_HandleRect: {fileID: 1266136033}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: 0.1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
