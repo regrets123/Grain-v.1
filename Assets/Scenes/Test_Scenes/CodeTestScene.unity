@@ -344,6 +344,11 @@ GameObject:
   m_PrefabParentObject: {fileID: 1269810134394004, guid: 40c96716f362dd948a43916c702e22e0,
     type: 2}
   m_PrefabInternal: {fileID: 1408936875}
+--- !u!4 &111183167 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4919478844712340, guid: 4aa0e6b29e9d5094398f807de9a4d28b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1101029356}
 --- !u!1 &145506478
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +999,11 @@ Prefab:
       propertyPath: staminaBar
       value: 
       objectReference: {fileID: 2009254266}
+    - target: {fileID: 136651673800343788, guid: 2ca68d53a812e8b448928230f6b0f646,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0.85
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ca68d53a812e8b448928230f6b0f646, type: 2}
   m_IsPrefabParent: 0
@@ -5125,15 +5135,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4521169204941066, guid: 4aa0e6b29e9d5094398f807de9a4d28b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 12.214695
+      value: -18.08
       objectReference: {fileID: 0}
     - target: {fileID: 4521169204941066, guid: 4aa0e6b29e9d5094398f807de9a4d28b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.63
+      value: 0.964
       objectReference: {fileID: 0}
     - target: {fileID: 4521169204941066, guid: 4aa0e6b29e9d5094398f807de9a4d28b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.3030931
+      value: -16.5
       objectReference: {fileID: 0}
     - target: {fileID: 4521169204941066, guid: 4aa0e6b29e9d5094398f807de9a4d28b, type: 2}
       propertyPath: m_LocalRotation.x
@@ -5165,7 +5175,39 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114790663261842922, guid: 4aa0e6b29e9d5094398f807de9a4d28b,
+        type: 2}
+      propertyPath: attackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 65341556985848224, guid: 4aa0e6b29e9d5094398f807de9a4d28b,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 195973933157369832, guid: 4aa0e6b29e9d5094398f807de9a4d28b,
+        type: 2}
+      propertyPath: m_BaseOffset
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 195973933157369832, guid: 4aa0e6b29e9d5094398f807de9a4d28b,
+        type: 2}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 195973933157369832, guid: 4aa0e6b29e9d5094398f807de9a4d28b,
+        type: 2}
+      propertyPath: m_StoppingDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195973933157369832, guid: 4aa0e6b29e9d5094398f807de9a4d28b,
+        type: 2}
+      propertyPath: m_Acceleration
+      value: 40
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114302446448114786, guid: 4aa0e6b29e9d5094398f807de9a4d28b, type: 2}
+    - {fileID: 114790663261842922, guid: 4aa0e6b29e9d5094398f807de9a4d28b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 4aa0e6b29e9d5094398f807de9a4d28b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1222215152
@@ -5760,6 +5802,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 973e88b5e49437b4f9b10df2fb39a830, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &1709672717
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 111183167}
+    m_Modifications:
+    - target: {fileID: 4311288964721088, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311288964721088, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311288964721088, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311288964721088, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311288964721088, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311288964721088, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311288964721088, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311288964721088, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1715433311
 GameObject:
   m_ObjectHideFlags: 0
@@ -6314,3 +6398,56 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2066155924}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2079661454 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1728055315802404, guid: 4aa0e6b29e9d5094398f807de9a4d28b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1101029356}
+--- !u!114 &2079661455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2079661454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511476b114e2086438305e13e1aabca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: 0
+  resistances: 
+  aiAttacks:
+  - weight: 15
+    minDistance: 2
+    minAngle: 0
+    maxAngle: 35
+    cooldown: 2
+    cool: 0
+    targetAnim: LightAttack1
+  - weight: 15
+    minDistance: 2
+    minAngle: 0
+    maxAngle: 35
+    cooldown: 2
+    cool: 0
+    targetAnim: LightAttack2
+  - weight: 15
+    minDistance: 2
+    minAngle: 0
+    maxAngle: 35
+    cooldown: 2
+    cool: 0
+    targetAnim: LightAttack3
+  maxHealth: 100
+  maxLifeforce: 20
+  maxPoise: 10
+  soul: {fileID: 0}
+  weapon: {fileID: 1782538271173224, guid: 0fe944e66f9eb3a419e60b67e8b9a2e8, type: 2}
+  weaponPos: {fileID: 111183167}
+  healthBar: {fileID: 0}
+  enemyCanvas: {fileID: 0}
+  frameCount: 30
+  closeCount: 10
+  sight: 10
+  fovAngle: 35
+  attackCount: 60
