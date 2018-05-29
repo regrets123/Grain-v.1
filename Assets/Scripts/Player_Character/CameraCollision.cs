@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿
+/*using UnityEngine;
 using System.Collections;
-
 public class CameraCollision : MonoBehaviour
 {
 
@@ -102,6 +102,7 @@ public class CameraCollision : MonoBehaviour
         #endregion
     }
 }
+*/
 
 
 
@@ -110,8 +111,6 @@ public class CameraCollision : MonoBehaviour
 
 
 
-
-/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -160,4 +159,3 @@ public class CameraCollision : MonoBehaviour
         transform.localPosition = Vector3.Lerp(transform.localPosition, dollyDir * distance, Time.deltaTime * smooth);
 	}
 }
-*/
