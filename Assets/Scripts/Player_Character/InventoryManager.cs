@@ -745,11 +745,13 @@ public class InventoryManager : MonoBehaviour
         switch (playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().MyType)
         {
             case EquipableType.Weapon:
+                equippedWeaponImage.sprite = playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().InventoryIcon;
                 combat.WeaponToEquip = playerInventory[displayCollection][collectionIndex];
                 combat.SheatheAndUnsheathe();
                 break;
 
             case EquipableType.Ability:
+                equippedAbilityImage.sprite = playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().InventoryIcon;
                 abilities.EquipAbility(playerInventory[displayCollection][collectionIndex]);
                 break;
 
