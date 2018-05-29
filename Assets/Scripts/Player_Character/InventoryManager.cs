@@ -352,22 +352,18 @@ public class InventoryManager : MonoBehaviour
                     controllerInput = Input.GetAxisRaw("NextItem") == 0f ? false : true;
                 if (Input.GetAxisRaw("NextInventoryRow") > 0f || Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    print("fav1");
                     EquipFavorite(0, controllerInput);
-                }
-                else if (Input.GetAxisRaw("NextInventoryRow") < 0f || Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    print("fav2");
-                    EquipFavorite(2, controllerInput);
                 }
                 else if (Input.GetAxisRaw("NextItem") > 0f || Input.GetKeyDown(KeyCode.Alpha2))
                 {
-                    print("fav3");
                     EquipFavorite(1, controllerInput);
+                }
+                else if (Input.GetAxisRaw("NextInventoryRow") < 0f || Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    EquipFavorite(2, controllerInput);
                 }
                 else if (Input.GetAxisRaw("NextItem") < 0f || Input.GetKeyDown(KeyCode.Alpha4))
                 {
-                    print("fav4");
                     EquipFavorite(3, controllerInput);
                 }
             }

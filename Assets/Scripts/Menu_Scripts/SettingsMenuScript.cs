@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Xml;
 using System.Xml.XPath;
@@ -28,9 +29,23 @@ public class SettingsMenuScript : MonoBehaviour
 
     float musicVolume, SFXVolume, environmentalVolume, camSensitivity, startingEnvironmental, startingMusic, startingFX, startingBrightness, startingSense;
 
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenu_JP_Final")
+        {
+            Initialize();
+        }
+    }
+
     public void SetCam(GameObject cam)        //Ställer in alla settings från värden sparade i XML
     {
         camFollow = cam.GetComponent<CameraFollow>();
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        
         if (File.Exists(Application.dataPath + "/Settings.xml"))
         {
             settingsXML = new XmlDocument();
