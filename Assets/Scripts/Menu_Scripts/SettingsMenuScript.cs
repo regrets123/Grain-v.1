@@ -15,7 +15,7 @@ public class SettingsMenuScript : MonoBehaviour
     AudioMixer mainMixer;
 
     [SerializeField]
-    Slider brightnessSlider, environmentalSlider, musicSlider, fxSlider, sensitivitySlider;
+    Slider environmentalSlider, musicSlider, fxSlider, sensitivitySlider;
 
     [SerializeField]
     GameObject settingsMenu;
@@ -45,8 +45,6 @@ public class SettingsMenuScript : MonoBehaviour
             SetSFXVolume(float.Parse(xNav.SelectSingleNode("/Settings/Volumes/@FX").Value));
             startingFX = SFXVolume;
             fxSlider.value = SFXVolume;
-            brightnessSlider.value = float.Parse(xNav.SelectSingleNode("/Settings/Visual/@Gamma").Value);
-            startingBrightness = brightnessSlider.value;
             sensitivitySlider.value = float.Parse(xNav.SelectSingleNode("/Settings/Camera/@Sensitivity").Value);
             camSensitivity = sensitivitySlider.value;
             startingSense = sensitivitySlider.value;
@@ -58,7 +56,6 @@ public class SettingsMenuScript : MonoBehaviour
             settingsXML.LoadXml(newSettings.text);
             xNav = settingsXML.CreateNavigator();
         }
-        RenderSettings.ambientLight = new Color(brightnessSlider.value, brightnessSlider.value, brightnessSlider.value, 1);
     }
 
     /* När vi ändrar ljudvolymen använder vi oss av mainmixern. */
@@ -96,7 +93,6 @@ public class SettingsMenuScript : MonoBehaviour
         startingMusic = musicVolume;
         startingFX = SFXVolume;
         startingEnvironmental = environmentalVolume;
-        startingBrightness = brightnessSlider.value;
         if (xNav == null)
         {
             settingsXML = new XmlDocument();
@@ -113,7 +109,6 @@ public class SettingsMenuScript : MonoBehaviour
         xNav.SelectSingleNode("/Settings/Volumes/@Music").SetValue(musicVolume.ToString());
         xNav.SelectSingleNode("/Settings/Volumes/@Environmental").SetValue(environmentalVolume.ToString());
         xNav.SelectSingleNode("/Settings/Volumes/@FX").SetValue(SFXVolume.ToString());
-        xNav.SelectSingleNode("/Settings/Visual/@Gamma").SetValue(brightnessSlider.value.ToString());
         xNav.SelectSingleNode("/Settings/Camera/@Sensitivity").SetValue(sensitivitySlider.value.ToString());
         XmlWriterSettings writerSettings = new XmlWriterSettings();
         writerSettings.Indent = true;
@@ -124,17 +119,10 @@ public class SettingsMenuScript : MonoBehaviour
 
     public void GoBack()                                //Avbryter alla temporära settingsförändringar och återställer dem till deras tidigare värden
     {
-        brightnessSlider.value = startingBrightness;
-        SetBrightness();
         SetSFXVolume(startingFX);
         SetMusicVolume(startingMusic);
         SetEnvironmentalVolume(startingEnvironmental);
         sensitivitySlider.value = startingSense;
         settingsMenu.SetActive(false);
-    }
-
-    public void SetBrightness()                         //Ställer in ljusets intensitet
-    {
-        RenderSettings.ambientLight = new Color(brightnessSlider.value, brightnessSlider.value, brightnessSlider.value, 1);
     }
 }
