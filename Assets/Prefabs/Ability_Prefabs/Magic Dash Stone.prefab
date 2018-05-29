@@ -62,8 +62,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryIcon: {fileID: 21300000, guid: a72c22a34ea0f374dbe75c2b062cb891, type: 3}
   objectName: DashAbility
+  inventoryInfo: Dash launches the player forward.
   myType: 1
-  abilityCost: 5
+  abilityCost: 30
   myRune: {fileID: 21300000, guid: a72c22a34ea0f374dbe75c2b062cb891, type: 3}
   duration: 0.8
 --- !u!135 &135363889508241840

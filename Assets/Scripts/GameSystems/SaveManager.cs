@@ -36,7 +36,7 @@ public class SaveManager : MonoBehaviour
 
     [SerializeField]
     int maxSaves;
-
+        
     [SerializeField]
     GameObject camBase, playerPrefab, healthPotPrefab;
 
@@ -205,13 +205,13 @@ public class SaveManager : MonoBehaviour
 
     void SaveCamTransform()         //Sparar kamerans position & rotation till XML
     {
-        xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").SetValue(Math.Round(camBase.transform.position.x, 4).ToString());
-        xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").SetValue(Math.Round(camBase.transform.position.y, 4).ToString());
-        xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").SetValue(Math.Round(camBase.transform.position.z, 4).ToString());
-        xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@X").SetValue(Math.Round(camBase.transform.rotation.x, 4).ToString());
-        xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Y").SetValue(Math.Round(camBase.transform.rotation.y, 4).ToString());
-        xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Z").SetValue(Math.Round(camBase.transform.rotation.z, 4).ToString());
-        xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@W").SetValue(Math.Round(camBase.transform.rotation.w, 4).ToString());
+        xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").SetValue(Math.Round(myCam.transform.position.x, 4).ToString());
+        xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").SetValue(Math.Round(myCam.transform.position.y, 4).ToString());
+        xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").SetValue(Math.Round(myCam.transform.position.z, 4).ToString());
+        xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@X").SetValue(Math.Round(myCam.transform.rotation.x, 4).ToString());
+        xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Y").SetValue(Math.Round(myCam.transform.rotation.y, 4).ToString());
+        xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Z").SetValue(Math.Round(myCam.transform.rotation.z, 4).ToString());
+        xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@W").SetValue(Math.Round(myCam.transform.rotation.w, 4).ToString());
     }
 
     void SaveInventory()        //Sparar alla föremål i spelarens inventory till XML
@@ -387,10 +387,10 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(Application.dataPath + "/Settings.xml"))
         {
             XmlDocument settingsDoc = new XmlDocument();
-            settingsDoc.LoadXml(Application.dataPath + "/Settings.xml");
+            settingsDoc.Load(Application.dataPath + "/Settings.xml");
             SettingsMenuScript settings = FindObjectOfType<SettingsMenuScript>();
             settings.SetCam(myCam);
-            settings.SetCamSensitivity(int.Parse(settingsDoc.SelectSingleNode("/Settings/Camera/@Sensitivity").Value));
+            settings.SetCamSensitivity(float.Parse(settingsDoc.SelectSingleNode("/Settings/Camera/@Sensitivity").Value));
         }
     }
 
@@ -512,8 +512,8 @@ public class SaveManager : MonoBehaviour
     {
         Vector3 newCameraPos = new Vector3(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Position/@Z").Value));
         Quaternion newCameraRot = new Quaternion(float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@X").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Y").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@Z").Value), float.Parse(xNav.SelectSingleNode("/SavedState/CameraTransform/Rotation/@W").Value));
-        camBase.transform.position = newCameraPos;
-        camBase.transform.rotation = newCameraRot;
+        myCam.transform.position = newCameraPos;
+        myCam.transform.rotation = newCameraRot;
     }
 
     IEnumerator MovePlayerWait() //Flyttar spelaren efter en viss tid för att ge banan tid att ladda in så spelaren inte faller genom marken innan marken existerar

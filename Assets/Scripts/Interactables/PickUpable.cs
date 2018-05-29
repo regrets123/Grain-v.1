@@ -18,6 +18,8 @@ public class PickUpable : MonoBehaviour, IInteractable
 
     string interactText = "PRESS E TO INTERACT";
 
+    string controllerInteractText = "PRESS A TO INTERACT";
+
     public void Interact(PlayerInteractions player)     //Låter spelaren plocka upp ett föremål och lägga det i inventoryt
     {
         player.InteractTime = 2f;
@@ -29,7 +31,7 @@ public class PickUpable : MonoBehaviour, IInteractable
 
     public string GetText()
     {
-        return this.interactText;
+        return FindObjectOfType<MenuManager>().CheckInput() ? controllerInteractText : interactText;
     }
 
     IEnumerator DetachItem()            //Tar bort föremålet från sin parent för att kunna ta bort föremålet från världen utan att hindra spelaren från att läggadet i sitt inventory

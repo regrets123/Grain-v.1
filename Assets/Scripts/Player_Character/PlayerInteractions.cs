@@ -129,8 +129,10 @@ public class PlayerInteractions : MonoBehaviour, IPausable
     IEnumerator NonMovingInteract()             //Hindrar spelaren från att röra sig medan denne interagerar med något
     {
         movement.Interacting = true;
+        rb.useGravity = false;
         yield return new WaitForSeconds(interactTime);
         movement.Interacting = false;
+        rb.useGravity = true;
     }
 
     #endregion

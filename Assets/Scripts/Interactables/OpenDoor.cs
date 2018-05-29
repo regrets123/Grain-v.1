@@ -21,6 +21,8 @@ public class OpenDoor : MonoBehaviour, IInteractable
 
     string interactText = "PRESS E TO INTERACT";
 
+    string controllerInteractText = "PRESS A TO INTERACT";
+
     PlayerInteractions playerToMove;
 
     MovementType previousMovement;
@@ -34,7 +36,7 @@ public class OpenDoor : MonoBehaviour, IInteractable
 
     public string GetText()
     {
-        return this.interactText;
+        return FindObjectOfType<MenuManager>().CheckInput() ? controllerInteractText : interactText;
     }
 
     public void Interact(PlayerInteractions player)     //Spelar upp en animation medan spelaren drar i en spak för att öppna en dörr

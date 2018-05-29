@@ -12,18 +12,25 @@ public class MenuManager : MonoBehaviour
     InventoryManager iM;
 
     [SerializeField]
-    Color inactiveColor, activeColor;    
-    
+    Color inactiveColor, activeColor;
+
+    [SerializeField]
+    Image inputImage;
+
+    [SerializeField]
+    Image[] inventoryButtons;
+
+
     public void ToggleMenu(GameObject menuToToggle)     //Visar och döljer menyer
     {
         menuToToggle.SetActive(!menuToToggle.activeSelf);
     }
-    
+
     public void LoadScene(string sceneName)             //Laddar en vald scen
     {
         SceneManager.LoadScene(sceneName);
     }
-    
+
     public void ExitApplication()                       //Avslutar spelet
     {
         Application.Quit();
@@ -69,5 +76,38 @@ public class MenuManager : MonoBehaviour
             textToChange.color = activeColor;
         }
     }
-    
+
+    public bool CheckInput()
+    {
+        foreach (string joystick in Input.GetJoystickNames())
+        {
+            if (joystick != null && joystick != "")
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void CheckControl()
+    {
+        if (CheckInput())
+        {
+            inputImage.sprite = Resources.Load<Sprite>("Controller-Description-UI");
+        }
+        else if (!CheckInput())
+        {
+            inputImage.sprite = Resources.Load<Sprite>("Keyboard-Controller-Descriptions");
+        }
+    }
+
+    public void ActivateButtons(bool show)
+    {
+        foreach(Image button in inventoryButtons)
+        {
+            button.gameObject.SetActive(show);
+        }
+    }
+
 }
