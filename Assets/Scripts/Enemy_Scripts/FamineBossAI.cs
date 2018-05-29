@@ -38,7 +38,7 @@ public class FamineBossAI : BaseEnemyScript
     protected override void Start()
     {
         base.Start();
-        bossNameText.text = "Faminus";
+        bossNameText.text = "FAMINUS";
     }
 
     protected override void Update()
