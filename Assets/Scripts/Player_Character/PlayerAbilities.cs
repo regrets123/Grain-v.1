@@ -83,7 +83,6 @@ public class PlayerAbilities : MonoBehaviour, IPausable
             return;
         if ((Input.GetButtonDown("Ability") || Input.GetAxis("Ability") < 0f) && currentAbility != null && !BaseAbilityScript.CoolingDown)
         {
-            print("ability pressed");
             currentAbility.UseAbility();
         }
         else if (Input.GetButtonDown("UseItem") && currentItem != null && !BaseItemScript.CoolingDown && !paused)
@@ -111,7 +110,6 @@ public class PlayerAbilities : MonoBehaviour, IPausable
     {
         if (currentAbility != null)
             Destroy(currentAbility.gameObject);
-        print("ability equipped");
         currentAbility = Instantiate(newAbility, abilityPos).GetComponent<BaseEquippableObject>() as BaseAbilityScript;
         currentRune.sprite = newAbility.GetComponent<BaseAbilityScript>().MyRune;
     }

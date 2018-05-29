@@ -12,7 +12,6 @@ public class MagicDash : BaseAbilityScript
     public override void UseAbility()    //Activated from the BaseAbility script. If the player have enough stamina the ability will activate and drain the staminaCost
     {
         base.UseAbility();
-        print("ability used");
         //player.Anim.SetTrigger("Dash");
         StartCoroutine("Dash");
     }
@@ -20,9 +19,7 @@ public class MagicDash : BaseAbilityScript
     IEnumerator Dash()    //Enumerator smooths out the dash so it doesn't happen instantaneously
     {
         movement.ChangeMovement("Dash");
-        print("dash started");
         yield return new WaitForSeconds(duration);
         movement.ChangeMovement("Previous");
-        print("dash ended");
     }
 }

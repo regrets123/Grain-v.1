@@ -738,12 +738,10 @@ public class InventoryManager : MonoBehaviour
 
     public void Equip()    //Equippar ett föremål som finns i spelarens inventory
     {
-        print("equip something");
         if (playerInventory[displayCollection] == null || collectionIndex > playerInventory[displayCollection].Count - 1 || playerInventory[displayCollection][collectionIndex] == null)
         {
             return;
         }
-        print("you may equip");
         switch (playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().MyType)
         {
             case EquipableType.Weapon:
@@ -755,7 +753,6 @@ public class InventoryManager : MonoBehaviour
             case EquipableType.Ability:
                 equippedAbilityImage.sprite = playerInventory[displayCollection][collectionIndex].GetComponent<BaseEquippableObject>().InventoryIcon;
                 abilities.EquipAbility(playerInventory[displayCollection][collectionIndex]);
-                print("wanna equip ability pl0x");
                 break;
 
             case EquipableType.Item:
