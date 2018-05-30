@@ -3163,7 +3163,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1406100341}
   m_LocalRotation: {x: -0, y: 0.108634956, z: -0, w: 0.99408174}
-  m_LocalPosition: {x: -0.126, y: 0.413, z: -0.092}
+  m_LocalPosition: {x: 0.23, y: 0.69, z: 0.341}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1414150133}
@@ -3288,8 +3288,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.2526388, y: 1.4655457, z: 1}
+  m_Center: {x: 0.25834477, y: -0.16039658, z: 0.0000000036753107}
 --- !u!114 &1414150135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3302,8 +3302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38115baf7b9926c4791fcc9d5cf2276f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  superClimb: 0
-  finalClimbingPosition: {fileID: 0}
+  superClimb: 1
+  finalClimbingPosition: {fileID: 1406100342}
 --- !u!1001 &1414185952
 Prefab:
   m_ObjectHideFlags: 0
@@ -3911,36 +3911,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4543818740379754, guid: a96b6a5ea7c92b549b5a2cfa2c116ebd,
     type: 2}
   m_PrefabInternal: {fileID: 1759111002}
---- !u!1 &1769618606
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1586963773782730, guid: c46663666b3990c4daffb8b54e63fae2,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1769618607}
-  m_Layer: 8
-  m_Name: FinalClimbingPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!4 &1769618607
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4881943161446346, guid: c46663666b3990c4daffb8b54e63fae2,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1769618606}
-  m_LocalRotation: {x: -0, y: -0.19573328, z: -0, w: 0.9806572}
-  m_LocalPosition: {x: -0.42, y: 0.43, z: 0.189}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2003881734}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -22.575, z: 0}
 --- !u!1001 &1772011545
 Prefab:
   m_ObjectHideFlags: 0
@@ -4850,66 +4820,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4543818740379754, guid: a96b6a5ea7c92b549b5a2cfa2c116ebd,
     type: 2}
   m_PrefabInternal: {fileID: 1958035033}
---- !u!1 &2003881733
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1419543736021288, guid: c46663666b3990c4daffb8b54e63fae2,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 2003881734}
-  - component: {fileID: 2003881736}
-  - component: {fileID: 2003881735}
-  m_Layer: 8
-  m_Name: ClimbableObject (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!4 &2003881734
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4467976828414558, guid: c46663666b3990c4daffb8b54e63fae2,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2003881733}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.6, y: 3.4600067, z: -1.14}
-  m_LocalScale: {x: 3.0000005, y: 4, z: 3.000001}
-  m_Children:
-  - {fileID: 1769618607}
-  m_Father: {fileID: 289339238}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2003881735
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 65736317347377920, guid: c46663666b3990c4daffb8b54e63fae2,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2003881733}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2003881736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114568040525864074, guid: c46663666b3990c4daffb8b54e63fae2,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2003881733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38115baf7b9926c4791fcc9d5cf2276f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  superClimb: 0
-  finalClimbingPosition: {fileID: 0}
 --- !u!1001 &2025226418
 Prefab:
   m_ObjectHideFlags: 0
