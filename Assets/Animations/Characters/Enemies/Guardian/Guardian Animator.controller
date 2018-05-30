@@ -199,9 +199,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.10129905
+  m_TransitionDuration: 0.30960763
   m_TransitionOffset: 0
-  m_ExitTime: 0.9523272
+  m_ExitTime: 0.8445814
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -261,7 +261,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Attack_2_Guardian_OE
+  m_Name: Guardian Attack 2
   m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions:
@@ -287,7 +287,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Attack_1_Guardian_OE
+  m_Name: Guardian Attack 1
   m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions:
@@ -313,7 +313,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Dashattack_Guardian_Full_OE
+  m_Name: Guardian Dash Attack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

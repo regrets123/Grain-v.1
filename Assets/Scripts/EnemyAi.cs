@@ -110,6 +110,8 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
 
     string attackName;
 
+    bool paused = false;
+
     float distance;
     float angle;
     float closeNr;
@@ -144,6 +146,12 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
 
     AIAttacks currentAttack;
 
+    Movement currentMovement;
+
+    private delegate void Movement();
+
+    //Vector3? dashTarget;
+
     #endregion
 
     #region Properties
@@ -164,6 +172,7 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
 
     void Start()
     {
+        currentMovement = DefaultMovement;
         animator = GetComponent<Animator>();
         rigidB = GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();
@@ -175,53 +184,71 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
         healthBar.value = health;
     }
 
-	void Update ()
+    void Update()
     {
-        if (alive)
+        if (alive && !paused)
         {
-            distance = DistanceFromTarget();
-            angle = AngleToTarget();
-
-            delta = Time.deltaTime;
-
-            animator.SetFloat("Speed", navAgent.velocity.magnitude);
-
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackName))
-            {
-                rotateToTarget = false;
-                canMove = false;
-                navAgent.isStopped = true;
-            }
-            else
-            {
-                rotateToTarget = true;
-                canMove = true;
-                navAgent.isStopped = false;
-            }
-
-            if (target)
-                dirToTarget = target.transform.position - transform.position;
-
-            switch (aiState)
-            {
-                case AIStates.Close:
-                    HandleCloseSight();
-                    break;
-                case AIStates.Far:
-                    HandleFarSight();
-                    break;
-                case AIStates.Attacking:
-                    if (canMove)
-                        aiState = AIStates.InSight;
-                    break;
-                case AIStates.InSight:
-                    InSight();
-                    break;
-                default:
-                    break;
-            }
+            currentMovement();
         }
-	}
+    }
+
+    void DefaultMovement()
+    {
+        distance = DistanceFromTarget();
+        angle = AngleToTarget();
+
+        delta = Time.deltaTime;
+
+        animator.SetFloat("Speed", navAgent.velocity.magnitude);
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackName))
+        {
+            rotateToTarget = false;
+            canMove = false;
+            navAgent.isStopped = true;
+        }
+        else
+        {
+            rotateToTarget = true;
+            canMove = true;
+            navAgent.isStopped = false;
+        }
+
+        if (target)
+            dirToTarget = target.transform.position - transform.position;
+
+        switch (aiState)
+        {
+            case AIStates.Close:
+                HandleCloseSight();
+                break;
+            case AIStates.Far:
+                HandleFarSight();
+                break;
+            case AIStates.Attacking:
+                if (canMove)
+                    aiState = AIStates.InSight;
+                break;
+            case AIStates.InSight:
+                InSight();
+                break;
+            default:
+                break;
+        }
+    }
+
+    void DashMovement()
+    {
+
+    }
+
+    void ChangeMovement(Movement movement)
+    {
+        print(movement);
+        currentMovement = movement;
+        if (movement == DashMovement)
+            StartCoroutine("Dash");
+    }
 
     #endregion
 
@@ -282,7 +309,7 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
         Vector3 dir = dirToTarget;
         dir.y += 0.5f;
 
-        if(Physics.Raycast(origin, dir, out hit, sight, ignoreLayers))
+        if (Physics.Raycast(origin, dir, out hit, sight, ignoreLayers))
         {
             if (hit.transform.GetComponent<PlayerCombat>() != null)
             {
@@ -331,34 +358,34 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
         if (frame > frameCount)
         {
             frame = 0;
-            
-            if(distance < sight)
+
+            if (distance < sight)
             {
-                if(angle < fovAngle)
+                if (angle < fovAngle)
                 {
                     aiState = AIStates.Close;
                 }
             }
         }
     }
-    
+
     void InSight()
     {
-        if(rotateToTarget)
+        if (rotateToTarget)
             LookTowardsTarget();
 
         HandleCooldowns();
 
         distance2 = Vector3.Distance(targetDestination, target.transform.position);
 
-        if (distance2 > attackDistance)
+        if (distance2 > attackDistance || unitName == Units.Guardian)
         {
             haveDestination = false;
             SetDestination(target.transform.position);
         }
         if (distance < attackDistance)
             navAgent.isStopped = true;
-
+        
         if (nrOfattacks > 0)
         {
             nrOfattacks--;
@@ -367,11 +394,13 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
         nrOfattacks = attackCount;
 
         AIAttacks attack = WillAttack();
-
+        
         if (attack != null)
             SetCurrentAttack(attack);
         else
             return;
+
+        attackDistance = currentAttack.minDistance;
 
         if (currentAttack != null && attack != null)
         {
@@ -379,6 +408,10 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
             animator.SetTrigger(currentAttack.targetAnim);
             currentAttack.cool = currentAttack.cooldown;
             attackName = currentAttack.targetAnim;
+
+            //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Guardian Dash Attack"))
+            if (currentAttack.targetAnim == "DashAttack")
+                ChangeMovement(DashMovement);
             return;
         }
         return;
@@ -401,14 +434,14 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
 
     void LookTowardsTarget()
     {
-            Vector3 dir = dirToTarget;
-            dir.y = 0;
+        Vector3 dir = dirToTarget;
+        dir.y = 0;
 
-            if (dir == Vector3.zero)
-                dir = transform.forward;
+        if (dir == Vector3.zero)
+            dir = transform.forward;
 
-            Quaternion targetRotation = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, delta * 5);
+        Quaternion targetRotation = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, delta * 5);
     }
 
     void OnAnimatorMove()
@@ -573,12 +606,22 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
     {
         if (!alive)
             return;
-
-        navAgent.isStopped = !navAgent.isStopped;
+        paused = pausing;
+        navAgent.isStopped = pausing;
     }
 
     #region Coroutines
 
+    protected IEnumerator Dash()
+    {
+        print("dashing");
+        navAgent.isStopped = false;
+        SetDestination(Vector3.forward * 100);
+        navAgent.speed *= 4;
+        yield return new WaitForSeconds(0.9f);
+        ChangeMovement(DefaultMovement);
+        navAgent.speed /= 4;
+    }
 
     protected IEnumerator FreezeNav(float freezeTime)           //Hindrar fienden från att röra sig under en viss tid
     {
