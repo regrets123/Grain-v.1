@@ -26,11 +26,12 @@ public class MagicProjectile : BaseAbilityScript
             abilities.StartCoroutine("AbilityCooldown");       //Startar en cooldown när spelaren använder en ability
             abilities.LifeForce -= abilityCost;
         }
-        if (abilities.LifeForce + combat.Health >= abilityCost)
+        else if (abilities.LifeForce + combat.Health >= abilityCost)
         {
             abilities.StartCoroutine("AbilityCooldown");
             combat.Health -= (abilityCost - abilities.LifeForce);
             abilities.LifeForce -= abilities.LifeForce;
+            print(abilities.LifeForce + "\n" + combat.Health);
         }
         else
             return false;
