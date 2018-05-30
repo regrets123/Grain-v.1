@@ -70,6 +70,8 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
     float fovAngle;
     [Space(5), Tooltip(""), SerializeField]
     float attackCount = 30;
+    [Space(5), Tooltip(""), SerializeField]
+    float attackDistance;
 
     #endregion
 
@@ -105,6 +107,8 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
     int lifeForce;
     int poise;
     int frame;
+
+    string attackName;
 
     float distance;
     float angle;
@@ -165,6 +169,7 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
         navAgent = GetComponent<NavMeshAgent>();
         pauseManager = GetComponent<PauseManager>();
         target = FindObjectOfType<PlayerCombat>();
+        navAgent.stoppingDistance = attackDistance - 0.5f;
         health = maxHealth;
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
@@ -181,21 +186,17 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
 
             animator.SetFloat("Speed", navAgent.velocity.magnitude);
 
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1") &&
-               !animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack2") &&
-               !animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack3"))
-            {
-                rotateToTarget = true;
-                canMove = true;
-                navAgent.isStopped = false;
-                DeactivateDamageCollider();
-            }
-            else
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackName))
             {
                 rotateToTarget = false;
                 canMove = false;
                 navAgent.isStopped = true;
-                ActivateDamageCollider();
+            }
+            else
+            {
+                rotateToTarget = true;
+                canMove = true;
+                navAgent.isStopped = false;
             }
 
             if (target)
@@ -235,7 +236,7 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
         for (int i = 0; i < aiAttacks.Length; i++)
         {
             AIAttacks ai = aiAttacks[i];
-            
+
             if (ai.cool > 0)
             {
                 continue;
@@ -350,12 +351,12 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
 
         distance2 = Vector3.Distance(targetDestination, target.transform.position);
 
-        if (distance2 > 1.5f)
+        if (distance2 > attackDistance)
         {
             haveDestination = false;
             SetDestination(target.transform.position);
         }
-        if (distance < 1.5f)
+        if (distance < attackDistance)
             navAgent.isStopped = true;
 
         if (nrOfattacks > 0)
@@ -367,16 +368,19 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
 
         AIAttacks attack = WillAttack();
 
-        SetCurrentAttack(attack);
+        if (attack != null)
+            SetCurrentAttack(attack);
+        else
+            return;
 
-        if (currentAttack != null)
+        if (currentAttack != null && attack != null)
         {
             aiState = AIStates.Attacking;
             animator.SetTrigger(currentAttack.targetAnim);
             currentAttack.cool = currentAttack.cooldown;
+            attackName = currentAttack.targetAnim;
             return;
         }
-
         return;
     }
 
@@ -440,7 +444,7 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
         if (currentAttack == null)
             return;
 
-        if (currentAttack.isDefaultDamageColliders || currentAttack.damageCollider.Length == 0)
+        if (currentAttack.isDefaultDamageColliders/* || currentAttack.damageCollider.Length < 1*/)
         {
             ObjectListStatus(defaultDamageColliders, true);
         }
@@ -455,7 +459,7 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
         if (currentAttack == null)
             return;
 
-        if (currentAttack.isDefaultDamageColliders || currentAttack.damageCollider.Length == 0)
+        if (currentAttack.isDefaultDamageColliders/* || currentAttack.damageCollider.Length < 1*/)
         {
             ObjectListStatus(defaultDamageColliders, false);
         }
@@ -547,6 +551,20 @@ public class EnemyAi : MonoBehaviour, IKillable, IPausable
     {
         alive = false;
         Death();
+    }
+
+    #endregion
+
+    #region AI Animation Events
+
+    void AttackStart()
+    {
+        ActivateDamageCollider();
+    }
+
+    void AttackEnd()
+    {
+        DeactivateDamageCollider();
     }
 
     #endregion
