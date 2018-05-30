@@ -48,7 +48,7 @@ public class PlayerAbilities : MonoBehaviour, IPausable
 
     public int LifeForce
     {
-        get { return this.lifeForce; }
+        get { print("LIFEFORCE: " + lifeForce);  return this.lifeForce; }
         set { this.lifeForce = value; lifeForceBar.value = lifeForce; }
     }
 
@@ -98,6 +98,7 @@ public class PlayerAbilities : MonoBehaviour, IPausable
     public void ReceiveLifeForce(int value)         //Låter spelaren få lifeforce
     {
         this.lifeForce = Mathf.Clamp(this.lifeForce + value, 0, 100);
+        print("lifeforce: " + lifeForce);
         lifeForceBar.value = lifeForce;
     }
 
