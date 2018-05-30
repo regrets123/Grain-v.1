@@ -27,17 +27,10 @@ public class BaseAbilityScript : BaseEquippableObject       //Ett script alla ma
 
     public virtual bool UseAbility()                      //Virtuell metod som overrideas av alla abilities så att de faktiskt gör olika saker
     {
-        if (abilities.LifeForce >= abilityCost)
-        {
-            abilities.StartCoroutine("AbilityCooldown");       //Startar en cooldown när spelaren använder en ability
-            abilities.LifeForce -= abilityCost;
-            return true;
-        }
-        if (abilities.LifeForce + movement.Stamina >= abilityCost)
+        if ( movement.Stamina >= abilityCost)
         {
             abilities.StartCoroutine("AbilityCooldown");
-            movement.Stamina -= (abilityCost - abilities.LifeForce);
-            abilities.LifeForce -= abilities.LifeForce;
+            movement.Stamina -= (abilityCost);
             return true;
         }
         return false;
