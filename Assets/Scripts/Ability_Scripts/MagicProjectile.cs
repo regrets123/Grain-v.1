@@ -30,11 +30,11 @@ public class MagicProjectile : BaseAbilityScript
         {
             abilities.StartCoroutine("AbilityCooldown");
             combat.Health -= (abilityCost - abilities.LifeForce);
-            abilities.LifeForce -= abilities.LifeForce;
-            print(abilities.LifeForce + "\n" + combat.Health);
         }
         else
             return false;
+        abilities.LifeForce -= abilities.LifeForce;
+        print(abilities.LifeForce + "\n" + combat.Health);
         //instantiate a magic projectile
         GameObject magicProjectile = Instantiate
             (
