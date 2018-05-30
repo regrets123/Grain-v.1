@@ -239,6 +239,7 @@ public class BaseWeaponScript : BaseEquippableObject
                 return;
             }
             DealDamage(targetToHit);
+            GetComponent<Collider>().enabled = false;
             SoundManager.instance.RandomizeSfx(enemyHit1, enemyHit2, enemyHit3);
         }
     }
