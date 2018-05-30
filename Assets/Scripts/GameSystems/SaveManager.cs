@@ -283,7 +283,7 @@ public class SaveManager : MonoBehaviour
             }
         }
         upgradesNode = xNav.SelectSingleNode("//AvailableUpgrades");
-        XmlNodeList oldAvailableUpgrades = currentGame.SelectNodes("//AvailablUpgrade");
+        XmlNodeList oldAvailableUpgrades = currentGame.SelectNodes("//AvailableUpgrade");
         if (oldAvailableUpgrades.Count > 0)
         {
             for (int i = oldAvailableUpgrades.Count - 1; i > -1; i--)
@@ -410,7 +410,6 @@ public class SaveManager : MonoBehaviour
 
     void LoadInventory()    //Laddar in spelarens sparade inventory
     {
-        print("inventory loading");
         XPathNodeIterator nodes = xNav.Select("/SavedState/PlayerInfo/Inventory//Item/@Name");
         XPathNodeIterator favorites = xNav.Select("/SavedState/PlayerInfo/Inventory/Favorites//Favorite/@Name");
         XPathNodeIterator availableUpgrades = xNav.Select("/SavedState/PlayerInfo/Inventory/Upgrades/AvailableUpgrades//AvailableUpgrade/@Name");
@@ -426,7 +425,6 @@ public class SaveManager : MonoBehaviour
             {
                 if (node.Value == item.GetComponent<BaseEquippableObject>().ObjectName)
                 {
-                    print("item added");
                     GameObject newItem = Instantiate(item);
                     inventoryManager.NewEquippable(newItem);
                     while (favorites.MoveNext())

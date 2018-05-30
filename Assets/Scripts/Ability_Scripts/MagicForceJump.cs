@@ -12,14 +12,16 @@ public class MagicForceJump : BaseAbilityScript
     [SerializeField]
     float delayTime;
 
-    public override void UseAbility()
+    public override bool UseAbility()
     {
-            base.UseAbility();
-            StartCoroutine("SuperJump");
+        if (!base.UseAbility())
+            return false;
+        StartCoroutine("SuperJump");
+        return true;
     }
 
     IEnumerator SuperJump()
-    {   
+    {
         GameObject jumpParticles = Instantiate(effectsPrefab, spawnPos.transform.position, spawnPos.transform.rotation);        //instantiate a magic jump circle
         movement.Anim.SetTrigger("SuperJump");
         movement.ChangeMovement("None");

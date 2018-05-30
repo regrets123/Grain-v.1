@@ -2211,7 +2211,7 @@ MonoBehaviour:
   attackColliderDeactivationSpeed: 3
   maxHealth: 150
   lifeForce: 100
-  unitName: Famine
+  unitName: Faminus
   aggroCenter: {fileID: 1525327704503570}
   soul: {fileID: 1157158949442700, guid: f18b8f53bd1f81e47935db9cfcefd708, type: 2}
   weapon: {fileID: 1705096337478230, guid: 6cfec5c857d50974fbfc4f36748a3e15, type: 2}
@@ -2240,7 +2240,7 @@ MonoBehaviour:
   bossNameText: {fileID: 114123366886945098}
   blackHole: {fileID: 1401129260235364, guid: a7990bad0e2c06e4db19a9071c70dabf, type: 2}
   vortexPos: {fileID: 4979368194083258}
-  myDrop: {fileID: 0}
+  myDrop: {fileID: 1815283291964716, guid: f874e1bf398e0a2479e91791b094ee03, type: 2}
 --- !u!114 &114189599433057948
 MonoBehaviour:
   m_ObjectHideFlags: 1

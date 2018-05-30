@@ -19,9 +19,22 @@ public class MagicProjectile : BaseAbilityScript
 
     Vector3 dir;
 
-    public override void UseAbility()
+    public override bool UseAbility()
     {
-        base.UseAbility();
+        if (abilities.LifeForce >= abilityCost)
+        {
+            abilities.StartCoroutine("AbilityCooldown");       //Startar en cooldown när spelaren använder en ability
+            abilities.LifeForce -= abilityCost;
+        }
+        else if (abilities.LifeForce + combat.Health >= abilityCost)
+        {
+            abilities.StartCoroutine("AbilityCooldown");
+            combat.Health -= (abilityCost - abilities.LifeForce);
+            abilities.LifeForce -= abilities.LifeForce;
+            print(abilities.LifeForce + "\n" + combat.Health);
+        }
+        else
+            return false;
         //instantiate a magic projectile
         GameObject magicProjectile = Instantiate
             (
@@ -43,5 +56,6 @@ public class MagicProjectile : BaseAbilityScript
 
         //Add a force to the magic going forward form your current position.
         magicProjectile.GetComponent<Rigidbody>().AddForce(dir * speed, ForceMode.Impulse);
+        return true;
     }
 }
