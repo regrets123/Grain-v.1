@@ -48,7 +48,7 @@ public class PlayerAbilities : MonoBehaviour, IPausable
 
     public int LifeForce
     {
-        get { print("LIFEFORCE: " + lifeForce);  return this.lifeForce; }
+        get { return this.lifeForce; }
         set { this.lifeForce = value; lifeForceBar.value = lifeForce; }
     }
 

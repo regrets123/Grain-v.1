@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4287435489168122}
   - component: {fileID: 114509061315072656}
+  - component: {fileID: 135020684063764124}
   m_Layer: 0
   m_Name: FireballPickupable
   m_TagString: Untagged
@@ -113,6 +114,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 1176616293557002, guid: fa33e2c196cae674e8f82594375e4792, type: 2}
+--- !u!135 &135020684063764124
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1385548226547950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198088802052122266
 ParticleSystem:
   m_ObjectHideFlags: 1
