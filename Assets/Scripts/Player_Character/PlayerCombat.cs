@@ -372,6 +372,8 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         if (canClick)
             noOfClicks++;
+        StopCoroutine("AttackLoopPrevention");
+        StartCoroutine("AttackLoopPrevention");
 
         if (noOfClicks == 1 && (!anim.GetCurrentAnimatorStateInfo(1).IsName("LightAttack3") || !anim.GetCurrentAnimatorStateInfo(2).IsName("LightAttack3")))
         {
@@ -383,6 +385,8 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     {
         if (canClick)
             noOfClicks++;
+        StopCoroutine("AttackLoopPrevention");
+        StartCoroutine("AttackLoopPrevention");
 
         if (noOfClicks == 1 && (!anim.GetCurrentAnimatorStateInfo(1).IsName("HeavyAttack2") || !anim.GetCurrentAnimatorStateInfo(2).IsName("HeavyAttack2")))
             {
@@ -525,6 +529,14 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
     #endregion
 
     #region Coroutines
+
+    IEnumerator AttackLoopPrevention()
+    {
+        yield return new WaitForSeconds(1.5f);
+        noOfClicks = 0;
+        anim.SetInteger("HeavyAnimation", 0);
+        anim.SetInteger("LightAnimation", 0);
+    }
 
     IEnumerator SheathingTimer()                //Spawnar och despawnar vapen efter en viss tid för att matcha med animationer
     {
