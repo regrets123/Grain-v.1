@@ -552,6 +552,13 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
         invulnerable = false;
     }
 
+    public IEnumerator Invulnerability(float time)       //Hindrar spelaren från att ta skada under en viss tid
+    {
+        invulnerable = true;
+        yield return new WaitForSeconds(time);
+        invulnerable = false;
+    }
+
     public IEnumerator PreventFallDamage()          //Hindrar spelaren från att ta fallskada under en viss tid
     {
         fallInvulnerability = true;
