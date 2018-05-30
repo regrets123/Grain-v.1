@@ -354,13 +354,13 @@ public class InventoryManager : MonoBehaviour
                 {
                     EquipFavorite(0, controllerInput);
                 }
-                else if (Input.GetAxisRaw("NextInventoryRow") < 0f || Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    EquipFavorite(2, controllerInput);
-                }
                 else if (Input.GetAxisRaw("NextItem") > 0f || Input.GetKeyDown(KeyCode.Alpha2))
                 {
                     EquipFavorite(1, controllerInput);
+                }
+                else if (Input.GetAxisRaw("NextInventoryRow") < 0f || Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    EquipFavorite(2, controllerInput);
                 }
                 else if (Input.GetAxisRaw("NextItem") < 0f || Input.GetKeyDown(KeyCode.Alpha4))
                 {
@@ -415,7 +415,6 @@ public class InventoryManager : MonoBehaviour
     {
         if (playerInventory[3] == null || playerInventory[3].Count <= favoriteIndex || playerInventory[3][favoriteIndex] == null)
             return;
-        //player.Equip(playerInventory[3][favoriteIndex]);
         switch (playerInventory[3][favoriteIndex].GetComponent<BaseEquippableObject>().MyType)
         {
             case EquipableType.Weapon:

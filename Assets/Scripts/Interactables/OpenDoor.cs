@@ -27,6 +27,7 @@ public class OpenDoor : MonoBehaviour, IInteractable
 
     MovementType previousMovement;
 
+    bool used = false;
 
     void Start()
     {
@@ -36,11 +37,16 @@ public class OpenDoor : MonoBehaviour, IInteractable
 
     public string GetText()
     {
+        if (used)
+            return "";
         return FindObjectOfType<MenuManager>().CheckInput() ? controllerInteractText : interactText;
     }
 
     public void Interact(PlayerInteractions player)     //Spelar upp en animation medan spelaren drar i en spak för att öppna en dörr
     {
+        if (used)
+            return;
+        used = true;
         playerToMove = player;
         StartCoroutine("MovePlayerToInteract");
         //player.InteractTime = 3f;

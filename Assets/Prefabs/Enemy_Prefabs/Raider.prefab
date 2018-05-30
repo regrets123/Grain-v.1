@@ -1592,7 +1592,7 @@ MonoBehaviour:
   poiseCooldown: 3
   attackColliderActivationSpeed: 1
   attackColliderDeactivationSpeed: 1
-  maxHealth: 100
+  maxHealth: 60
   lifeForce: 10
   unitName: Raider
   aggroCenter: {fileID: 1524618943842578}

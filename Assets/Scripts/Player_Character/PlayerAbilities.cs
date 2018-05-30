@@ -40,6 +40,8 @@ public class PlayerAbilities : MonoBehaviour, IPausable
 
     Animator anim;
 
+    InputManager inputManager;
+
     #endregion
 
     #region Properties
@@ -72,11 +74,14 @@ public class PlayerAbilities : MonoBehaviour, IPausable
         FindObjectOfType<PauseManager>().Pausables.Add(this);
         inventory = GetComponent<InventoryManager>();
         this.anim = GetComponent<Animator>();
+        inputManager = FindObjectOfType<InputManager>();
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Ability") && currentAbility != null && !BaseAbilityScript.CoolingDown && !paused)
+        if (inputManager.CurrentInputMode != InputMode.Playing)
+            return;
+        if ((Input.GetButtonDown("Ability") || Input.GetAxis("Ability") < 0f) && currentAbility != null && !BaseAbilityScript.CoolingDown)
         {
             currentAbility.UseAbility();
         }

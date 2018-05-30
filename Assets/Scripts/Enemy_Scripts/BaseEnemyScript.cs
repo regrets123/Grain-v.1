@@ -265,7 +265,7 @@ public class BaseEnemyScript : MonoBehaviour, IKillable, IPausable
         }
         int damage = ModifyDamage(incomingDamage, dmgType);
         this.health -= damage;
-        healthBar.value = health;
+        this.healthBar.value = health;
         poise -= incomingDamage;
 
         switch (dmgType)

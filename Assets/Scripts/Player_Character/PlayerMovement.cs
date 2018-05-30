@@ -365,6 +365,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
             case "Dash":
                 if (currentMovement == LockOnMovement || currentMovement == DefaultMovement)
                 {
+                    print("dash movement");
                     anim.SetTrigger("Dash");
                     currentMovementType = "Dash";
                     previousMovement = currentMovement;
@@ -468,6 +469,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
     void DashMovement()         //Metod som används för att få spelaren att göra en dash
     {
         rb.velocity = transform.forward * moveSpeed * 3;
+        if (rb.velocity.y > 0f)
+            rb.AddForce(Vector3.down * rb.velocity.y);
     }
 
     void NoMovement()

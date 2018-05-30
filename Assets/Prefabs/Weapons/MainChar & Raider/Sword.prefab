@@ -189,7 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryIcon: {fileID: 21300000, guid: 22a0848bf1e7836418d46ba67995227b, type: 3}
-  objectName: Sword00
+  objectName: Steel Sword
+  inventoryInfo: 
   myType: 0
   origninalLightDamage: 10
   originalHeavyDamage: 20
