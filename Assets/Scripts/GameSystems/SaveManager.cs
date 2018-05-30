@@ -283,7 +283,7 @@ public class SaveManager : MonoBehaviour
             }
         }
         upgradesNode = xNav.SelectSingleNode("//AvailableUpgrades");
-        XmlNodeList oldAvailableUpgrades = currentGame.SelectNodes("//AvailablUpgrade");
+        XmlNodeList oldAvailableUpgrades = currentGame.SelectNodes("//AvailableUpgrade");
         if (oldAvailableUpgrades.Count > 0)
         {
             for (int i = oldAvailableUpgrades.Count - 1; i > -1; i--)
