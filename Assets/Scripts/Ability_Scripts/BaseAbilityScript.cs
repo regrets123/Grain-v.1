@@ -11,8 +11,8 @@ public class BaseAbilityScript : BaseEquippableObject       //Ett script alla ma
 
     [SerializeField]
     protected Sprite myRune;
-    
-    protected static bool coolingDown = false;    
+
+    protected static bool coolingDown = false;
 
     public static bool CoolingDown
     {
@@ -24,9 +24,22 @@ public class BaseAbilityScript : BaseEquippableObject       //Ett script alla ma
     {
         get { return this.myRune; }
     }
-   
-    public virtual void UseAbility()                      //Virtuell metod som overrideas av alla abilities så att de faktiskt gör olika saker
+
+    public virtual bool UseAbility()                      //Virtuell metod som overrideas av alla abilities så att de faktiskt gör olika saker
     {
-        abilities.StartCoroutine("AbilityCooldown");       //Startar en cooldown när spelaren använder en ability
+        if (abilities.LifeForce >= abilityCost)
+        {
+            abilities.StartCoroutine("AbilityCooldown");       //Startar en cooldown när spelaren använder en ability
+            abilities.LifeForce -= abilityCost;
+            return true;
+        }
+        if (abilities.LifeForce + movement.Stamina >= abilityCost)
+        {
+            abilities.StartCoroutine("AbilityCooldown");
+            movement.Stamina -= (abilityCost - abilities.LifeForce);
+            abilities.LifeForce -= abilities.LifeForce;
+            return true;
+        }
+        return false;
     }
 }
