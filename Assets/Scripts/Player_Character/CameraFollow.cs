@@ -49,11 +49,11 @@ public class CameraFollow : MonoBehaviour, IPausable
 
     Vector3 followPOS;
 
-    List<BaseEnemyScript> targetsLockOnAble = new List<BaseEnemyScript>();
+    List<EnemyAi> targetsLockOnAble = new List<EnemyAi>();
 
-    List<BaseEnemyScript> visibleEnemies = new List<BaseEnemyScript>();
+    List<EnemyAi> visibleEnemies = new List<EnemyAi>();
 
-    BaseEnemyScript targetToLockOn, lookAtMe;
+    EnemyAi targetToLockOn, lookAtMe;
 
     PlayerMovement playerMovement;
 
@@ -80,7 +80,7 @@ public class CameraFollow : MonoBehaviour, IPausable
         get { return lockOn; }
     }
 
-    public BaseEnemyScript LookAtMe
+    public EnemyAi LookAtMe
     {
         get { return lookAtMe; }
     }
@@ -164,7 +164,7 @@ public class CameraFollow : MonoBehaviour, IPausable
         {
             visibleEnemies.Clear();
 
-            foreach (BaseEnemyScript enemy in targetsLockOnAble)
+            foreach (EnemyAi enemy in targetsLockOnAble)
             {
                 RaycastHit hit;
 
@@ -177,7 +177,7 @@ public class CameraFollow : MonoBehaviour, IPausable
             {
                 closestDistance = visibleEnemies.Min(e => (e.transform.position - cameraFollowObj.transform.position).magnitude);
 
-                foreach (BaseEnemyScript target in visibleEnemies)
+                foreach (EnemyAi target in visibleEnemies)
                 {
                     distance = Vector3.Distance(cameraFollowObj.transform.position, target.transform.position);
 
@@ -189,15 +189,15 @@ public class CameraFollow : MonoBehaviour, IPausable
                         float spriteOffset;
                         switch (target.UnitName)
                         {
-                            case "Guardian":
+                            case Units.Guardian:
                                 spriteOffset = 1.3f;
                                 break;
 
-                            case "Faminus":
+                            case Units.FamineBoss:
                                 spriteOffset = 2.5f;
                                 break;
 
-                            case "Raider":
+                            case Units.Raider:
                                 spriteOffset = 0.5f;
                                 break;
 
@@ -229,7 +229,7 @@ public class CameraFollow : MonoBehaviour, IPausable
             visibleEnemies.Clear();
 
 
-            foreach (BaseEnemyScript enemy in targetsLockOnAble)
+            foreach (EnemyAi enemy in targetsLockOnAble)
             {
                 if (!Physics.Linecast(transform.position, enemy.transform.position, -(1 << 8)))
                 {
@@ -284,7 +284,7 @@ public class CameraFollow : MonoBehaviour, IPausable
 
             targetDistance = Vector3.Distance(cameraFollowObj.transform.position, lookAtMe.transform.position);
 
-            if (!lookAtMe.gameObject.GetComponent<BaseEnemyScript>().Alive && lockOn || targetDistance > maxLockOnDistance && lockOn)
+            if (!lookAtMe.gameObject.GetComponent<EnemyAi>().Alive && lockOn || targetDistance > maxLockOnDistance && lockOn)
             {
                 Destroy(lockOnSprite.gameObject);
                 lookAtMe = null;
@@ -300,7 +300,7 @@ public class CameraFollow : MonoBehaviour, IPausable
 
     void OnTriggerEnter(Collider other)
     {
-        targetToLockOn = other.gameObject.GetComponent<BaseEnemyScript>();
+        targetToLockOn = other.gameObject.GetComponent<EnemyAi>();
 
         if (targetToLockOn != null)
         {
@@ -310,6 +310,6 @@ public class CameraFollow : MonoBehaviour, IPausable
 
     void OnTriggerExit(Collider other)
     {
-        targetsLockOnAble.Remove(other.gameObject.GetComponent<BaseEnemyScript>());
+        targetsLockOnAble.Remove(other.gameObject.GetComponent<EnemyAi>());
     }
 }

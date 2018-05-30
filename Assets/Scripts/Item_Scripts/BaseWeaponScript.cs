@@ -230,7 +230,7 @@ public class BaseWeaponScript : BaseEquippableObject
     //When a weapon hits a killable target the script triggers and deals damage to target
     public void OnTriggerEnter(Collider other)
     {
-        if ((equipper is BaseEnemyScript && (equipper as BaseEnemyScript).CurrentMovementType == MovementType.Attacking)
+        if ((equipper is BaseEnemyScript && (equipper as BaseEnemyScript).CurrentMovementType == MovementType.Attacking) || equipper is EnemyAi
             || (equipper is PlayerCombat /* && (equipper as PlayerCombat).CurrentMovementType == MovementType.Attacking*/))
         {
             IKillable targetToHit = other.gameObject.GetComponent<IKillable>();

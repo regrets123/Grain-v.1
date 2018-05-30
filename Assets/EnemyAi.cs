@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
+#region Enums
+
 public enum Units
 {
     Raider, Guardian, Hound, FamineBoss
@@ -14,7 +16,11 @@ public enum AIStates
     Close, Far, Attacking, InSight
 }
 
-public class EnemyAi : MonoBehaviour
+#endregion
+
+#region Classes
+
+public class EnemyAi : MonoBehaviour, IKillable, IPausable
 {
     #region Inspector
 
@@ -42,6 +48,8 @@ public class EnemyAi : MonoBehaviour
     GameObject weapon;
     [Space(5), Tooltip("The enemy unit's weaponposition"), SerializeField]
     Transform weaponPos;
+    [Space(5), Tooltip("The enemy unit's weaponcolliders for different attacks"), SerializeField]
+    GameObject[] defaultDamageColliders;
 
     [Space(10)]
 
@@ -72,8 +80,10 @@ public class EnemyAi : MonoBehaviour
     bool isDead;
     bool canAttack;
     bool haveDestination;
+    bool rotateToTarget;
     bool burning;
     bool frozen;
+    bool alive = true;
 
     AIStates aiState;
 
@@ -102,14 +112,7 @@ public class EnemyAi : MonoBehaviour
     float distance2;
     float delta;
     float nrOfattacks;
-
-    Vector3 dirToTarget;
-    Vector3 targetDestination;
-
-    LayerMask ignoreLayers = ~(1 << 8);
-
-    #endregion
-
+    float timeToBurn = 0f;
     float DistanceFromTarget()
     {
         if (target == null)
@@ -117,7 +120,6 @@ public class EnemyAi : MonoBehaviour
 
         return Vector3.Distance(target.transform.position, transform.position);
     }
-
     float AngleToTarget()
     {
         float a = 180;
@@ -131,6 +133,29 @@ public class EnemyAi : MonoBehaviour
         return a;
     }
 
+    Vector3 dirToTarget;
+    Vector3 targetDestination;
+
+    LayerMask ignoreLayers = ~(1 << 8);
+
+    AIAttacks currentAttack;
+
+    #endregion
+
+    #region Properties
+
+    public Units UnitName
+    {
+        get { return unitName; }
+    }
+
+    public bool Alive
+    {
+        get { return this.alive; }
+    }
+
+    #endregion
+
     #region Main Methods
 
     void Start()
@@ -141,52 +166,65 @@ public class EnemyAi : MonoBehaviour
         pauseManager = GetComponent<PauseManager>();
         target = FindObjectOfType<PlayerCombat>();
         health = maxHealth;
+        healthBar.maxValue = maxHealth;
+        healthBar.value = health;
     }
 
 	void Update ()
     {
-        distance = DistanceFromTarget();
-        angle = AngleToTarget();
-
-        delta = Time.deltaTime;
-
-        animator.SetFloat("Speed", navAgent.velocity.magnitude);
-
-        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1") && 
-           !animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack2") &&
-           !animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack3"))
+        if (alive)
         {
-            canMove = true;
-        }
-        else
-        {
-            canMove = false;
-        }
+            distance = DistanceFromTarget();
+            angle = AngleToTarget();
 
-        if (target)
-            dirToTarget = target.transform.position - transform.position;
+            delta = Time.deltaTime;
 
-        switch (aiState)
-        {
-            case AIStates.Close:
-                HandleCloseSight();
-                break;
-            case AIStates.Far:
-                HandleFarSight();
-                break;
-            case AIStates.Attacking:
-                if (canMove)
-                    aiState = AIStates.InSight;
-                break;
-            case AIStates.InSight:
-                InSight();
-                break;
-            default:
-                break;
+            animator.SetFloat("Speed", navAgent.velocity.magnitude);
+
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1") &&
+               !animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack2") &&
+               !animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack3"))
+            {
+                rotateToTarget = true;
+                canMove = true;
+                navAgent.isStopped = false;
+                DeactivateDamageCollider();
+            }
+            else
+            {
+                rotateToTarget = false;
+                canMove = false;
+                navAgent.isStopped = true;
+                ActivateDamageCollider();
+            }
+
+            if (target)
+                dirToTarget = target.transform.position - transform.position;
+
+            switch (aiState)
+            {
+                case AIStates.Close:
+                    HandleCloseSight();
+                    break;
+                case AIStates.Far:
+                    HandleFarSight();
+                    break;
+                case AIStates.Attacking:
+                    if (canMove)
+                        aiState = AIStates.InSight;
+                    break;
+                case AIStates.InSight:
+                    InSight();
+                    break;
+                default:
+                    break;
+            }
         }
 	}
 
     #endregion
+
+    #region AI Behaviour-Handlers
 
     public AIAttacks WillAttack()
     {
@@ -305,17 +343,19 @@ public class EnemyAi : MonoBehaviour
     
     void InSight()
     {
-        LookTowardsTarget();
+        if(rotateToTarget)
+            LookTowardsTarget();
+
         HandleCooldowns();
 
         distance2 = Vector3.Distance(targetDestination, target.transform.position);
 
-        if (distance2 > 2)
+        if (distance2 > 1.5f)
         {
             haveDestination = false;
             SetDestination(target.transform.position);
         }
-        if (distance < 2)
+        if (distance < 1.5f)
             navAgent.isStopped = true;
 
         if (nrOfattacks > 0)
@@ -327,13 +367,13 @@ public class EnemyAi : MonoBehaviour
 
         AIAttacks attack = WillAttack();
 
-        if (attack != null)
+        SetCurrentAttack(attack);
+
+        if (currentAttack != null)
         {
             aiState = AIStates.Attacking;
-            animator.SetTrigger(attack.targetAnim);
-            canMove = false;
-            attack.cool = attack.cooldown;
-            navAgent.isStopped = true;
+            animator.SetTrigger(currentAttack.targetAnim);
+            currentAttack.cool = currentAttack.cooldown;
             return;
         }
 
@@ -357,14 +397,14 @@ public class EnemyAi : MonoBehaviour
 
     void LookTowardsTarget()
     {
-        Vector3 dir = dirToTarget;
-        dir.y = 0;
+            Vector3 dir = dirToTarget;
+            dir.y = 0;
 
-        if (dir == Vector3.zero)
-            dir = transform.forward;
+            if (dir == Vector3.zero)
+                dir = transform.forward;
 
-        Quaternion targetRotation = Quaternion.LookRotation(dir);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, delta * 5);
+            Quaternion targetRotation = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, delta * 5);
     }
 
     void OnAnimatorMove()
@@ -375,6 +415,195 @@ public class EnemyAi : MonoBehaviour
         }
         transform.position = animator.rootPosition;
     }
+
+    public void LightAttack()
+    {
+
+    }
+
+    public void HeavyAttack()
+    {
+
+    }
+
+    #endregion
+
+    #region AI Attack-Behaviour
+
+    void SetCurrentAttack(AIAttacks a)
+    {
+        currentAttack = a;
+    }
+
+    void ActivateDamageCollider()
+    {
+        if (currentAttack == null)
+            return;
+
+        if (currentAttack.isDefaultDamageColliders || currentAttack.damageCollider.Length == 0)
+        {
+            ObjectListStatus(defaultDamageColliders, true);
+        }
+        else
+        {
+            ObjectListStatus(currentAttack.damageCollider, true);
+        }
+    }
+
+    void DeactivateDamageCollider()
+    {
+        if (currentAttack == null)
+            return;
+
+        if (currentAttack.isDefaultDamageColliders || currentAttack.damageCollider.Length == 0)
+        {
+            ObjectListStatus(defaultDamageColliders, false);
+        }
+        else
+        {
+            ObjectListStatus(currentAttack.damageCollider, false);
+        }
+    }
+
+    void ObjectListStatus(GameObject[] l, bool status)
+    {
+        for (int i = 0; i < l.Length; i++)
+        {
+            l[i].GetComponent<Collider>().enabled = status;
+        }
+    }
+
+    #endregion
+
+    #region AI Combat States
+
+    public virtual void TakeDamage(int incomingDamage, DamageType dmgType)          //Låter fienden ta skada och gör olika saker beroende på skadetyp
+    {
+        if (!alive)
+        {
+            return;
+        }
+        int damage = ModifyDamage(incomingDamage, dmgType);
+        this.health -= damage;
+        healthBar.value = health;
+        poise -= incomingDamage;
+
+        switch (dmgType)
+        {
+            case DamageType.Fire:
+                StopCoroutine("Burn");
+                StartCoroutine(Burn(5f, damage / 5));
+                break;
+
+            case DamageType.Frost:
+                StopCoroutine("Freeze");
+                StartCoroutine(Freeze(5f));
+                break;
+
+            case DamageType.Leech:
+                FindObjectOfType<PlayerCombat>().Leech(damage);
+                break;
+        }
+        if (incomingDamage < health && poise < incomingDamage)
+        {
+            StartCoroutine("Stagger");
+        }
+
+        if (this.health <= 0)
+        {
+            Death();
+        }
+    }
+
+    protected virtual int ModifyDamage(int damage, DamageType dmgType)    //Modifierar skadan fienden tar efter armor, resistance och liknande
+    {
+        foreach (DamageType resistance in this.resistances)
+        {
+            if (dmgType == resistance)
+            {
+                damage /= 2;
+                break;
+            }
+        }
+        return damage;
+    }
+
+    protected virtual void Death()          //Kallas när fienden dör
+    {
+        alive = false;
+        animator.SetTrigger("Death");
+        //SoundManager.instance.RandomizeSfx(death);
+        this.target = null;
+        navAgent.isStopped = true;
+        PlayerAbilities abilities = FindObjectOfType<PlayerAbilities>();
+        if (abilities.GetComponent<InventoryManager>().EquippableAbilities != null && abilities.GetComponent<InventoryManager>().EquippableAbilities.Count > 0)
+        {
+            //Instantiate(soul, transform.position, Quaternion.identity).GetComponent<LifeForceTransmitterScript>().StartMe(abilities, lifeForce, this);
+        }
+        Destroy(gameObject, 7);
+    }
+
+    public void Kill()          //Dödar automatiskt fienden
+    {
+        alive = false;
+        Death();
+    }
+
+    #endregion
+
+    public void PauseMe(bool pausing)
+    {
+        if (!alive)
+            return;
+
+        navAgent.isStopped = !navAgent.isStopped;
+    }
+
+    #region Coroutines
+
+
+    protected IEnumerator FreezeNav(float freezeTime)           //Hindrar fienden från att röra sig under en viss tid
+    {
+        navAgent.isStopped = true;
+        yield return new WaitForSeconds(freezeTime);
+        navAgent.isStopped = false;
+    }
+
+    protected IEnumerator Burn(float burnDuration, int burnDamage)              //Gör eldskada på fienden under en viss tid
+    {
+        burning = true;
+        timeToBurn += burnDuration;
+        while (timeToBurn > 0f)
+        {
+            yield return new WaitForSeconds(0.5f);
+            this.health -= burnDamage;
+            timeToBurn -= Time.deltaTime;
+        }
+        timeToBurn = 0f;
+        burning = false;
+    }
+
+    protected IEnumerator Freeze(float freezeTime)          //Sänker fiendens fart under en viss tid
+    {
+        if (!frozen)
+        {
+            frozen = true;
+            float originalSpeed = navAgent.speed;
+            navAgent.speed /= 2f;
+            yield return new WaitForSeconds(freezeTime);
+            navAgent.speed = originalSpeed;
+            frozen = false;
+        }
+    }
+
+    protected IEnumerator Stagger()
+    {
+        animator.SetTrigger("Stagger");
+        //poiseReset = poiseCooldown;
+        yield return new WaitForSeconds(1);
+    }
+
+    #endregion
 }
 
 [System.Serializable]
@@ -387,4 +616,8 @@ public class AIAttacks
     public float cooldown = 2;
     public float cool;
     public string targetAnim;
+    public bool isDefaultDamageColliders;
+    public GameObject[] damageCollider;
 }
+
+#endregion

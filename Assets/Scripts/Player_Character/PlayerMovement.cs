@@ -681,6 +681,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     {
         canJump = false;
         dodging = true;
+        StartCoroutine(combat.Invulnerability(dodgeLength));
         if (currentMovementType == "Default")
             ChangeMovement("Dodge");
         else
