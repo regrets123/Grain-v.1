@@ -86,7 +86,6 @@ public class MenuManager : MonoBehaviour
                 return true;
             }
         }
-
         return false;
     }
 
