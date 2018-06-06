@@ -152,10 +152,10 @@ public class InventoryManager : MonoBehaviour
         defaultIcon = Resources.Load<Sprite>("EmptySlot");
         pM = FindObjectOfType<PauseManager>();
         inputManager = FindObjectOfType<InputManager>();
-        playerInventory[0] = new List<GameObject>();
-        playerInventory[1] = new List<GameObject>();
-        playerInventory[2] = new List<GameObject>();
-        playerInventory[3] = new List<GameObject>();
+        for (int i = 0; i < 4; i++)
+        {
+            playerInventory[i] = new List<GameObject>();
+        }
         itemUpgrades = new List<GameObject>();
         equippableWeapons = playerInventory[0];
         equippableAbilities = playerInventory[1];
@@ -512,6 +512,7 @@ public class InventoryManager : MonoBehaviour
         {
             currentChoice = inventoryButtons[0];
         }
+        currentEquipableImage.gameObject.SetActive(false);
         menuManager.ActivateButtons(menuManager.CheckInput());
         collectionIndex = 0;
         displayCollection = 0;
@@ -682,6 +683,7 @@ public class InventoryManager : MonoBehaviour
             return;
         if (upgrading)
             ShowUpgradeOptions(false);
+        currentEquipableImage.gameObject.SetActive(true);
         collectionIndex = index;
         itemSelected = true;
         ShowItemOptions(true);
@@ -799,6 +801,7 @@ public class InventoryManager : MonoBehaviour
         applyUpgradeButton.SetActive(false);
         ShowItemOptions(false);
         currentEquipableImage.sprite = defaultIcon;
+        currentEquipableImage.gameObject.SetActive(false);
         if (upgradeOptions.activeSelf)
         {
             upgradeOptions.SetActive(false);
