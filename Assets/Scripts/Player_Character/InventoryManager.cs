@@ -47,6 +47,10 @@ public class InventoryManager : MonoBehaviour
 
     PlayerAbilities abilities;
 
+    delegate void Navigation();
+
+    Navigation currentNav;
+
     #endregion
 
     #region Properties
@@ -199,22 +203,15 @@ public class InventoryManager : MonoBehaviour
         favoriteButton.SetActive(false);
         equipButton.SetActive(false);
         applyUpgradeButton.SetActive(false);
+        currentNav = InGameNav;
     }
 
     void Update() //se till att rätt saker händer när rätt knappar trycks på               
     {
-        if (Input.GetButtonDown("Inventory") && inputManager.CurrentInputMode != InputMode.Paused && inputManager.CurrentInputMode != InputMode.Console)
-        {
-            if (inventoryMenu.activeSelf)           //Visar och döljer inventoryt
-            {
-                HideInventory();
-            }
-            else
-            {
-                ShowInventory();
-            }
-        }
-        else if (inventoryMenu.activeSelf && inputManager.CurrentInputMode == InputMode.Inventory && !coolingDown && !upgrading)
+        if (!coolingDown)
+            currentNav();
+        /*
+        if (inventoryMenu.activeSelf && inputManager.CurrentInputMode == InputMode.Inventory && !coolingDown && !upgrading)
         {
             if (!itemSelected)      //Låter spelaren navigera i inventoryt via handkontroll
             {
@@ -368,19 +365,208 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
-        if (!coolingDown && (Input.GetButtonDown("QuickDraw")) && inputManager.CurrentInputMode == InputMode.Playing)      //Låter spelaren dra och stoppa undan det senast equippade vapnet
+        */
+    }
+
+    #endregion
+
+    #region NavMethods
+
+    void InGameNav()
+    {
+        if (!coolingDown && inputManager.CurrentInputMode == InputMode.Playing)      //Låter spelaren dra och stoppa undan det senast equippade vapnet
         {
-            StartCoroutine(MenuCooldown());
-            if (combat.CurrentWeapon != null)
+            if (Input.GetButtonDown("QuickDraw"))
             {
-                combat.WeaponToEquip = null;
-                combat.SheatheAndUnsheathe();
+                StartCoroutine(MenuCooldown());
+                if (combat.CurrentWeapon != null)
+                {
+                    combat.WeaponToEquip = null;
+                    combat.SheatheAndUnsheathe();
+                }
+                else if (combat.LastEquippedWeapon != null)
+                {
+                    combat.WeaponToEquip = combat.LastEquippedWeapon;
+                    combat.SheatheAndUnsheathe();
+                }
             }
-            else if (combat.LastEquippedWeapon != null)
+            else if (Input.GetButtonDown("Inventory"))
             {
-                combat.WeaponToEquip = combat.LastEquippedWeapon;
-                combat.SheatheAndUnsheathe();
+                ShowInventory();
             }
+            if (!equippingFavorite)
+            {
+                bool controllerInput = Input.GetAxisRaw("NextInventoryRow") == 0f ? false : true;
+                if (!controllerInput)
+                    controllerInput = Input.GetAxisRaw("NextItem") == 0f ? false : true;
+                if (Input.GetAxisRaw("NextInventoryRow") > 0f || Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    EquipFavorite(0, controllerInput);
+                }
+                else if (Input.GetAxisRaw("NextItem") > 0f || Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    EquipFavorite(1, controllerInput);
+                }
+                else if (Input.GetAxisRaw("NextInventoryRow") < 0f || Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    EquipFavorite(2, controllerInput);
+                }
+                else if (Input.GetAxisRaw("NextItem") < 0f || Input.GetKeyDown(KeyCode.Alpha4))
+                {
+                    EquipFavorite(3, controllerInput);
+                }
+            }
+        }
+    }
+
+    void ItemNav()
+    {
+        if (inputManager.CurrentInputMode == InputMode.Inventory)
+        {
+            if (Input.GetButtonDown("Inventory"))
+            {
+                HideInventory();
+            }
+            else if (!coolingDown && !upgrading)
+            {
+                if (!itemSelected)      //Låter spelaren navigera i inventoryt via handkontroll
+                {
+                    if (Input.GetAxis("NextInventoryRow") < 0f)
+                    {
+                        ChangeInventoryRow(true);
+                    }
+                    else if (Input.GetAxis("NextInventoryRow") > 0f)
+                    {
+                        ChangeInventoryRow(false);
+                    }
+                    else if (Input.GetAxisRaw("NextItem") < 0f)
+                    {
+                        HighlightNextItem(false);
+                    }
+                    else if (Input.GetAxisRaw("NextItem") > 0f)
+                    {
+                        HighlightNextItem(true);
+                    }
+                    if (Input.GetButtonDown("PreviousInventoryCategory"))
+                    {
+                        if (displayCollection == 0)
+                        {
+                            DisplayNewCollection(playerInventory.Length - 1);
+                        }
+                        else
+                            DisplayNewCollection(displayCollection - 1);
+                    }
+                    else if (Input.GetButtonDown("NextInventoryCategory"))
+                    {
+                        DisplayNewCollection((displayCollection + 1) % playerInventory.Length);
+                    }
+                }
+                if (itemSelected)
+                {
+                    if (Input.GetButtonDown("Favorite"))
+                    {
+                        favoriteButton.GetComponent<Button>().onClick.Invoke();
+                    }
+                    else if (Input.GetButtonDown("Upgrade"))
+                    {
+                        upgradeButton.GetComponent<Button>().onClick.Invoke();
+                    }
+                    else if (Input.GetButtonDown("SelectItem"))
+                    {
+                        equipButton.GetComponent<Button>().onClick.Invoke();
+                    }
+                    else if (Input.GetButtonDown("GoBack"))
+                    {
+                        ShowUpgradeOptions(false);
+                        upgradeButton.SetActive(false);
+                        favoriteButton.SetActive(false);
+                        equipButton.SetActive(false);
+                        currentEquipableImage.sprite = defaultIcon;
+                        equippableName.text = "";
+                    }
+                }
+                else if (Input.GetButtonDown("SelectItem") && !itemSelected)
+                {
+                    currentChoice.onClick.Invoke();
+                }
+            }
+        }
+    }
+
+    void UpgradeNav()
+    {
+        if (inputManager.CurrentInputMode == InputMode.Inventory)
+        {
+            if (Input.GetButtonDown("Inventory"))
+            {
+                HideInventory();
+            }
+        }
+        else if (upgrading && !coolingDown)
+        {
+            if (Input.GetButtonDown("SelectItem"))
+            {
+                if (!upgradeSelected)
+                {
+                    currentUpgrade.onClick.Invoke();
+                    upgradeSelected = true;
+                }
+                else
+                {
+                    applyUpgradeButton.GetComponent<Button>().onClick.Invoke();
+                    upgradeSelected = false;
+                }
+            }
+            else if (Input.GetAxisRaw("NextItem") > 0f)
+            {
+                upgradeSelected = false;
+                menuManager.NoGlow(currentUpgrade.GetComponent<Outline>());
+                StartCoroutine("MenuCooldown");
+                upgradeIndex = (upgradeIndex + 1) % upgradeButtons.Length;
+            }
+            else if (Input.GetAxisRaw("NextItem") < 0f)
+            {
+                upgradeSelected = false;
+                menuManager.NoGlow(currentUpgrade.GetComponent<Outline>());
+                StartCoroutine("MenuCooldown");
+                if (upgradeIndex == 0)
+                {
+                    upgradeIndex = upgradeButtons.Length - 1;
+                }
+                else
+                {
+                    upgradeIndex--;
+                }
+            }
+            else if (Input.GetAxisRaw("NextInventoryRow") != 0f)
+            {
+                upgradeSelected = false;
+                menuManager.NoGlow(currentUpgrade.GetComponent<Outline>());
+                StartCoroutine("MenuCooldown");
+                int nextUpgradeIndex = 2;
+                if (Input.GetAxisRaw("NextInventoryRow") > 0f)
+                {
+                    nextUpgradeIndex *= -1;
+                }
+                if (upgradeIndex + nextUpgradeIndex < 0)
+                {
+                    upgradeIndex = (upgradeButtons.Length) + (upgradeIndex + nextUpgradeIndex);
+                }
+                else if (upgradeIndex + nextUpgradeIndex > upgradeButtons.Length - 1)
+                {
+                    upgradeIndex = (upgradeIndex + nextUpgradeIndex) - (upgradeButtons.Length);
+                }
+                else
+                {
+                    upgradeIndex += nextUpgradeIndex;
+                }
+            }
+            currentUpgrade = upgradeButtons[upgradeIndex];
+            if (Input.GetButtonDown("GoBack"))
+            {
+                ShowUpgradeOptions(false);
+            }
+            UpdateSprites();
         }
     }
 
@@ -448,10 +634,12 @@ public class InventoryManager : MonoBehaviour
         upgradeOptions.SetActive(upgrading);
         if (upgrading)
         {
+            currentNav = UpgradeNav;
             currentUpgrade = upgradeButtons[0];
         }
         else
         {
+            currentNav = ItemNav;
             currentChoice = inventoryButtons[collectionIndex];
         }
     }
@@ -512,10 +700,12 @@ public class InventoryManager : MonoBehaviour
         {
             currentChoice = inventoryButtons[0];
         }
+        currentNav = ItemNav;
         currentEquipableImage.gameObject.SetActive(false);
         menuManager.ActivateButtons(menuManager.CheckInput());
         collectionIndex = 0;
         displayCollection = 0;
+        categoryButtons[0].onClick.Invoke();
         UpdateSprites();
         upgradeSelected = false;
         inventoryMenu.SetActive(true);
@@ -528,9 +718,6 @@ public class InventoryManager : MonoBehaviour
         upgradeName.text = "";
         currentEquipableImage.sprite = defaultIcon;
         currentUpgradeImage.sprite = defaultIcon;
-        //currentEquipableImage.gameObject.SetActive(false);
-        //currentUpgradeImage.gameObject.SetActive(false);
-        //DisplayNewCollection(displayCollection);
         pM.PauseAndUnpause(true);
         menuManager.Glow(currentChoice.GetComponent<Outline>());
     }
@@ -663,12 +850,15 @@ public class InventoryManager : MonoBehaviour
         menuManager.NoGlow(currentChoice.GetComponent<Outline>());
         if (show)
         {
+            currentNav = UpgradeNav;
             currentUpgrade = upgradeButtons[0];
             menuManager.Glow(currentUpgrade.GetComponent<Outline>());
-            upgradeInfo.text = playerInventory[displayCollection][collectionIndex].GetComponent<UpgradeScript>().UpgradeInfo.ToUpper();
+            if (playerInventory[displayCollection][collectionIndex].GetComponent<UpgradeScript>() != null)
+                upgradeInfo.text = playerInventory[displayCollection][collectionIndex].GetComponent<UpgradeScript>().UpgradeInfo.ToUpper();
         }
         else
         {
+            currentNav = ItemNav;
             applyUpgradeButton.SetActive(false);
             currentChoice = inventoryButtons[0];
             upgradeInfo.text = "";
@@ -730,6 +920,8 @@ public class InventoryManager : MonoBehaviour
     public void SelectUpgrade(int upgradeIndex)         //Väljer en uppgradering att lägga på ett vapen
     {
         this.upgradeIndex = upgradeIndex;
+        if (upgradeIndex >= itemUpgrades.Count || itemUpgrades[upgradeIndex].GetComponent<UpgradeScript>() == null)
+            return;
         equipButton.SetActive(false);
         favoriteButton.SetActive(false);
         applyUpgradeButton.SetActive(true);
@@ -809,6 +1001,7 @@ public class InventoryManager : MonoBehaviour
         pM.PauseAndUnpause(false);
         ShowUpgradeOptions(false);
         inventoryMenu.SetActive(false);
+        currentNav = InGameNav;
     }
 
     public void NewEquippable(GameObject equippable)    //Lägger till nya föremål i spelarens inventory
