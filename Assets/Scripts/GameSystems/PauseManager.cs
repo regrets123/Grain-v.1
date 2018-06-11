@@ -36,6 +36,11 @@ public class PauseManager : MonoBehaviour
         get { return pausables; }
     }
 
+    public Button[] GoBackButtons
+    {
+        get { return this.goBackButtons; }
+    }
+
     private void Awake()
     {
         iM = GetComponent<InputManager>();

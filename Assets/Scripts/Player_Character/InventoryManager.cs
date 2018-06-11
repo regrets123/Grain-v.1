@@ -208,6 +208,17 @@ public class InventoryManager : MonoBehaviour
 
     void Update() //se till att rätt saker händer när rätt knappar trycks på               
     {
+        if (Input.GetButtonDown("GoBack"))
+        {
+            foreach (Button goBackButton in pM.GoBackButtons)
+            {
+                if (goBackButton.gameObject.activeInHierarchy)
+                {
+                    goBackButton.onClick.Invoke();
+                    return;
+                }
+            }
+        }
         if (!coolingDown)
             currentNav();
         /*
@@ -475,7 +486,7 @@ public class InventoryManager : MonoBehaviour
                     {
                         equipButton.GetComponent<Button>().onClick.Invoke();
                     }
-                    else if (Input.GetButtonDown("GoBack"))
+                    /*else if (Input.GetButtonDown("GoBack"))
                     {
                         ShowUpgradeOptions(false);
                         upgradeButton.SetActive(false);
@@ -483,7 +494,7 @@ public class InventoryManager : MonoBehaviour
                         equipButton.SetActive(false);
                         currentEquipableImage.sprite = defaultIcon;
                         equippableName.text = "";
-                    }
+                    }*/
                 }
                 else if (Input.GetButtonDown("SelectItem") && !itemSelected)
                 {
@@ -562,10 +573,10 @@ public class InventoryManager : MonoBehaviour
                 }
             }
             currentUpgrade = upgradeButtons[upgradeIndex];
-            if (Input.GetButtonDown("GoBack"))
+            /*if (Input.GetButtonDown("GoBack"))
             {
                 ShowUpgradeOptions(false);
-            }
+            }*/
             UpdateSprites();
         }
     }
