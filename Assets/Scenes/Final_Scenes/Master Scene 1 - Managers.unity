@@ -467,7 +467,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 56152227}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2127704158}
+        m_MethodName: ApplyUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &56152227
@@ -10770,6 +10781,26 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198877290936340612, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198105767816021994, guid: c9ee47d4811f77c40b47ef900ec40a09,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9ee47d4811f77c40b47ef900ec40a09, type: 2}
   m_IsPrefabParent: 0
@@ -15135,13 +15166,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114233649274650742, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
-          type: 2}
-        m_MethodName: ApplyUpgrade
-        m_Mode: 1
+      - m_Target: {fileID: 418781591}
+        m_MethodName: ToggleMenu
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1903138423}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -20536,7 +20566,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1377061204}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 418781591}
+        m_MethodName: ToggleMenu
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1903138423}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1377061204
@@ -27446,6 +27487,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1030292128368146, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
     type: 2}
   m_PrefabInternal: {fileID: 2127704156}
+--- !u!114 &2127704158 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114233649274650742, guid: a02a09056ee9dbb4e9cc6bfdcec201bc,
+    type: 2}
+  m_PrefabInternal: {fileID: 2127704156}
+  m_Script: {fileID: 11500000, guid: 0156c152d57f9e246a57c6105a05ee11, type: 3}
 --- !u!82 &2127704159
 AudioSource:
   m_ObjectHideFlags: 0
