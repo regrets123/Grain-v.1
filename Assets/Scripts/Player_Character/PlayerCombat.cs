@@ -496,7 +496,6 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
 
             if (anim.GetBool("WeaponDrawn"))
             {
-                SoundManager.instance.RandomizeSfx(swordSheathe, swordSheathe);
                 anim.SetLayerWeight(1, 1);
             }
             else
@@ -551,6 +550,7 @@ public class PlayerCombat : MonoBehaviour, IKillable, IPausable
             }
             else if (currentWeapon != null)
             {
+                SoundManager.instance.RandomizeSfx(swordSheathe, swordSheathe);
                 UnEquipWeapon();
             }
             canSheathe = true;
