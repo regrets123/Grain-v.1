@@ -1681,8 +1681,8 @@ MonoBehaviour:
   leechPercentage: 0
   attackCooldown: 0
   weaponPosition: {fileID: 4478453923885014}
-  swordSheathe: {fileID: 0}
-  swordUnsheathe: {fileID: 0}
+  swordSheathe: {fileID: 8300000, guid: afacaa63e8061e2448d9e947748a7050, type: 3}
+  swordUnsheathe: {fileID: 8300000, guid: ae5e765b70e29a64882a8490a371b1b4, type: 3}
   lightAttack1: {fileID: 8300000, guid: ebda4a0832e0eee4491fb13d19ecf429, type: 3}
   lightAttack2: {fileID: 8300000, guid: ebda4a0832e0eee4491fb13d19ecf429, type: 3}
   lightAttack3: {fileID: 8300000, guid: ebda4a0832e0eee4491fb13d19ecf429, type: 3}

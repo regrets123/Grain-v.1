@@ -25,9 +25,7 @@ public class BaseWeaponScript : BaseEquippableObject
     #region Serialized Variables
 
     [SerializeField]
-    protected int origninalLightDamage, originalHeavyDamage, lightDamage;
-
-    protected int heavyDamage;
+    protected int origninalLightDamage, originalHeavyDamage;
 
     [SerializeField]
     protected float attackSpeed, heavyStaminaCost, lightStaminaCost;
@@ -50,7 +48,7 @@ public class BaseWeaponScript : BaseEquippableObject
 
     protected float currentSpeed;
 
-    protected int upgradeLevel = 0;
+    protected int upgradeLevel = 0, heavyDamage, lightDamage;
 
     protected Collider myColl;
 
