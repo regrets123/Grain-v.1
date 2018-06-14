@@ -199,9 +199,11 @@ MonoBehaviour:
   heavyStaminaCost: 40
   lightStaminaCost: 20
   dmgType: 0
-  enemyHit1: {fileID: 8300000, guid: d94878d6f50d9a343b3fb4982816b958, type: 3}
-  enemyHit2: {fileID: 8300000, guid: 6b7eb56de7e0b5349a2059750bbee2c2, type: 3}
-  enemyHit3: {fileID: 8300000, guid: 24765ef2ed41eb545819efbace990bda, type: 3}
-  swing1: {fileID: 8300000, guid: aac062a9c67cfdc4b8134be4ac8d0468, type: 3}
-  swing2: {fileID: 8300000, guid: 95bea469b2923924ea8ea9ede3a45083, type: 3}
-  thrust: {fileID: 8300000, guid: 0894e288eb821414d929082983c313ee, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: aac062a9c67cfdc4b8134be4ac8d0468, type: 3}
+  - {fileID: 8300000, guid: 95bea469b2923924ea8ea9ede3a45083, type: 3}
+  - {fileID: 8300000, guid: 0894e288eb821414d929082983c313ee, type: 3}
+  swingSounds:
+  - {fileID: 8300000, guid: d94878d6f50d9a343b3fb4982816b958, type: 3}
+  - {fileID: 8300000, guid: 6b7eb56de7e0b5349a2059750bbee2c2, type: 3}
+  - {fileID: 8300000, guid: 24765ef2ed41eb545819efbace990bda, type: 3}

@@ -452,7 +452,11 @@ public class SaveManager : MonoBehaviour
 
     public void CheckIfUpgraded(BaseWeaponScript spawnedWeapon)
     {
+        if (xNav == null)
+            return;
         XPathNodeIterator appliedUpgrades = xNav.Select("/SavedState/PlayerInfo/Inventory/Upgrades/AppliedUpgrades//AppliedUpgrade");
+        if (appliedUpgrades == null)
+            return;
         while (appliedUpgrades.MoveNext())
         {
             XPathNavigator thisUpgrade = appliedUpgrades.Current.CreateNavigator();

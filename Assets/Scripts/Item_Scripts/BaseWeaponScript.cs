@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /*By Björn Andersson && Andreas Nilsson*/
 
@@ -35,7 +36,7 @@ public class BaseWeaponScript : BaseEquippableObject
     protected DamageType dmgType;
 
     [SerializeField]
-    protected AudioClip enemyHit1, enemyHit2, enemyHit3, swing1, swing2, thrust;
+    protected AudioClip[] hitSounds, swingSounds;// enemyHit1, enemyHit2, enemyHit3, swing1, swing2, thrust;
 
 #endregion
 
@@ -54,6 +55,10 @@ public class BaseWeaponScript : BaseEquippableObject
     protected Collider myColl;
 
     protected IKillable equipper;
+
+    protected AudioClip[] actualHitSounds, actualSwingSounds;
+
+    //protected UnityEvent onColliderActive;
 
 #endregion
 
@@ -113,6 +118,8 @@ public class BaseWeaponScript : BaseEquippableObject
 
     protected override void Start()
     {
+        actualHitSounds = hitSounds;
+        actualSwingSounds = swingSounds;
         base.Start();
         this.myColl = GetComponent<Collider>();
         this.currentSpeed = attackSpeed;
@@ -125,7 +132,7 @@ public class BaseWeaponScript : BaseEquippableObject
         this.myColl.enabled = false;
     }
 
-    #endregion
+    #endregion 
 
     public void Attack(float attackTime, bool heavy)        //Håller koll på om vapnet ska göra light eller heavy skada
     {
@@ -138,6 +145,7 @@ public class BaseWeaponScript : BaseEquippableObject
     protected IEnumerator AttackMove(float attackTime)      //Tillåter vapnet att göra skada under tiden det svingas
     {
         myColl.enabled = true;
+        SoundManager.instance.RandomizeSfx(actualSwingSounds);
         yield return new WaitForSeconds(attackTime);
         myColl.enabled = false;
         combat.Attacking = false;
@@ -184,6 +192,8 @@ public class BaseWeaponScript : BaseEquippableObject
         this.currentUpgrade = upgrade;
         if (upgrade == Upgrade.DamageUpgrade && upgradeLevel < 3)
         {
+            this.actualSwingSounds = this.swingSounds;
+            this.actualHitSounds = this.hitSounds;
             upgradeLevel++;
             this.lightDamage += lightDamage / 2;
             this.heavyDamage += heavyDamage / 2;
@@ -195,14 +205,29 @@ public class BaseWeaponScript : BaseEquippableObject
             {
                 case Upgrade.FireUpgrade:
                     this.dmgType = DamageType.Fire;
+                    for (int i = 0; i < actualHitSounds.Length; i++)
+                    {
+                        this.actualHitSounds[i] = Resources.Load("Fire_Hit_0" + (i + 1).ToString()) as AudioClip;
+                        this.actualSwingSounds[i] = Resources.Load("Fire_Swing_0" + (i + 1).ToString()) as AudioClip;
+                    }
                     break;
 
                 case Upgrade.FrostUpgrade:
                     this.dmgType = DamageType.Frost;
+                    for (int i = 0; i < actualHitSounds.Length; i++)
+                    {
+                        this.actualHitSounds[i] = Resources.Load("Frost_Hit_0" + (i + 1).ToString()) as AudioClip;
+                        this.actualSwingSounds[i] = Resources.Load("Frost_Swing_0" + (i + 1).ToString()) as AudioClip;
+                    }
                     break;
 
                 case Upgrade.LeechUpgrade:
                     this.dmgType = DamageType.Leech;
+                    for (int i = 0; i < actualHitSounds.Length; i++)
+                    {
+                        this.actualHitSounds[i] = Resources.Load("Leech_Hit_0" + (i + 1).ToString()) as AudioClip;
+                        this.actualSwingSounds[i] = Resources.Load("Leech_Swing_0" + (i + 1).ToString()) as AudioClip;
+                    }
                     break;
 
                 default:
@@ -240,7 +265,7 @@ public class BaseWeaponScript : BaseEquippableObject
             }
             DealDamage(targetToHit);
             GetComponent<Collider>().enabled = false;
-            SoundManager.instance.RandomizeSfx(enemyHit1, enemyHit2, enemyHit3);
+            SoundManager.instance.RandomizeSfx(actualHitSounds);
         }
     }
 }

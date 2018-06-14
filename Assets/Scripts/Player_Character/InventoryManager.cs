@@ -639,7 +639,7 @@ public class InventoryManager : MonoBehaviour
         equippingFavorite = false;
     }
 
-    void UpgradeWeapon(bool upgrading)          //Visar och döljer alternativ för att uppgradera vapen
+    void UpgradeWeaponOptions(bool upgrading)          //Visar och döljer alternativ för att uppgradera vapen
     {
         this.upgrading = upgrading;
         upgradeOptions.SetActive(upgrading);
@@ -895,6 +895,8 @@ public class InventoryManager : MonoBehaviour
     public void ApplyUpgrade()              //Uppgraderar ett valt vapen
     {
         playerInventory[0][collectionIndex].GetComponent<BaseWeaponScript>().ApplyUpgrade(itemUpgrades[upgradeIndex].GetComponent<UpgradeScript>().MyUpgrade);
+        if (combat.CurrentWeapon != null && combat.CurrentWeapon.ObjectName == playerInventory[0][collectionIndex].GetComponent<BaseWeaponScript>().ObjectName)
+            combat.CurrentWeapon.ApplyUpgrade(itemUpgrades[upgradeIndex].GetComponent<UpgradeScript>().MyUpgrade);
         itemUpgrades.Remove(itemUpgrades[upgradeIndex]);
         ShowCurrentUpgrade();
         UpdateSprites();
